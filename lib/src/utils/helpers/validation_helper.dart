@@ -8,17 +8,17 @@ class ValidationHelper {
 
   String? validateFirstName(String value) {
     if (value.isEmpty) {
-      return "Please enter your first name";
+      return "Please enter your full name";
     }
     return null;
   }
 
-  String? validateLastName(String value) {
-    if (value.isEmpty) {
-      return "Please enter your last name";
-    }
-    return null;
-  }
+  // String? validateLastName(String value) {
+  //   if (value.isEmpty) {
+  //     return "Please enter your last name";
+  //   }
+  //   return null;
+  // }
 
   String? validateTextField(String value) {
     if (value.isEmpty) {
@@ -30,8 +30,8 @@ class ValidationHelper {
   String? validatePassword(String value) {
     if (value.isEmpty) {
       return "Enter a valid password";
-    } else if (value.length < 8) {
-      return " Password must be at least 8 characters";
+    } else if (value.length < 6) {
+      return " Password must be at least 6 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
       return "Password must contain at least one number";
     }
@@ -41,8 +41,8 @@ class ValidationHelper {
   String? validatePassword2(String value, String value2) {
     if (value.isEmpty) {
       return "Enter a valid password";
-    } else if (value.length < 8) {
-      return " Password must be at least 8 characters";
+    } else if (value.length < 6) {
+      return " Password must be at least 6 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
       return "Password must contain at least one number";
     } else if (value != value2) {

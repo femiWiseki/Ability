@@ -2,17 +2,8 @@ import 'package:flutter/material.dart';
 
 //Primary group
 const kPrimary = Color(0XFF0145FE);
-const kPrimary1 = Color(0XFF238541);
+const kPrimary1 = Color(0XFFF5F6F8);
 const kPrimary2 = Color(0XFFADD365);
-const kPrimary3 = Color(0XFF45C079);
-const kPrimary4 = Color(0XFF006836);
-const kPrimary5 = Color(0XFF21B01E);
-const kPrimary6 = Color(0XFF01351B);
-const kPrimary7 = Color(0XFF1CC141);
-const kPrimary8 = Color(0XFFCDFFCC);
-const kPrimary9 = Color(0XFF1CC141);
-const kPrimary110 = Color(0XFF015A2F);
-const kPrimary11 = Color(0xFF1ACB66);
 
 //Major group
 const klightGreen = Color(0XFFD2FFD1);
@@ -26,7 +17,7 @@ const kBlueText = Color(0XFF5379FF);
 
 //Black group
 const kBlack = Color(0XFF000000);
-const kBlack2 = Color(0XFF37474F);
+const kBlack2 = Color(0XFF222222);
 const kBlack3 = Color(0XFF979595);
 const kBlack4 = Color(0XFF12101A);
 const kBlack5 = Color(0XCC1C1939);
@@ -42,9 +33,9 @@ const kNavBarSelectedItemColor = Color(0xFF231F20);
 const kNavBarUnselectedItemColor = Color(0xFFD7D7D7);
 
 //Grey group
-const kGrey = Color(0XFF767676);
+const kGrey = Color(0XFFB8BABA);
 const kGrey1 = Color(0xFF616161);
-const kGrey2 = Color(0XFF747474);
+const kGrey2 = Color(0XFF616464);
 const kGrey3 = Color(0XFFD9D9D9);
 const kGrey4 = Color(0XFF495057);
 const kGrey5 = Color(0XFFACB5BD);

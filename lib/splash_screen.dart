@@ -1,13 +1,17 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/signup_option.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: kPrimary,
       body: SafeArea(
@@ -25,7 +29,11 @@ class SplashScreen extends StatelessWidget {
                 borderColor: kWhite,
                 titleColor: kPrimary,
                 title: 'Create Account',
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(isCreateAccountProvider.notifier).state = true;
+                  PageNavigator(ctx: context)
+                      .nextPage(page: const SignupOption());
+                },
               ),
               const SizedBox(height: 15),
               AbilityButton(
@@ -33,7 +41,11 @@ class SplashScreen extends StatelessWidget {
                 borderColor: kWhite,
                 titleColor: kWhite,
                 title: 'Login Account',
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(isCreateAccountProvider.notifier).state = false;
+                  PageNavigator(ctx: context)
+                      .nextPage(page: const SignupOption());
+                },
               ),
               const SizedBox(height: 36),
               Text(

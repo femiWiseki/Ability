@@ -3,9 +3,8 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
 class AbilityButton extends ConsumerWidget {
-  const AbilityButton( {
+  const AbilityButton({
     Key? key,
     this.title,
     this.titleColor,
@@ -56,11 +55,10 @@ class AbilityButton extends ConsumerWidget {
           onPressed: onPressed,
           child: child ??
               Text(
-                title ?? 'Continue',
+                title ?? 'continue',
                 style: titleStyle ??
-                    AppStyleGilroy.kFontW6.copyWith(
-                      color: titleColor ?? kWhite,
-                    ),
+                    AppStyleGilroy.kFontW6
+                        .copyWith(color: titleColor ?? kWhite, fontSize: 18),
               )),
     );
   }
