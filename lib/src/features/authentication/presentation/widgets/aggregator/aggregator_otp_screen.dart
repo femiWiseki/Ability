@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:ability/globals.dart';
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
@@ -14,9 +13,11 @@ import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class OTPScreen extends ConsumerWidget {
+class AggregatorOTPScreen extends ConsumerWidget {
   ValidationHelper validationHelper;
-  OTPScreen(this.validationHelper, {super.key});
+  AggregatorController aggregatorController;
+  AggregatorOTPScreen(this.validationHelper, this.aggregatorController,
+      {super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -56,7 +57,7 @@ class OTPScreen extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 18.0),
                         child: GeneralPinCode(
                             pinLenght: 6,
-                            controller: kAgentSignupOTPPinController,
+                            controller: aggregatorController.signupOTPPin,
                             validator: (value) =>
                                 validationHelper.validatePinCode(value!)),
                       ),
@@ -77,7 +78,7 @@ class OTPScreen extends ConsumerWidget {
                   AbilityButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        agentShowBottomSheet(context);
+                        // agentShowBottomSheet(context);
                       }
                     },
                     borderColor: !ref.watch(isEditingProvider)

@@ -61,11 +61,12 @@ class _AbilityPhoneNumberState extends State<AbilityPhoneNumber> {
                 ref.watch(isEditingProvider.notifier).state = false;
               },
               onTapOutside: (event) {
-                FocusScope.of(context).unfocus();
+                // FocusScope.of(context).unfocus();
                 ref.watch(isEditingProvider.notifier).state = false;
               },
               decoration: InputDecoration(
                 prefixIcon: widget.prefixWidget,
+                counterText: '',
                 hintText: '8142415154',
                 contentPadding: const EdgeInsets.all(0),
                 hintStyle: AppStyleGilroy.kFontW4

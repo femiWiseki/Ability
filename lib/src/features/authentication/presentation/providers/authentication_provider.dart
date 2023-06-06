@@ -1,9 +1,13 @@
+import 'package:ability/src/features/authentication/application/services/create_account_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// final loadingPhoneNumberProvider =
-//     StateNotifierProvider<PhoneRegistrationService, bool>(
-//         (ref) => PhoneRegistrationService());
+final loadingAgentCreateAccount =
+    StateNotifierProvider<AgentCreateAccountService, bool>(
+        (ref) => AgentCreateAccountService());
 
+final loadingAggregatorCreateAccount =
+    StateNotifierProvider<AgentCreateAccountService, bool>(
+        (ref) => AgentCreateAccountService());
 // final loadingVerifyNumberProvider =
 //     StateNotifierProvider<PhoneVerificationService, bool>(
 //         (ref) => PhoneVerificationService());

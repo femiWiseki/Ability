@@ -1,18 +1,39 @@
 import 'package:flutter/material.dart';
 
-// Signup
-final kAgentSignupNameController = TextEditingController();
-final kAgentSignupEmailController = TextEditingController();
-final kAgentSignupPhoneController = TextEditingController();
-final kAgentSignupBVNController = TextEditingController();
-final kAgentSignupCreatePinController = TextEditingController();
-final kAgentSignupConfirmPinController = TextEditingController();
-final kAgentSignupOTPPinController = TextEditingController();
+class AgentController {
+  // Signup
+  final signupName = TextEditingController();
+  final signupEmail = TextEditingController();
+  final signupPhone = TextEditingController();
+  final signupBVN = TextEditingController();
+  final signupCreatePin = TextEditingController();
+  final signupConfirmPin = TextEditingController();
+  final signupOTPPin = TextEditingController();
 
 // Login
-final kLoginPhoneNumberController = TextEditingController();
-final kLoginPasswordController = TextEditingController();
+  final loginPhoneNumber = TextEditingController();
+  final loginPassword = TextEditingController();
 
 // Reset Pin
-final kResetPasswordController = TextEditingController();
-final kConfirmResetPasswordController = TextEditingController();
+  final resetPassword = TextEditingController();
+  final confirmResetPassword = TextEditingController();
+}
+
+class AggregatorController {
+  // Signup
+  final signupName = TextEditingController();
+  final signupEmail = TextEditingController();
+  final signupPhone = TextEditingController();
+  final signupBVN = TextEditingController();
+  final signupCreatePin = TextEditingController();
+  final signupConfirmPin = TextEditingController();
+  final signupOTPPin = TextEditingController();
+
+// Login
+  final loginPhoneNumber = TextEditingController();
+  final loginPassword = TextEditingController();
+
+// // Reset Pin
+//   final resetPassword = TextEditingController();
+//   final confirmResetPassword = TextEditingController();
+}

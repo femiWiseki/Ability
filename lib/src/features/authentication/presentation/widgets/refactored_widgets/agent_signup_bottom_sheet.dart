@@ -2,13 +2,13 @@ import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/login_screen.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/otp_screen.dart';
+import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void agentShowBottomSheet(BuildContext context) {
+void agentSignupBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     shape: const RoundedRectangleBorder(
@@ -45,8 +45,9 @@ void agentShowBottomSheet(BuildContext context) {
                   builder: (context, ref, child) {
                     return AbilityButton(
                       onPressed: () {
-                        PageNavigator(ctx: context)
-                            .nextPageRep(page: LoginScreen(ValidationHelper()));
+                        PageNavigator(ctx: context).nextPageRep(
+                            page: AgentLoginScreen(
+                                ValidationHelper(), AgentController()));
                       },
                       borderColor: kPrimary,
                       buttonColor: kPrimary,
@@ -62,6 +63,7 @@ void agentShowBottomSheet(BuildContext context) {
   );
 }
 
+// Rest Pin Bottom Sheet
 void resetPinBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -99,8 +101,8 @@ void resetPinBottomSheet(BuildContext context) {
                   builder: (context, ref, child) {
                     return AbilityButton(
                       onPressed: () {
-                        PageNavigator(ctx: context)
-                            .nextPageRep(page: LoginScreen(ValidationHelper()));
+                        // PageNavigator(ctx: context)
+                        //     .nextPageRep(page: LoginScreen(ValidationHelper()));
                       },
                       borderColor: kPrimary,
                       buttonColor: kPrimary,

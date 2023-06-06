@@ -17,6 +17,8 @@ class AbilityPasswordField extends ConsumerWidget {
     this.iconName,
     this.hidePasswrodOntap,
     this.borderRadius,
+    this.maxLength,
+    this.keyboardType,
   }) : super(key: key);
 
   final String? hintText;
@@ -25,11 +27,12 @@ class AbilityPasswordField extends ConsumerWidget {
   final Widget? prefixIcon;
   final IconData? iconName;
   final Function()? hidePasswrodOntap;
-
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final BorderRadius? borderRadius;
+  final int? maxLength;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -48,6 +51,8 @@ class AbilityPasswordField extends ConsumerWidget {
             obscureText: hidePasword,
             validator: validator,
             controller: controller,
+            maxLength: maxLength,
+            keyboardType: keyboardType,
             textInputAction:
                 TextInputAction.done, // set the text input action to done
             onTap: () {
@@ -58,16 +63,21 @@ class AbilityPasswordField extends ConsumerWidget {
               if (value.isEmpty) {
                 ref.watch(isEditingProvider.notifier).state = false;
               }
+              if (value.length >= maxLength!) {
+                FocusScope.of(context).unfocus();
+                ref.watch(isEditingProvider.notifier).state = false;
+              }
             },
             onFieldSubmitted: (value) {
               ref.watch(isEditingProvider.notifier).state = false;
             },
             onTapOutside: (event) {
-              FocusScope.of(context).unfocus();
+              // FocusScope.of(context).unfocus();
               ref.watch(isEditingProvider.notifier).state = false;
             },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
+              counterText: '',
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               prefixIcon: Icon(
                 iconName,
@@ -130,6 +140,8 @@ class AbilityPasswordField2 extends ConsumerWidget {
     this.iconName,
     this.hidePasswrodOntap,
     this.borderRadius,
+    this.maxLength,
+    this.keyboardType,
   }) : super(key: key);
 
   final String? hintText;
@@ -142,6 +154,8 @@ class AbilityPasswordField2 extends ConsumerWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
+  final int? maxLength;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -160,6 +174,8 @@ class AbilityPasswordField2 extends ConsumerWidget {
             obscureText: hidePasword2,
             validator: validator,
             controller: controller,
+            maxLength: maxLength,
+            keyboardType: keyboardType,
             textInputAction:
                 TextInputAction.done, // set the text input action to done
             onTap: () {
@@ -168,6 +184,10 @@ class AbilityPasswordField2 extends ConsumerWidget {
             onChanged: (value) {
               ref.watch(isEditingProvider.notifier).state = true;
               if (value.isEmpty) {
+                ref.watch(isEditingProvider.notifier).state = false;
+              }
+              if (value.length >= maxLength!) {
+                FocusScope.of(context).unfocus();
                 ref.watch(isEditingProvider.notifier).state = false;
               }
             },
@@ -186,6 +206,7 @@ class AbilityPasswordField2 extends ConsumerWidget {
                 color: kBlack,
                 size: 20,
               ),
+              counterText: '',
               hintText: hintText,
               focusedBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.zero,

@@ -1,8 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:ability/src/common_widgets/ability_button.dart';
-import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/pin_reset.dart';
+import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
@@ -10,7 +9,6 @@ import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
@@ -19,7 +17,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class InputNewPin extends ConsumerStatefulWidget {
   ValidationHelper validationHelper;
-  InputNewPin(this.validationHelper, {super.key});
+  AgentController agentController;
+  InputNewPin(this.validationHelper, this.agentController, {super.key});
 
   @override
   ConsumerState<InputNewPin> createState() => _InputNewPinState();
@@ -35,22 +34,22 @@ class _InputNewPinState extends ConsumerState<InputNewPin> {
   void initState() {
     final preferredCountries = ['NG'];
     countryPicker = FlCountryCodePicker(filteredCountries: preferredCountries);
-    _loadSavedCredentials();
+    // _loadSavedCredentials();
     super.initState();
   }
 
-  void _loadSavedCredentials() async {
-    await Future.delayed(const Duration(seconds: 2), () {
-      var phoneNumber = UserPreference.getSavePhoneNumber();
-      var password = UserPreference.getSavePassword();
+  // void _loadSavedCredentials() async {
+  //   await Future.delayed(const Duration(seconds: 2), () {
+  //     var phoneNumber = UserPreference.getSavePhoneNumber();
+  //     var password = UserPreference.getSavePassword();
 
-      if (phoneNumber != null && password != null) {
-        kLoginPhoneNumberController.text = phoneNumber;
-        kLoginPasswordController.text = password;
-        ref.watch(savePasswordProvider.notifier).state = true;
-      }
-    });
-  }
+  //     if (phoneNumber != null && password != null) {
+  //       widget.agentController.signupCreatePin.text = phoneNumber;
+  //       widget.agentController.signupConfirmPin.text = password;
+  //       ref.watch(savePasswordProvider.notifier).state = true;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,7 @@ class _InputNewPinState extends ConsumerState<InputNewPin> {
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 47),
                   AbilityPasswordField(
-                    controller: kResetPasswordController,
+                    controller: widget.agentController.resetPassword,
                     heading: 'Password',
                     hintText: '**********',
                     iconName: Icons.lock_rounded,
@@ -80,19 +79,19 @@ class _InputNewPinState extends ConsumerState<InputNewPin> {
                   ),
                   const SizedBox(height: 20),
                   AbilityPasswordField(
-                    controller: kConfirmResetPasswordController,
+                    controller: widget.agentController.confirmResetPassword,
                     heading: 'Confirm Password',
                     hintText: '**********',
                     iconName: Icons.lock_rounded,
                     validator: (value) => widget.validationHelper
-                        .validatePassword2(
-                            value!, kResetPasswordController.text.trim()),
+                        .validatePassword2(value!,
+                            widget.agentController.resetPassword.text.trim()),
                   ),
                   const SizedBox(height: 131),
                   AbilityButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        resetPinBottomSheet(context);
+                        // resetPinBottomSheet(context);
                       }
                     },
                     borderColor: ref.watch(isEditingProvider)

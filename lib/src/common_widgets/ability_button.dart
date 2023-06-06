@@ -41,25 +41,25 @@ class AbilityButton extends ConsumerWidget {
       width: width ?? double.maxFinite,
       height: height ?? 60,
       child: ElevatedButton(
-          style: style ??
-              ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(borderRadius ?? 30.0),
-                        side: BorderSide(color: borderColor ?? kPrimary))),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(buttonColor ?? kPrimary),
-              ),
-          onPressed: onPressed,
-          child: child ??
-              Text(
-                title ?? 'continue',
-                style: titleStyle ??
-                    AppStyleGilroy.kFontW6
-                        .copyWith(color: titleColor ?? kWhite, fontSize: 18),
-              )),
+        style: style ??
+            ButtonStyle(
+              elevation: MaterialStateProperty.all(0),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(borderRadius ?? 30.0),
+                      side: BorderSide(color: borderColor ?? kPrimary))),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(buttonColor ?? kPrimary),
+            ),
+        onPressed: onPressed,
+        child: child ??
+            Text(
+              title ?? 'continue',
+              style: titleStyle ??
+                  AppStyleGilroy.kFontW6
+                      .copyWith(color: titleColor ?? kWhite, fontSize: 18),
+            ),
+      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unrelated_type_equality_checks
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/ability_password_field.dart';
@@ -8,18 +8,20 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/authentication/application/services/create_account_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/otp_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_otp_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CreateAccount extends ConsumerWidget {
+class AggregatorCreateAccount extends ConsumerWidget {
   ValidationHelper validationHelper;
-
-  CreateAccount(this.validationHelper, {super.key});
+  AggregatorController aggregatorController;
+  AggregatorCreateAccount(this.validationHelper, this.aggregatorController,
+      {super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -45,27 +47,21 @@ class CreateAccount extends ConsumerWidget {
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 40),
                   AbilityTextField(
-                      controller: kAgentSignupNameController,
+                      controller: aggregatorController.signupName,
                       validator: (value) =>
                           validationHelper.validateFirstName(value!),
-                      heading: ref.watch(isAgentServiceProvider) == true
-                          ? 'Full Name'
-                          : 'Company Name',
-                      hintText: ref.watch(isAgentServiceProvider) == true
-                          ? 'Full Name'
-                          : 'Company Name',
+                      heading: 'Company Name',
+                      hintText: 'Company Name',
                       iconName: Icons.person_2_rounded),
                   const SizedBox(height: 2),
                   Text(
-                    ref.watch(isAgentServiceProvider) == true
-                        ? 'Make sure it is the name on your Identification card'
-                        : 'Make sure it is the name on CAC certificate',
+                    'Make sure it is the name on CAC certificate',
                     style: AppStylePoppins.kFontW4.copyWith(
                         fontSize: 10, color: kPrimary.withOpacity(0.6)),
                   ),
                   const SizedBox(height: 15),
                   AbilityTextField(
-                      controller: kAgentSignupEmailController,
+                      controller: aggregatorController.signupEmail,
                       heading: 'Email Address',
                       hintText: 'Email address',
                       iconName: Icons.email_rounded,
@@ -77,27 +73,18 @@ class CreateAccount extends ConsumerWidget {
                   AbilityTextField(
                     heading: 'Phone Number',
                     hintText: 'Phone number',
+                    maxLength: 11,
                     keyboardType: TextInputType.phone,
-                    controller: kAgentSignupPhoneController,
+                    controller: aggregatorController.signupPhone,
                     validator: (value) =>
                         validationHelper.validatePhoneNumber(value!),
                   ),
-                  SizedBox(
-                      height:
-                          ref.watch(isAgentServiceProvider) == true ? 15 : 0),
-                  ref.watch(isAgentServiceProvider) == true
-                      ? AbilityTextField(
-                          heading: 'Bvn',
-                          controller: kAgentSignupBVNController,
-                          validator: (value) =>
-                              validationHelper.validateTextField(value!),
-                        )
-                      : Container(),
                   const SizedBox(height: 15),
                   AbilityPasswordField(
-                    controller: kAgentSignupCreatePinController,
+                    controller: aggregatorController.signupCreatePin,
                     heading: 'Create Pin',
-                    hintText: 'Enter 6-digit pin',
+                    hintText: 'Enter 4-digit pin',
+                    maxLength: 4,
                     iconName: Icons.lock_rounded,
                     borderRadius: BorderRadius.zero,
                     validator: (value) =>
@@ -105,20 +92,31 @@ class CreateAccount extends ConsumerWidget {
                   ),
                   const SizedBox(height: 15),
                   AbilityPasswordField2(
-                    controller: kAgentSignupConfirmPinController,
+                    controller: aggregatorController.signupConfirmPin,
                     heading: 'Confirm Pin',
-                    hintText: 'Enter 6-digit pin',
+                    hintText: 'Enter 4-digit pin',
+                    maxLength: 4,
                     iconName: Icons.lock_rounded,
                     borderRadius: BorderRadius.zero,
                     validator: (value) => validationHelper.validatePassword2(
-                        value!, kAgentSignupCreatePinController.text),
+                        value!, aggregatorController.signupCreatePin.text),
                   ),
                   const SizedBox(height: 50.89),
                   AbilityButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        PageNavigator(ctx: context)
-                            .nextPage(page: OTPScreen(ValidationHelper()));
+                        AggregatorCreateAccountService().createAccountService(
+                          context: context,
+                          name: aggregatorController.signupName.text.trim(),
+                          email: aggregatorController.signupEmail.text.trim(),
+                          phoneNumber:
+                              aggregatorController.signupPhone.text.trim(),
+                          pin: aggregatorController.signupCreatePin.text,
+                        );
+
+                        PageNavigator(ctx: context).nextPage(
+                            page: AggregatorOTPScreen(
+                                ValidationHelper(), AggregatorController()));
                       }
                     },
                     borderColor: ref.watch(isEditingProvider)
@@ -127,6 +125,18 @@ class CreateAccount extends ConsumerWidget {
                     buttonColor: ref.watch(isEditingProvider)
                         ? kPrimary.withOpacity(0.5)
                         : kPrimary,
+                    child: !ref.watch(loadingAggregatorCreateAccount)
+                        ? Text(
+                            'continue',
+                            style: AppStyleGilroy.kFontW6
+                                .copyWith(color: kWhite, fontSize: 18),
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: kPrimary,
+                            ),
+                          ),
                   )
                 ],
               ),

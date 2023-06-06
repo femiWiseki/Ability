@@ -3,9 +3,12 @@ import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/create_account.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/login_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_create_account.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_create_account.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_login_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -44,8 +47,10 @@ class SignupOption extends ConsumerWidget {
                   ref.read(isAgentServiceProvider.notifier).state = true;
                   PageNavigator(ctx: context).nextPage(
                       page: ref.watch(isCreateAccountProvider)
-                          ? CreateAccount(ValidationHelper())
-                          : LoginScreen(ValidationHelper()));
+                          ? AgentCreateAccount(
+                              ValidationHelper(), AgentController())
+                          : AgentLoginScreen(
+                              ValidationHelper(), AgentController()));
                 },
               ),
               const SizedBox(height: 15),
@@ -60,8 +65,10 @@ class SignupOption extends ConsumerWidget {
                   ref.read(isAgentServiceProvider.notifier).state = false;
                   PageNavigator(ctx: context).nextPage(
                       page: ref.watch(isCreateAccountProvider)
-                          ? CreateAccount(ValidationHelper())
-                          : LoginScreen(ValidationHelper()));
+                          ? AggregatorCreateAccount(
+                              ValidationHelper(), AggregatorController())
+                          : AggregatorLoginScreen(
+                              ValidationHelper(), AggregatorController()));
                 },
               ),
               const SizedBox(height: 43),

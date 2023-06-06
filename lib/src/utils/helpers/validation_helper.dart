@@ -30,8 +30,8 @@ class ValidationHelper {
   String? validatePassword(String value) {
     if (value.isEmpty) {
       return "Enter a valid password";
-    } else if (value.length < 6) {
-      return " Password must be at least 6 characters";
+    } else if (value.length < 4) {
+      return " Password must be at least 4 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
       return "Password must contain at least one number";
     }
@@ -41,8 +41,8 @@ class ValidationHelper {
   String? validatePassword2(String value, String value2) {
     if (value.isEmpty) {
       return "Enter a valid password";
-    } else if (value.length < 6) {
-      return " Password must be at least 6 characters";
+    } else if (value.length < 4) {
+      return " Password must be at least 4 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
       return "Password must contain at least one number";
     } else if (value != value2) {

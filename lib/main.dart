@@ -1,6 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:ability/splash_screen.dart';
+import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_otp_screen.dart';
+import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,7 +17,8 @@ import 'globals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await UserPreference.init();
+  await AgentPreference.init();
+  await AggregatorPreference.init();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -43,7 +48,7 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const SplashScreen(),
+      home: AgentLoginScreen(ValidationHelper(), AgentController()),
     );
   }
 }

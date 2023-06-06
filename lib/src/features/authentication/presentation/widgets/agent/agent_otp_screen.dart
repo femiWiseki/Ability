@@ -6,21 +6,21 @@ import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/authentication/application/services/resend_otp_service.dart';
+import 'package:ability/src/features/authentication/application/services/signup_otp_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/input_new_pin.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/otp_timer.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class PinResetOTP extends ConsumerWidget {
+class AgentOTPScreen extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgentController agentController;
-  PinResetOTP(this.validationHelper, this.agentController, {super.key});
+  AgentOTPScreen(this.validationHelper, this.agentController, {super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -48,10 +48,10 @@ class PinResetOTP extends ConsumerWidget {
                       color: kWhite,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: !ref.watch(isEditingProvider)
-                            ? kPrimary.withOpacity(0.2)
-                            : kPrimary,
-                      ),
+                          color: !ref.watch(isEditingProvider)
+                              ? kPrimary.withOpacity(0.2)
+                              : kPrimary,
+                          width: !ref.watch(isEditingProvider) ? 0.2 : 2),
                     ),
                     child: Center(
                       child: Padding(
@@ -70,18 +70,29 @@ class PinResetOTP extends ConsumerWidget {
                       Text("Didn't get code? ",
                           style: AppStylePoppins.kFontW5
                               .copyWith(fontSize: 10, color: kGrey2)),
-                      Text("Resend in 0.59",
+                      InkWell(
+                        onTap: () {
+                          AgentResendOTPService()
+                              .resendOTPService(context: context);
+                        },
+                        child: Text("Resend ",
+                            style: AppStylePoppins.kFontW5
+                                .copyWith(fontSize: 10, color: kPrimary)),
+                      ),
+                      Text("in ",
                           style: AppStylePoppins.kFontW5
                               .copyWith(fontSize: 10, color: kPrimary)),
+                      const OtpTimer(),
                     ],
                   ),
                   const SizedBox(height: 171),
                   AbilityButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        PageNavigator(ctx: context).nextPage(
-                            page: InputNewPin(
-                                ValidationHelper(), AgentController()));
+                        AgentOTPService().agentOTPService(
+                            context: context,
+                            otp: agentController.signupOTPPin.text);
+                        // agentShowBottomSheet(context);
                       }
                     },
                     borderColor: !ref.watch(isEditingProvider)

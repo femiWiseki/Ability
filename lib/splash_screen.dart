@@ -16,9 +16,14 @@ class SplashScreen extends ConsumerWidget {
       backgroundColor: kPrimary,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(25, 347, 25, 0.0),
+          padding: const EdgeInsets.fromLTRB(25, 98.3, 25, 0.0),
           child: Column(
             children: [
+              SizedBox(
+                  width: 155,
+                  height: 148.39,
+                  child: Image.asset('assets/icons/abilityLogo.png')),
+              const SizedBox(height: 100.3),
               Text('Enjoy Unlimited\nPayments',
                   textAlign: TextAlign.center,
                   style: AppStyleGilroy.kFontW6

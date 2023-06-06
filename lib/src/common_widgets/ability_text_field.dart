@@ -18,6 +18,7 @@ class AbilityTextField extends StatelessWidget {
     this.maxLines,
     this.minLines,
     this.iconName,
+    this.maxLength,
   }) : super(key: key);
   final String? hintText;
   final String? heading;
@@ -26,10 +27,10 @@ class AbilityTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final IconData? iconName;
-
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final int? maxLines, minLines;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,8 @@ class AbilityTextField extends StatelessWidget {
               validator: validator,
               minLines: maxLines,
               maxLines: maxLines,
+              maxLength: maxLength,
+
               textInputAction:
                   TextInputAction.done, // set the text input action to done
               onTap: () {
@@ -63,7 +66,7 @@ class AbilityTextField extends StatelessWidget {
                 ref.watch(isEditingProvider.notifier).state = false;
               },
               onTapOutside: (event) {
-                FocusScope.of(context).unfocus();
+                // FocusScope.of(context).unfocus();
                 ref.watch(isEditingProvider.notifier).state = false;
               },
               keyboardType: keyboardType,
@@ -73,6 +76,7 @@ class AbilityTextField extends StatelessWidget {
                 filled: true,
                 fillColor: kTransparent,
                 hintText: hintText,
+                counterText: '',
                 prefixIcon: iconName == null
                     ? null
                     : Icon(

@@ -2,6 +2,8 @@
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/authentication/application/services/login_service.dart';
+import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/pin_reset.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
@@ -11,22 +13,22 @@ import 'package:ability/src/common_widgets/ability_phone_number.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
+class AgentLoginScreen extends ConsumerStatefulWidget {
   ValidationHelper validationHelper;
-  LoginScreen(this.validationHelper, {super.key});
+  AgentController agentController;
+  AgentLoginScreen(this.validationHelper, this.agentController, {super.key});
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<AgentLoginScreen> createState() => _AgentLoginScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   CountryCode? _countryCode;
@@ -42,13 +44,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   void _loadSavedCredentials() async {
     await Future.delayed(const Duration(seconds: 2), () {
-      var phoneNumber = UserPreference.getSavePhoneNumber();
-      var password = UserPreference.getSavePassword();
+      var phoneNumber = AgentPreference.getSavedPhoneNumber();
+      var password = AgentPreference.getSavedPassword();
 
       if (phoneNumber != null && password != null) {
-        kLoginPhoneNumberController.text = phoneNumber;
-        kLoginPasswordController.text = password;
+        widget.agentController.loginPhoneNumber.text = phoneNumber;
+        widget.agentController.loginPassword.text = password;
         ref.watch(savePasswordProvider.notifier).state = true;
+      } else {
+        '';
       }
     });
   }
@@ -72,7 +76,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 61),
                   AbilityPhoneNumber(
-                    phoneController: kLoginPhoneNumberController,
+                    phoneController: widget.agentController.loginPhoneNumber,
                     maxLength: 10,
                     validator: (value) =>
                         widget.validationHelper.validatePhoneNumber(value!),
@@ -129,9 +133,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 20),
                   AbilityPasswordField(
-                    controller: kLoginPasswordController,
-                    heading: 'Password',
-                    hintText: 'Enter 6-digit password',
+                    controller: widget.agentController.loginPassword,
+                    heading: 'Pin',
+                    hintText: 'Enter 4-digit pin',
+                    maxLength: 4,
+                    keyboardType: TextInputType.number,
                     iconName: Icons.lock_rounded,
                     validator: (value) =>
                         widget.validationHelper.validatePassword(value!),
@@ -183,11 +189,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       const Spacer(),
                       InkWell(
                         onTap: () {
-                          PageNavigator(ctx: context)
-                              .nextPage(page: PinReset(ValidationHelper()));
+                          PageNavigator(ctx: context).nextPage(
+                              page: PinReset(
+                                  ValidationHelper(), AgentController()));
                         },
                         child: Text(
-                          "Forgot Password?",
+                          "Forgot Pin?",
                           style: AppStyleGilroy.kFontW5
                               .copyWith(color: kPrimary, fontSize: 14),
                         ),
@@ -196,15 +203,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 100),
                   AbilityButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        agentShowBottomSheet(context);
+                        AgentLoginService().getLoginService(
+                            context: context,
+                            phoneNumber:
+                                '0${widget.agentController.loginPhoneNumber.text}',
+                            pin: widget.agentController.loginPassword.text);
                       }
                       if (ref.watch(savePasswordProvider)) {
-                        UserPreference.setSavePhoneNumber(
-                            kLoginPhoneNumberController.text.trim());
-                        UserPreference.setSavePassword(
-                            kLoginPasswordController.text);
+                        await AgentPreference.setSavedPhoneNumber(widget
+                            .agentController.loginPhoneNumber.text
+                            .trim());
+                        await AgentPreference.setSavedPassword(
+                            widget.agentController.loginPassword.text);
+                      } else {
+                        AgentPreference.clearLoginCredentials();
                       }
                     },
                     borderColor: ref.watch(isEditingProvider)
