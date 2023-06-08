@@ -111,14 +111,17 @@ class AgentCreateAccount extends ConsumerWidget {
                   AbilityButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        AgentCreateAccountService().createAccountService(
-                          context: context,
-                          name: agentController.signupName.text.trim(),
-                          email: agentController.signupEmail.text.trim(),
-                          phoneNumber: agentController.signupPhone.text.trim(),
-                          pin: agentController.signupCreatePin.text,
-                          bvn: agentController.signupBVN.text.trim(),
-                        );
+                        await ref
+                            .read(loadingAgentCreateAccount.notifier)
+                            .createAccountService(
+                              context: context,
+                              name: agentController.signupName.text.trim(),
+                              email: agentController.signupEmail.text.trim(),
+                              phoneNumber:
+                                  agentController.signupPhone.text.trim(),
+                              pin: agentController.signupCreatePin.text,
+                              bvn: agentController.signupBVN.text.trim(),
+                            );
                       }
                       await AgentPreference.setEmail(
                           agentController.signupEmail.text);

@@ -19,6 +19,7 @@ class AbilityTextField extends StatelessWidget {
     this.minLines,
     this.iconName,
     this.maxLength,
+    this.borderRadius,
   }) : super(key: key);
   final String? hintText;
   final String? heading;
@@ -31,6 +32,7 @@ class AbilityTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final int? maxLines, minLines;
   final int? maxLength;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -88,17 +90,17 @@ class AbilityTextField extends StatelessWidget {
                 hintStyle:
                     AppStyleGilroy.kFontW5.copyWith(fontSize: 14, color: kGrey),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
+                  borderRadius: borderRadius ?? BorderRadius.zero,
                   borderSide: BorderSide(color: kPrimary.withOpacity(0.2)),
                 ),
                 enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
+                    borderRadius: borderRadius ?? BorderRadius.zero,
                     borderSide: BorderSide(color: kPrimary.withOpacity(0.2))),
-                errorBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
+                errorBorder: OutlineInputBorder(
+                    borderRadius: borderRadius ?? BorderRadius.zero,
                     borderSide: BorderSide(color: kRed)),
-                focusedErrorBorder: const OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: borderRadius ?? BorderRadius.zero,
                     borderSide: BorderSide(color: kRed)),
               ),
             );

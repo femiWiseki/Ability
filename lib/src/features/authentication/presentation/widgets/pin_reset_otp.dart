@@ -9,7 +9,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/input_new_pin.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_input_new_pin.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -80,7 +80,7 @@ class PinResetOTP extends ConsumerWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         PageNavigator(ctx: context).nextPage(
-                            page: InputNewPin(
+                            page: AgentInputNewPin(
                                 ValidationHelper(), AgentController()));
                       }
                     },

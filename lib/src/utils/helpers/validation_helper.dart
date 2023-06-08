@@ -31,9 +31,9 @@ class ValidationHelper {
     if (value.isEmpty) {
       return "Enter a valid password";
     } else if (value.length < 4) {
-      return " Password must be at least 4 characters";
+      return " Pin cannot be more than 4 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
-      return "Password must contain at least one number";
+      return "Pin can only be number";
     }
     return null;
   }
@@ -42,9 +42,9 @@ class ValidationHelper {
     if (value.isEmpty) {
       return "Enter a valid password";
     } else if (value.length < 4) {
-      return " Password must be at least 4 characters";
+      return " Pin cannot be more than 4 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
-      return "Password must contain at least one number";
+      return "Pin must can only be number";
     } else if (value != value2) {
       return "Passwords do not match";
     }

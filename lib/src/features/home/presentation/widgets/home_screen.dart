@@ -3,6 +3,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -13,17 +14,22 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Center(
-        child: Column(
-          children: [
-            AbilityButton(onPressed: () {
-              PageNavigator(ctx: context).nextPageOnly(
-                  page:
-                      AgentLoginScreen(ValidationHelper(), AgentController()));
-            }),
-            Container(
-              child: const Text('Logout'),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AbilityButton(
+                  title: 'Logout',
+                  onPressed: () {
+                    AgentPreference.clearAccessToken().then((value) {
+                      PageNavigator(ctx: context).nextPageOnly(
+                          page: AgentLoginScreen(
+                              ValidationHelper(), AgentController()));
+                    });
+                  }),
+            ],
+          ),
         ),
       ),
     );

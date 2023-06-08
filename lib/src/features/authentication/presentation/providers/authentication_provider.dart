@@ -1,10 +1,20 @@
 import 'package:ability/src/features/authentication/application/services/create_account_service.dart';
+import 'package:ability/src/features/authentication/application/services/login_service.dart';
+import 'package:ability/src/features/authentication/application/services/signup_otp_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// Agent Providers
 final loadingAgentCreateAccount =
     StateNotifierProvider<AgentCreateAccountService, bool>(
         (ref) => AgentCreateAccountService());
 
+final loadingAgentOTP =
+    StateNotifierProvider<AgentOTPService, bool>((ref) => AgentOTPService());
+
+final loadingAgentLogin = StateNotifierProvider<AgentLoginService, bool>(
+    (ref) => AgentLoginService());
+
+// Aggregator Providers
 final loadingAggregatorCreateAccount =
     StateNotifierProvider<AgentCreateAccountService, bool>(
         (ref) => AgentCreateAccountService());

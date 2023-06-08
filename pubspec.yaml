@@ -56,6 +56,14 @@ dependencies:
   dropdown_button2: ^2.1.2
   intl: ^0.17.0
   iconsax: ^0.0.8
+  flutter_launcher_icons: ^0.12.0
+
+flutter_icons:
+  image_path: "assets/icons/ability_logo.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icons/ability_logo.png"
+  android: true
+  ios: true
 
 dev_dependencies:
   flutter_test:

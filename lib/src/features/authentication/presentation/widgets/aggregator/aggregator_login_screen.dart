@@ -3,7 +3,7 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/pin_reset.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_pin_reset.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
@@ -189,7 +189,7 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                       InkWell(
                         onTap: () {
                           PageNavigator(ctx: context).nextPage(
-                              page: PinReset(
+                              page: AgentPinReset(
                                   ValidationHelper(), AgentController()));
                         },
                         child: Text(

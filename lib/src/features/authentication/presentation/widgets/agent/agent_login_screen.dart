@@ -4,7 +4,7 @@ import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/application/services/login_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/pin_reset.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_pin_reset.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
@@ -190,7 +190,7 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                       InkWell(
                         onTap: () {
                           PageNavigator(ctx: context).nextPage(
-                              page: PinReset(
+                              page: AgentPinReset(
                                   ValidationHelper(), AgentController()));
                         },
                         child: Text(
@@ -205,7 +205,7 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                   AbilityButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        AgentLoginService().getLoginService(
+                        await ref.read(loadingAgentLogin.notifier).getLoginService(
                             context: context,
                             phoneNumber:
                                 '0${widget.agentController.loginPhoneNumber.text}',
@@ -227,6 +227,19 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                     buttonColor: ref.watch(isEditingProvider)
                         ? kPrimary.withOpacity(0.5)
                         : kPrimary,
+                    child: !ref.watch(loadingAgentLogin)
+                        ? Text(
+                            'continue',
+                            style: AppStyleGilroy.kFontW6
+                                .copyWith(color: kWhite, fontSize: 18),
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 6,
+                              color: kWhite,
+                              backgroundColor: kRed,
+                            ),
+                          ),
                   )
                 ],
               ),

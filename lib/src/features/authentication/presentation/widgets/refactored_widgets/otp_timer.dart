@@ -6,7 +6,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class OtpTimer extends StatefulWidget {
-  const OtpTimer({super.key});
+  const OtpTimer({Key? key}) : super(key: key);
 
   @override
   _OtpTimerState createState() => _OtpTimerState();

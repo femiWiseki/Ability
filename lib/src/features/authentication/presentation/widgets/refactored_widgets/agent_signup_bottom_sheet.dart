@@ -3,7 +3,9 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_passcode_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,6 +13,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 void agentSignupBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
+    isDismissible: false,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
     ),
@@ -46,11 +49,18 @@ void agentSignupBottomSheet(BuildContext context) {
                     return AbilityButton(
                       onPressed: () {
                         PageNavigator(ctx: context).nextPageRep(
-                            page: AgentLoginScreen(
+                            page: AgentPasscodeScreen(
                                 ValidationHelper(), AgentController()));
+                        // PageNavigator(ctx: context).nextPageRep(
+                        //     page: AgentLoginScreen(
+                        //         ValidationHelper(), AgentController()));
                       },
-                      borderColor: kPrimary,
-                      buttonColor: kPrimary,
+                      borderColor: ref.watch(isEditingProvider)
+                          ? kPrimary.withOpacity(0.5)
+                          : kPrimary,
+                      buttonColor: ref.watch(isEditingProvider)
+                          ? kPrimary.withOpacity(0.5)
+                          : kPrimary,
                     );
                   },
                 )
@@ -101,8 +111,9 @@ void resetPinBottomSheet(BuildContext context) {
                   builder: (context, ref, child) {
                     return AbilityButton(
                       onPressed: () {
-                        // PageNavigator(ctx: context)
-                        //     .nextPageRep(page: LoginScreen(ValidationHelper()));
+                        PageNavigator(ctx: context).nextPageOnly(
+                            page: AgentLoginScreen(
+                                ValidationHelper(), AgentController()));
                       },
                       borderColor: kPrimary,
                       buttonColor: kPrimary,

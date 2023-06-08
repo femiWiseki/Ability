@@ -36,8 +36,8 @@ class AgentOTPService extends StateNotifier<bool> {
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        successMessage(context: context, message: result["message"]);
-        print(result);
+        // successMessage(context: context, message: result["message"]);
+        // print(result);
 
         // Routing
         agentSignupBottomSheet(context);
