@@ -36,15 +36,66 @@ class AgentOTPService extends StateNotifier<bool> {
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        // successMessage(context: context, message: result["message"]);
-        // print(result);
+
+        //Save Agent Id and PhoneNumber
+        final accessToken = result["data"]["token"];
+        await AgentPreference.setAccessToken(accessToken);
+        print(accessToken);
 
         // Routing
         agentSignupBottomSheet(context);
+        state = false;
+      } else {
+        final result = jsonDecode(response.body);
+        errorMessage(context: context, message: result['message']);
+        print(result);
+        state = false;
+      }
+    } on SocketException {
+      errorMessage(
+          context: context, message: 'There is no internet connection.');
+      state = false;
+    } catch (e) {
+      print(e.toString());
+      state = false;
+    }
+  }
+}
 
-        // navigatorKey.currentState!.push(CupertinoPageRoute(
-        //     builder: (context) => AgOTP(ValidationHelper())));
+////////
+class AggregatorOTPService extends StateNotifier<bool> {
+  AggregatorOTPService() : super(false);
 
+  Future<void> aggregatorOTPService({
+    required BuildContext context,
+    required String otp,
+  }) async {
+    try {
+      state = true;
+
+      final aggregatorPhoneNumber = AggregatorPreference.getPhoneNumber();
+
+      String serviceUrl = kVerifyAggregatorUrl;
+
+      final Map<String, String> serviceHeader = {
+        'Content-type': 'application/json'
+      };
+      final String requestBody =
+          jsonEncode({"phoneNumber": aggregatorPhoneNumber, "otp": otp});
+
+      final response = await http.post(Uri.parse(serviceUrl),
+          body: requestBody, headers: serviceHeader);
+
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+
+        //Save Agent Id and PhoneNumber
+        final accessToken = result["data"]["token"];
+        await AggregatorPreference.setAccessToken(accessToken);
+        print(accessToken);
+
+        // Routing
+        agentSignupBottomSheet(context);
         state = false;
       } else {
         final result = jsonDecode(response.body);

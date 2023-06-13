@@ -1,6 +1,9 @@
-import 'package:ability/src/features/authentication/application/services/create_account_service.dart';
-import 'package:ability/src/features/authentication/application/services/login_service.dart';
-import 'package:ability/src/features/authentication/application/services/signup_otp_service.dart';
+import 'package:ability/src/features/authentication/application/services/forgot_pin_services/input_new_pin_service.dart';
+import 'package:ability/src/features/authentication/application/services/signup_services/create_account_service.dart';
+import 'package:ability/src/features/authentication/application/services/forgot_pin_services/pin_reset_service.dart';
+import 'package:ability/src/features/authentication/application/services/login_services/login_service.dart';
+import 'package:ability/src/features/authentication/application/services/signup_services/passcode_service.dart';
+import 'package:ability/src/features/authentication/application/services/signup_services/signup_otp_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Agent Providers
@@ -11,55 +14,44 @@ final loadingAgentCreateAccount =
 final loadingAgentOTP =
     StateNotifierProvider<AgentOTPService, bool>((ref) => AgentOTPService());
 
+final loadingAgentPasscode = StateNotifierProvider<AgentPasscodeService, bool>(
+    (ref) => AgentPasscodeService());
+
 final loadingAgentLogin = StateNotifierProvider<AgentLoginService, bool>(
     (ref) => AgentLoginService());
 
+final loadingAgentPinRest = StateNotifierProvider<AgentPinResetService, bool>(
+    (ref) => AgentPinResetService());
+
+final loadingAgentInputNewPin =
+    StateNotifierProvider<AgentInputNewPinService, bool>(
+        (ref) => AgentInputNewPinService());
+
 // Aggregator Providers
 final loadingAggregatorCreateAccount =
-    StateNotifierProvider<AgentCreateAccountService, bool>(
-        (ref) => AgentCreateAccountService());
-// final loadingVerifyNumberProvider =
-//     StateNotifierProvider<PhoneVerificationService, bool>(
-//         (ref) => PhoneVerificationService());
+    StateNotifierProvider<AggregatorCreateAccountService, bool>(
+        (ref) => AggregatorCreateAccountService());
 
-// final loadingRegisterProvider =
-//     StateNotifierProvider<RegisterService, bool>((ref) => RegisterService());
+final loadingAggregatorOTP = StateNotifierProvider<AggregatorOTPService, bool>(
+    (ref) => AggregatorOTPService());
 
-// final loadingEmailVerificationProvider =
-//     StateNotifierProvider<EmailVerificationService, bool>(
-//         (ref) => EmailVerificationService());
+final loadingAggregatorPasscode =
+    StateNotifierProvider<AggregatorPasscodeService, bool>(
+        (ref) => AggregatorPasscodeService());
 
-// final loadingBVNNumberProvider =
-//     StateNotifierProvider<BVNVerificationService, bool>(
-//         (ref) => BVNVerificationService());
+final loadingAggregatorLogin =
+    StateNotifierProvider<AggregatorLoginService, bool>(
+        (ref) => AggregatorLoginService());
 
-// final loadingSetLoginPinProvider =
-//     StateNotifierProvider<SetLoginPinService, bool>(
-//         (ref) => SetLoginPinService());
+final loadingAggregatorPinRest =
+    StateNotifierProvider<AggregatorPinResetService, bool>(
+        (ref) => AggregatorPinResetService());
 
-// final loadingSetTransactionPinProvider =
-//     StateNotifierProvider<SetTransactionPinService, bool>(
-//         (ref) => SetTransactionPinService());
+final loadingAggregatorInputNewPin =
+    StateNotifierProvider<AggregatorInputNewPinService, bool>(
+        (ref) => AggregatorInputNewPinService());
 
-// final loadingLoginProvider =
-//     StateNotifierProvider<LoginService, bool>((ref) => LoginService());
-
-// final loadingVerifyLoginProvider =
-//     StateNotifierProvider<VerifyLoginService, bool>(
-//         (ref) => VerifyLoginService());
-
-// final loadingForgotPasswordProvider =
-//     StateNotifierProvider<ForgotPasswordService, bool>(
-//         (ref) => ForgotPasswordService());
-
-// final loadingVerifyPasswordProvider =
-//     StateNotifierProvider<VerifyPasswordService, bool>(
-//         (ref) => VerifyPasswordService());
-
-// final loadingNewPasswordProvider =
-//     StateNotifierProvider<NewPasswordService, bool>(
-//         (ref) => NewPasswordService());
-
+// Other Providers
 final savePasswordProvider = StateProvider((ref) => false);
 
 final hidePasswordProvider = StateProvider((ref) => true);

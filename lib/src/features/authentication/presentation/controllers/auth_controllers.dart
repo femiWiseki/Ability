@@ -38,6 +38,8 @@ class AggregatorController {
   final loginPassword = TextEditingController();
 
 // // Reset Pin
-//   final resetPassword = TextEditingController();
-//   final confirmResetPassword = TextEditingController();
+  final pinRestEmail = TextEditingController();
+  final inputNewPinOTP = TextEditingController();
+  final resetPassword = TextEditingController();
+  final confirmResetPassword = TextEditingController();
 }

@@ -5,29 +5,30 @@ import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
 import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class AgentResendOTPService extends StateNotifier<bool> {
-  AgentResendOTPService() : super(false);
+class AgentInputNewPinService extends StateNotifier<bool> {
+  AgentInputNewPinService() : super(false);
 
-  Future<void> resendOTPService({
+  Future<void> inputNewPinService({
     required BuildContext context,
+    required String otp,
+    required String newPin,
+    required String confirmPin,
   }) async {
     try {
       state = true;
 
-      final agentEmail = AgentPreference.getEmail();
-
-      String serviceUrl = kResendOTPAgentUrl;
+      String serviceUrl = kInputNewPinAgentUrl;
 
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
       };
 
-      final String requestBody = jsonEncode({"email": agentEmail});
+      final String requestBody = jsonEncode(
+          {"newPin": "167676", "confirmPin": "167676", "otp": "676767"});
 
       final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
@@ -54,21 +55,23 @@ class AgentResendOTPService extends StateNotifier<bool> {
   }
 }
 
-class AggregatorResendOTPService extends StateNotifier<bool> {
-  AggregatorResendOTPService() : super(false);
+class AggregatorInputNewPinService extends StateNotifier<bool> {
+  AggregatorInputNewPinService() : super(false);
 
   Future<void> resendOTPService({
     required BuildContext context,
+    required String otp,
+    required String newPin,
+    required String confirmPin,
   }) async {
     try {
       state = true;
-      final aggregatorEmail = AgentPreference.getEmail();
-
-      String serviceUrl = kResendOTPAggregatorUrl;
+      String serviceUrl = kInputNewPinAggregatorUrl;
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
       };
-      final String requestBody = jsonEncode({"email": aggregatorEmail});
+      final String requestBody = jsonEncode(
+          {"newPin": "167676", "confirmPin": "167676", "otp": "676767"});
       final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
 

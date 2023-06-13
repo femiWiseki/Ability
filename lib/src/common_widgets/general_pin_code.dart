@@ -11,11 +11,16 @@ class GeneralPinCode extends StatefulWidget {
   final TextEditingController controller;
   final String? Function(String?) validator;
   final int pinLenght;
-  const GeneralPinCode(
-      {super.key,
-      required this.pinLenght,
-      required this.controller,
-      required this.validator});
+  final PinCodeFieldShape? boxPinShape;
+  final double? fieldWidth;
+  const GeneralPinCode({
+    super.key,
+    required this.pinLenght,
+    required this.controller,
+    this.boxPinShape,
+    this.fieldWidth,
+    required this.validator,
+  });
 
   @override
   State<GeneralPinCode> createState() => _GeneralPinCodeState();
@@ -26,19 +31,6 @@ class _GeneralPinCodeState extends State<GeneralPinCode> {
 
   bool hasError = false;
   String currentText = "";
-  // final formKey = GlobalKey<FormState>();
-
-  // @override
-  // void initState() {
-  //   errorController = StreamController<ErrorAnimationType>();
-  //   super.initState();
-  // }
-
-  // @override
-  // void dispose() {
-  //   errorController!.close();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +47,13 @@ class _GeneralPinCodeState extends State<GeneralPinCode> {
           animationType: AnimationType.fade,
           validator: widget.validator,
           pinTheme: PinTheme(
-            shape: PinCodeFieldShape.underline,
-            borderWidth: 0.2,
-            fieldHeight: 30,
-            fieldWidth: 27,
-            activeColor: kBlack,
-            inactiveColor: kPrimary,
+            shape: widget.boxPinShape ?? PinCodeFieldShape.underline,
+            borderRadius: BorderRadius.circular(8.39),
+            borderWidth: 1.68,
+            fieldHeight: 63.75,
+            fieldWidth: widget.fieldWidth ?? 70.46,
+            activeColor: kPrimary,
+            inactiveColor: kBlack50,
             activeFillColor: kWhite,
             inactiveFillColor: kWhite,
           ),
@@ -68,10 +61,8 @@ class _GeneralPinCodeState extends State<GeneralPinCode> {
           cursorHeight: 15,
           animationDuration: const Duration(milliseconds: 300),
           enableActiveFill: true,
-          // errorAnimationController: errorController,
           controller: widget.controller,
           keyboardType: TextInputType.number,
-
           onCompleted: (v) {
             debugPrint("Completed");
             ref.watch(isEditingProvider.notifier).state = true;
@@ -85,8 +76,6 @@ class _GeneralPinCodeState extends State<GeneralPinCode> {
           },
           beforeTextPaste: (text) {
             debugPrint("Allowing to paste $text");
-            //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-            //but you can show anything you want here, like your pop up saying wrong paste format or etc
             return true;
           },
         );

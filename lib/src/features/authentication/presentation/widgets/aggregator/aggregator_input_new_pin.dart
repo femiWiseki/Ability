@@ -3,30 +3,32 @@
 import 'dart:async';
 
 import 'package:ability/src/common_widgets/ability_button.dart';
-import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
-import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
-import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/authentication/application/services/resend_otp_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/common_widgets/ability_password_field.dart';
+import 'package:ability/src/common_widgets/back_icon.dart';
+import 'package:ability/src/constants/app_text_style/gilroy.dart';
+import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/otp_timer.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AggregatorOTPScreen extends ConsumerStatefulWidget {
+class AggregatorInputNewPin extends ConsumerStatefulWidget {
   ValidationHelper validationHelper;
   AggregatorController aggregatorController;
-  AggregatorOTPScreen(this.validationHelper, this.aggregatorController,
+  AggregatorInputNewPin(this.validationHelper, this.aggregatorController,
       {super.key});
 
   @override
-  ConsumerState<AggregatorOTPScreen> createState() =>
-      _AggregatorOTPScreenState();
+  ConsumerState<AggregatorInputNewPin> createState() =>
+      _AggregatorInputNewPinState();
 }
 
-class _AggregatorOTPScreenState extends ConsumerState<AggregatorOTPScreen> {
+class _AggregatorInputNewPinState extends ConsumerState<AggregatorInputNewPin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ValueNotifier<int> _timerNotifier = ValueNotifier<int>(60);
 
@@ -72,23 +74,24 @@ class _AggregatorOTPScreenState extends ConsumerState<AggregatorOTPScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const BackIcon(),
-                  const SizedBox(height: 39),
-                  Text('OTP',
+                  const SizedBox(height: 38),
+                  Text('Input New Pin',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
-                  const SizedBox(height: 10),
-                  Text('Please enter the code sent to your phone number',
-                      style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 29),
+                  Text('Please enter the code sent to your Email',
+                      style: AppStyleGilroy.kFontW5
+                          .copyWith(fontSize: 12, color: kBlack2)),
+                  const SizedBox(height: 9),
                   Container(
                     height: 105,
                     decoration: BoxDecoration(
                       color: kWhite,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          color: !ref.watch(isEditingProvider)
-                              ? kPrimary.withOpacity(0.2)
-                              : kPrimary,
-                          width: !ref.watch(isEditingProvider) ? 0.2 : 2),
+                        color: !ref.watch(isEditingProvider)
+                            ? kPrimary.withOpacity(0.2)
+                            : kPrimary,
+                      ),
                     ),
                     child: Center(
                       child: Padding(
@@ -97,13 +100,13 @@ class _AggregatorOTPScreenState extends ConsumerState<AggregatorOTPScreen> {
                             pinLenght: 6,
                             fieldWidth: 27,
                             controller:
-                                widget.aggregatorController.signupOTPPin,
+                                widget.aggregatorController.inputNewPinOTP,
                             validator: (value) => widget.validationHelper
                                 .validatePinCode(value!)),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 22),
+                  const SizedBox(height: 15),
                   Row(
                     children: [
                       Text("Didn't get code? ",
@@ -111,9 +114,8 @@ class _AggregatorOTPScreenState extends ConsumerState<AggregatorOTPScreen> {
                               .copyWith(fontSize: 10, color: kGrey2)),
                       InkWell(
                         onTap: () {
-                          widget.aggregatorController.signupOTPPin.clear;
-                          AggregatorResendOTPService()
-                              .resendOTPService(context: context);
+                          // AggregatorResendOTPService()
+                          //     .resendOTPService(context: context);
                           resetTimer();
                           startTimer();
                         },
@@ -136,35 +138,46 @@ class _AggregatorOTPScreenState extends ConsumerState<AggregatorOTPScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 171),
+                  const SizedBox(height: 29),
+                  AbilityPasswordField(
+                    controller: widget.aggregatorController.resetPassword,
+                    heading: 'Pin',
+                    hintText: '******',
+                    maxLength: 6,
+                    iconName: Icons.lock_rounded,
+                    keyboardType: TextInputType.number,
+                    validator: (value) =>
+                        widget.validationHelper.validatePassword(value!),
+                  ),
+                  const SizedBox(height: 20),
+                  AbilityPasswordField(
+                    controller:
+                        widget.aggregatorController.confirmResetPassword,
+                    heading: 'Confirm Pin',
+                    hintText: '******',
+                    maxLength: 6,
+                    iconName: Icons.lock_rounded,
+                    keyboardType: TextInputType.number,
+                    validator: (value) => widget.validationHelper
+                        .validatePassword2(
+                            value!,
+                            widget.aggregatorController.resetPassword.text
+                                .trim()),
+                  ),
+                  const SizedBox(height: 131),
                   AbilityButton(
-                    onPressed: () async {
+                    onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        await ref
-                            .read(loadingAggregatorOTP.notifier)
-                            .aggregatorOTPService(
-                                context: context,
-                                otp: widget
-                                    .aggregatorController.signupOTPPin.text);
+                        resetPinBottomSheet(context);
                       }
                     },
-                    borderColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    buttonColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAggregatorOTP)
-                        ? Text(
-                            'continue',
-                            style: AppStyleGilroy.kFontW6
-                                .copyWith(color: kWhite, fontSize: 18),
-                          )
-                        : const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 6,
-                              color: kWhite,
-                              backgroundColor: kRed,
-                            ),
-                          ),
+                    borderRadius: 10,
+                    borderColor: ref.watch(isEditingProvider)
+                        ? kPrimary.withOpacity(0.5)
+                        : kPrimary,
+                    buttonColor: ref.watch(isEditingProvider)
+                        ? kPrimary.withOpacity(0.5)
+                        : kPrimary,
                   )
                 ],
               ),

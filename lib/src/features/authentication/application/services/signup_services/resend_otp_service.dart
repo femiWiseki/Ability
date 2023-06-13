@@ -3,44 +3,38 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ability/globals.dart';
 import 'package:ability/src/constants/endpoints.dart';
 import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/features/home/presentation/widgets/home_screen.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class AgentLoginService extends StateNotifier<bool> {
-  AgentLoginService() : super(false);
+class AgentResendOTPService extends StateNotifier<bool> {
+  AgentResendOTPService() : super(false);
 
-  Future<void> getLoginService({
+  Future<void> resendOTPService({
     required BuildContext context,
-    // required String email,
-    required String phoneNumber,
-    required String pin,
   }) async {
     try {
       state = true;
-      String serviceUrl = kLoginAgentUrl;
+
+      final agentEmail = AgentPreference.getEmail();
+
+      String serviceUrl = kResendOTPAgentUrl;
+
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
       };
-      final String requestBody = jsonEncode({
-        // "email": email,
-        "phoneNumber": phoneNumber,
-        "pin": pin,
-      });
 
-      final response = await http.post(Uri.parse(serviceUrl),
+      final String requestBody = jsonEncode({"email": agentEmail});
+
+      final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
 
       if (response.statusCode == 200) {
-        print(jsonDecode(response.body));
-        // Routing
-        navigatorKey.currentState!
-            .push(CupertinoPageRoute(builder: (context) => const HomeScreen()));
-
+        final result = jsonDecode(response.body);
+        successMessage(context: context, message: result["data"]["msg"]);
         state = false;
       } else {
         final result = jsonDecode(response.body);
@@ -58,35 +52,28 @@ class AgentLoginService extends StateNotifier<bool> {
   }
 }
 
-class AggregatorLoginService extends StateNotifier<bool> {
-  AggregatorLoginService() : super(false);
+class AggregatorResendOTPService extends StateNotifier<bool> {
+  AggregatorResendOTPService() : super(false);
 
-  Future<void> getLoginService({
+  Future<void> resendOTPService({
     required BuildContext context,
-    // required String email,
-    required String phoneNumber,
-    required String pin,
   }) async {
     try {
       state = true;
-      String serviceUrl = kLoginAggregatorUrl;
+
+      final aggregatorEmail = AgentPreference.getEmail();
+
+      String serviceUrl = kResendOTPAggregatorUrl;
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
       };
-      final String requestBody = jsonEncode({
-        // "email": email,
-        "phoneNumber": phoneNumber,
-        "pin": pin,
-      });
-      final response = await http.post(Uri.parse(serviceUrl),
+      final String requestBody = jsonEncode({"email": aggregatorEmail});
+      final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
 
       if (response.statusCode == 200) {
-        print(jsonDecode(response.body));
-        // Routing
-        navigatorKey.currentState!
-            .push(CupertinoPageRoute(builder: (context) => const HomeScreen()));
-
+        final result = jsonDecode(response.body);
+        successMessage(context: context, message: result["data"]["msg"]);
         state = false;
       } else {
         final result = jsonDecode(response.body);

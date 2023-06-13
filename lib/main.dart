@@ -1,9 +1,14 @@
 // ignore_for_file: depend_on_referenced_packages
 
+// import 'package:ability/splash_screen.dart'
 import 'package:ability/splash_screen.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_otp_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_passcode_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_login_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_otp_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_passcode_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +53,8 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: AgentLoginScreen(ValidationHelper(), AgentController()),
+      // home: const SplashScreen(),
+      home: AggregatorLoginScreen(ValidationHelper(), AggregatorController()),
     );
   }
 }

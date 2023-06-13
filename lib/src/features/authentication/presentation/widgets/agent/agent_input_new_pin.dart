@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:async';
+
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
@@ -10,7 +12,6 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/otp_timer.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,6 +27,35 @@ class AgentInputNewPin extends ConsumerStatefulWidget {
 
 class _AgentInputNewPinState extends ConsumerState<AgentInputNewPin> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ValueNotifier<int> _timerNotifier = ValueNotifier<int>(60);
+
+  @override
+  void dispose() {
+    _timerNotifier.dispose(); // Dispose the timer notifier
+    super.dispose();
+  }
+
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    Timer.periodic(oneSec, (Timer timer) {
+      if (_timerNotifier.value <= 0) {
+        timer.cancel();
+        // Timer has completed, implement your logic here
+      } else {
+        _timerNotifier.value -= 1; // Decrement the timer value
+      }
+    });
+  }
+
+  void resetTimer() {
+    _timerNotifier.value = 60; // Reset the timer value
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer(); // Start the timer
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +95,7 @@ class _AgentInputNewPinState extends ConsumerState<AgentInputNewPin> {
                         padding: const EdgeInsets.symmetric(horizontal: 18.0),
                         child: GeneralPinCode(
                             pinLenght: 6,
+                            fieldWidth: 27,
                             controller: widget.agentController.inputNewPinOTP,
                             validator: (value) => widget.validationHelper
                                 .validatePinCode(value!)),
@@ -81,6 +112,8 @@ class _AgentInputNewPinState extends ConsumerState<AgentInputNewPin> {
                         onTap: () {
                           // AgentResendOTPService()
                           //     .resendOTPService(context: context);
+                          resetTimer();
+                          startTimer();
                         },
                         child: Text("Resend ",
                             style: AppStylePoppins.kFontW5
@@ -89,15 +122,24 @@ class _AgentInputNewPinState extends ConsumerState<AgentInputNewPin> {
                       Text("in ",
                           style: AppStylePoppins.kFontW5
                               .copyWith(fontSize: 10, color: kPrimary)),
-                      const OtpTimer(),
+                      ValueListenableBuilder<int>(
+                        valueListenable: _timerNotifier,
+                        builder: (context, value, _) {
+                          return Text(
+                            value.toString(),
+                            style: AppStylePoppins.kFontW5
+                                .copyWith(fontSize: 10, color: kPrimary),
+                          );
+                        },
+                      ),
                     ],
                   ),
                   const SizedBox(height: 29),
                   AbilityPasswordField(
                     controller: widget.agentController.resetPassword,
                     heading: 'Pin',
-                    hintText: '****',
-                    maxLength: 4,
+                    hintText: '******',
+                    maxLength: 6,
                     iconName: Icons.lock_rounded,
                     keyboardType: TextInputType.number,
                     validator: (value) =>
@@ -107,8 +149,8 @@ class _AgentInputNewPinState extends ConsumerState<AgentInputNewPin> {
                   AbilityPasswordField(
                     controller: widget.agentController.confirmResetPassword,
                     heading: 'Confirm Pin',
-                    hintText: '****',
-                    maxLength: 4,
+                    hintText: '******',
+                    maxLength: 6,
                     iconName: Icons.lock_rounded,
                     keyboardType: TextInputType.number,
                     validator: (value) => widget.validationHelper

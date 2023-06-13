@@ -27,6 +27,7 @@ const kBlack8 = Color(0XFF222222);
 const kBlack9 = Color(0XFF0D0D0D);
 const kBlack10 = Color(0XFF111111);
 const kBlack11 = Color(0XFF212121);
+const kBlack50 = Color(0XFFB8BABA);
 const kCreditColor = Color(0XFF29AC61);
 const kDebitColor = Color(0XFFEF2800);
 const kNavBarSelectedItemColor = Color(0xFF231F20);
@@ -56,6 +57,7 @@ const kGrey19 = Color(0XFF9D9D9D);
 const kGrey20 = Color(0XFF888888);
 const kGrey21 = Color(0XFFEBEBEB);
 const kGrey22 = Color(0XFFDCDCDC);
+const kGrey23 = Color(0XFF6D7579);
 
 const kPinInput = Color(0XFF656565);
 const kPurple = Color(0XFF7165E3);

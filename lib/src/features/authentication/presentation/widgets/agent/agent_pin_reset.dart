@@ -45,9 +45,7 @@ class _AgentPinResetState extends ConsumerState<AgentPinReset> {
                   Text('Pin Reset',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 10),
-                  Text('First, we have to validate your phone number',
-                      style: AppStyleGilroy.kFontW5
-                          .copyWith(fontSize: 12, color: kBlack2)),
+                  const Text('First, we have to validate your address'),
                   const SizedBox(height: 47),
                   AbilityTextField(
                       controller: widget.agentController.pinRestEmail,
@@ -61,20 +59,37 @@ class _AgentPinResetState extends ConsumerState<AgentPinReset> {
                               : "Please enter a valid email"),
                   const SizedBox(height: 100),
                   AbilityButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        PageNavigator(ctx: context).nextPage(
-                            page: AgentInputNewPin(
-                                ValidationHelper(), AgentController()));
+                        await ref
+                            .read(loadingAgentPinRest.notifier)
+                            .pinResetService(
+                                context: context,
+                                email:
+                                    widget.agentController.pinRestEmail.text);
+                        // PageNavigator(ctx: context).nextPage(
+                        //     page: AgentInputNewPin(
+                        //         ValidationHelper(), AgentController()));
                         // agentShowBottomSheet(context);
                       }
                     },
-                    borderColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
-                    buttonColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
+                    borderColor:
+                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    buttonColor:
+                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    child: !ref.watch(loadingAgentPinRest)
+                        ? Text(
+                            'continue',
+                            style: AppStyleGilroy.kFontW6
+                                .copyWith(color: kWhite, fontSize: 18),
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 6,
+                              color: kWhite,
+                              backgroundColor: kRed,
+                            ),
+                          ),
                   )
                 ],
               ),

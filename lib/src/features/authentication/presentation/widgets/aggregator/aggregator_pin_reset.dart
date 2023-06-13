@@ -1,7 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:ability/src/common_widgets/ability_button.dart';
-import 'package:ability/src/common_widgets/general_pin_code.dart';
+import 'package:ability/src/common_widgets/ability_text_field.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
@@ -9,16 +11,22 @@ import 'package:ability/src/features/authentication/presentation/providers/authe
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
-class AgentPasscodeScreen extends ConsumerWidget {
+class AggregatorResetPin extends ConsumerStatefulWidget {
   ValidationHelper validationHelper;
-  AgentController agentController;
-  AgentPasscodeScreen(this.validationHelper, this.agentController, {super.key});
+  AggregatorController aggregatorController;
+  AggregatorResetPin(this.validationHelper, this.aggregatorController,
+      {super.key});
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AggregatorResetPin> createState() => _AggregatorResetPinState();
+}
+
+class _AggregatorResetPinState extends ConsumerState<AggregatorResetPin> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimary1,
       body: SafeArea(
@@ -30,38 +38,44 @@ class AgentPasscodeScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // const BackIcon(),
-                  const SizedBox(height: 39),
-                  Text('Passcode',
+                  const BackIcon(),
+                  const SizedBox(height: 38),
+                  Text('Pin Reset',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 10),
-                  Text('Please set your passcode',
-                      style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
-                  const SizedBox(height: 35),
-                  Center(
-                    child: GeneralPinCode(
-                        pinLenght: 4,
-                        boxPinShape: PinCodeFieldShape.box,
-                        controller: agentController.signupPasscode,
-                        validator: (value) =>
-                            validationHelper.validatePinCode2(value!)),
-                  ),
-                  const SizedBox(height: 153.54),
+                  const Text('First, we have to validate your address'),
+                  const SizedBox(height: 47),
+                  AbilityTextField(
+                      controller: widget.aggregatorController.pinRestEmail,
+                      heading: 'Email Address',
+                      hintText: 'Email address',
+                      iconName: Icons.email_rounded,
+                      borderRadius: BorderRadius.circular(12),
+                      validator: (value) =>
+                          EmailValidator.validate(value!.trim())
+                              ? null
+                              : "Please enter a valid email"),
+                  const SizedBox(height: 100),
                   AbilityButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await ref
-                            .read(loadingAgentPasscode.notifier)
-                            .getPasscodeService(
+                            .read(loadingAggregatorPinRest.notifier)
+                            .pinResetService(
                                 context: context,
-                                passcode: agentController.signupPasscode.text);
+                                email: widget
+                                    .aggregatorController.pinRestEmail.text);
+                        // PageNavigator(ctx: context).nextPage(
+                        //     page: AgentInputNewPin(
+                        //         ValidationHelper(), AgentController()));
+                        // agentShowBottomSheet(context);
                       }
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAgentPasscode)
+                    child: !ref.watch(loadingAggregatorPinRest)
                         ? Text(
                             'continue',
                             style: AppStyleGilroy.kFontW6

@@ -3,17 +3,15 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_pin_reset.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_pin_reset.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
-
 import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/ability_phone_number.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -135,8 +133,8 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                   AbilityPasswordField(
                     controller: widget.aggregatorController.loginPassword,
                     heading: 'Pin',
-                    hintText: 'Enter 4-digit pin',
-                    maxLength: 4,
+                    hintText: 'Enter 6-digit pin',
+                    maxLength: 6,
                     iconName: Icons.lock_rounded,
                     validator: (value) =>
                         widget.validationHelper.validatePassword(value!),
@@ -189,8 +187,8 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                       InkWell(
                         onTap: () {
                           PageNavigator(ctx: context).nextPage(
-                              page: AgentPinReset(
-                                  ValidationHelper(), AgentController()));
+                              page: AggregatorResetPin(
+                                  ValidationHelper(), AggregatorController()));
                         },
                         child: Text(
                           "Forgot Pin?",
@@ -202,9 +200,16 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                   ),
                   const SizedBox(height: 100),
                   AbilityButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // agentShowBottomSheet(context);
+                        await ref
+                            .read(loadingAggregatorLogin.notifier)
+                            .getLoginService(
+                                context: context,
+                                phoneNumber:
+                                    "0${widget.aggregatorController.loginPhoneNumber.text}",
+                                pin: widget
+                                    .aggregatorController.loginPassword.text);
                       }
                       if (ref.watch(savePasswordProvider)) {
                         AggregatorPreference.setSavedPhoneNumber(widget
@@ -220,6 +225,19 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                     buttonColor: ref.watch(isEditingProvider)
                         ? kPrimary.withOpacity(0.5)
                         : kPrimary,
+                    child: !ref.watch(loadingAggregatorLogin)
+                        ? Text(
+                            'continue',
+                            style: AppStyleGilroy.kFontW6
+                                .copyWith(color: kWhite, fontSize: 18),
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 6,
+                              color: kPrimary,
+                              backgroundColor: kRed,
+                            ),
+                          ),
                   )
                 ],
               ),

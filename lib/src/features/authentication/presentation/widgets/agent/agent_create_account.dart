@@ -7,7 +7,7 @@ import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/authentication/application/services/create_account_service.dart';
+import 'package:ability/src/features/authentication/application/services/signup_services/create_account_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
@@ -87,8 +87,8 @@ class AgentCreateAccount extends ConsumerWidget {
                   AbilityPasswordField(
                     controller: agentController.signupCreatePin,
                     heading: 'Create Pin',
-                    hintText: 'Enter 4-digit pin',
-                    maxLength: 4,
+                    hintText: 'Enter 6-digit pin',
+                    maxLength: 6,
                     keyboardType: TextInputType.number,
                     iconName: Icons.lock_rounded,
                     borderRadius: BorderRadius.zero,
@@ -99,8 +99,8 @@ class AgentCreateAccount extends ConsumerWidget {
                   AbilityPasswordField2(
                     controller: agentController.signupConfirmPin,
                     heading: 'Confirm Pin',
-                    hintText: 'Enter 4-digit pin',
-                    maxLength: 4,
+                    hintText: 'Enter 6-digit pin',
+                    maxLength: 6,
                     keyboardType: TextInputType.number,
                     iconName: Icons.lock_rounded,
                     borderRadius: BorderRadius.zero,
@@ -126,12 +126,10 @@ class AgentCreateAccount extends ConsumerWidget {
                       await AgentPreference.setEmail(
                           agentController.signupEmail.text);
                     },
-                    borderColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
-                    buttonColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
+                    borderColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    buttonColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     child: !ref.watch(loadingAgentCreateAccount)
                         ? Text(
                             'continue',
@@ -140,8 +138,9 @@ class AgentCreateAccount extends ConsumerWidget {
                           )
                         : const Center(
                             child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: kPrimary,
+                              strokeWidth: 6,
+                              color: kWhite,
+                              backgroundColor: kRed,
                             ),
                           ),
                   )

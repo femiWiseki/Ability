@@ -8,11 +8,12 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/authentication/application/services/create_account_service.dart';
+import 'package:ability/src/features/authentication/application/services/signup_services/create_account_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_otp_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -83,8 +84,8 @@ class AggregatorCreateAccount extends ConsumerWidget {
                   AbilityPasswordField(
                     controller: aggregatorController.signupCreatePin,
                     heading: 'Create Pin',
-                    hintText: 'Enter 4-digit pin',
-                    maxLength: 4,
+                    hintText: 'Enter 6-digit pin',
+                    maxLength: 6,
                     iconName: Icons.lock_rounded,
                     borderRadius: BorderRadius.zero,
                     validator: (value) =>
@@ -94,8 +95,8 @@ class AggregatorCreateAccount extends ConsumerWidget {
                   AbilityPasswordField2(
                     controller: aggregatorController.signupConfirmPin,
                     heading: 'Confirm Pin',
-                    hintText: 'Enter 4-digit pin',
-                    maxLength: 4,
+                    hintText: 'Enter 6-digit pin',
+                    maxLength: 6,
                     iconName: Icons.lock_rounded,
                     borderRadius: BorderRadius.zero,
                     validator: (value) => validationHelper.validatePassword2(
@@ -103,28 +104,29 @@ class AggregatorCreateAccount extends ConsumerWidget {
                   ),
                   const SizedBox(height: 50.89),
                   AbilityButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        AggregatorCreateAccountService().createAccountService(
-                          context: context,
-                          name: aggregatorController.signupName.text.trim(),
-                          email: aggregatorController.signupEmail.text.trim(),
-                          phoneNumber:
-                              aggregatorController.signupPhone.text.trim(),
-                          pin: aggregatorController.signupCreatePin.text,
-                        );
-
-                        PageNavigator(ctx: context).nextPage(
-                            page: AggregatorOTPScreen(
-                                ValidationHelper(), AggregatorController()));
+                        await ref
+                            .read(loadingAggregatorCreateAccount.notifier)
+                            .createAccountService(
+                              context: context,
+                              name: aggregatorController.signupName.text.trim(),
+                              email:
+                                  aggregatorController.signupEmail.text.trim(),
+                              phoneNumber:
+                                  aggregatorController.signupPhone.text.trim(),
+                              pin: aggregatorController.signupCreatePin.text,
+                            );
                       }
+                      await AggregatorPreference.setEmail(
+                          aggregatorController.signupEmail.text);
+                      await AggregatorPreference.setPhoneNumber(
+                          aggregatorController.signupPhone.text);
                     },
-                    borderColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
-                    buttonColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
+                    borderColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    buttonColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     child: !ref.watch(loadingAggregatorCreateAccount)
                         ? Text(
                             'continue',
@@ -133,8 +135,9 @@ class AggregatorCreateAccount extends ConsumerWidget {
                           )
                         : const Center(
                             child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: kPrimary,
+                              strokeWidth: 6,
+                              color: kWhite,
+                              backgroundColor: kRed,
                             ),
                           ),
                   )

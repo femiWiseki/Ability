@@ -2,7 +2,7 @@
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/authentication/application/services/login_service.dart';
+import 'package:ability/src/features/authentication/application/services/login_services/login_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_pin_reset.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
@@ -135,8 +135,8 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                   AbilityPasswordField(
                     controller: widget.agentController.loginPassword,
                     heading: 'Pin',
-                    hintText: 'Enter 4-digit pin',
-                    maxLength: 4,
+                    hintText: 'Enter 6-digit pin',
+                    maxLength: 6,
                     keyboardType: TextInputType.number,
                     iconName: Icons.lock_rounded,
                     validator: (value) =>
@@ -221,12 +221,10 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                         AgentPreference.clearLoginCredentials();
                       }
                     },
-                    borderColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
-                    buttonColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
+                    borderColor:
+                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    buttonColor:
+                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     child: !ref.watch(loadingAgentLogin)
                         ? Text(
                             'continue',

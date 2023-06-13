@@ -9,7 +9,6 @@ import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_otp_screen.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_otp_screen.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/otp_timer_manager.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,8 +50,6 @@ class AgentCreateAccountService extends StateNotifier<bool> {
         final id = result["data"]["agentId"];
         await AgentPreference.setPhoneNumber(phoneNumber);
         await AgentPreference.setId(id);
-        print(phoneNumber);
-        print(id);
 
         // Routing
         navigatorKey.currentState!.push(CupertinoPageRoute(
@@ -102,16 +99,27 @@ class AggregatorCreateAccountService extends StateNotifier<bool> {
           body: requestBody, headers: serviceHeader);
 
       if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+        print(result);
+
+        //Save Agent Id and PhoneNumber
+        final id = result["data"]["data"];
+        await AggregatorPreference.setId(id);
+
         // Routing
-        navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => AggregatorOTPScreen(
-                ValidationHelper(), AggregatorController())));
+        navigatorKey.currentState!.push(
+          CupertinoPageRoute(
+            builder: (context) =>
+                AggregatorOTPScreen(ValidationHelper(), AggregatorController()),
+          ),
+        );
 
         state = false;
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);
         state = false;
+        print(result);
       }
     } on SocketException {
       errorMessage(
