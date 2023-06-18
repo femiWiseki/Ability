@@ -234,8 +234,7 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                         : const Center(
                             child: CircularProgressIndicator(
                               strokeWidth: 6,
-                              color: kPrimary,
-                              backgroundColor: kRed,
+                              color: kWhite,
                             ),
                           ),
                   )

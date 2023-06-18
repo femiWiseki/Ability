@@ -53,12 +53,16 @@ const kGrey15 = Color(0XFFFFF2EC);
 const kGrey16 = Color(0XFFCECECE);
 const kGrey17 = Color(0XFFC7C7C7);
 const kGrey18 = Color(0XFFEAE9F0);
-const kGrey19 = Color(0XFF9D9D9D);
+const kGrey19 = Color(0XFF959898);
 const kGrey20 = Color(0XFF888888);
 const kGrey21 = Color(0XFFEBEBEB);
 const kGrey22 = Color(0XFFDCDCDC);
 const kGrey23 = Color(0XFF6D7579);
 
+// Ash Group
+const kAsh1 = Color(0XFFF2F2F4);
+
+// Others
 const kPinInput = Color(0XFF656565);
 const kPurple = Color(0XFF7165E3);
 const kRed = Color(0XFFC82020);
@@ -68,7 +72,7 @@ const kStone = Color(0XFFEBF3EC);
 const kStone2 = Color(0XFF9EA6BE);
 const kTransparent = Colors.transparent;
 const kWhite = Color(0XFFFFFFFF);
-const kGreen = Color(0XFF1A9D2F);
+const kGreen = Color(0XFF34A853);
 const kToggle = Color(0XFF00B83F);
 const kDivider = Color(0XFFE9ECED);
 const kBlue = Color(0XFF2196F3);

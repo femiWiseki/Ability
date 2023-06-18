@@ -6,8 +6,7 @@ import 'dart:io';
 import 'package:ability/globals.dart';
 import 'package:ability/src/constants/endpoints.dart';
 import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/features/home/presentation/widgets/home_screen.dart';
-import 'package:ability/src/utils/user_preference/user_preference.dart';
+import 'package:ability/src/features/home/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +22,7 @@ class AgentLoginService extends StateNotifier<bool> {
   }) async {
     try {
       state = true;
+      final indexNumber = StateProvider<int>((ref) => 0);
       String serviceUrl = kLoginAgentUrl;
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
@@ -39,8 +39,8 @@ class AgentLoginService extends StateNotifier<bool> {
       if (response.statusCode == 200) {
         print(jsonDecode(response.body));
         // Routing
-        navigatorKey.currentState!
-            .push(CupertinoPageRoute(builder: (context) => const HomeScreen()));
+        navigatorKey.currentState!.push(CupertinoPageRoute(
+            builder: (context) => BottomNavBar(indexProvider: indexNumber)));
 
         state = false;
       } else {
@@ -70,6 +70,7 @@ class AggregatorLoginService extends StateNotifier<bool> {
   }) async {
     try {
       state = true;
+      final indexNumber = StateProvider<int>((ref) => 0);
       String serviceUrl = kLoginAggregatorUrl;
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
@@ -86,8 +87,10 @@ class AggregatorLoginService extends StateNotifier<bool> {
       if (response.statusCode == 200) {
         print(jsonDecode(response.body));
         // Routing
-        navigatorKey.currentState!
-            .push(CupertinoPageRoute(builder: (context) => const HomeScreen()));
+        navigatorKey.currentState!.push(CupertinoPageRoute(
+            builder: (context) => BottomNavBar(
+                  indexProvider: indexNumber,
+                )));
 
         state = false;
       } else {

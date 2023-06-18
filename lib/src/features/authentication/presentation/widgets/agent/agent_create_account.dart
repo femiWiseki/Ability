@@ -140,7 +140,6 @@ class AgentCreateAccount extends ConsumerWidget {
                             child: CircularProgressIndicator(
                               strokeWidth: 6,
                               color: kWhite,
-                              backgroundColor: kRed,
                             ),
                           ),
                   )

@@ -57,6 +57,7 @@ dependencies:
   intl: ^0.17.0
   iconsax: ^0.0.8
   flutter_launcher_icons: ^0.12.0
+  flutter_paystack: ^1.0.7
 
 flutter_icons:
   image_path: "assets/icons/ability_logo.png"

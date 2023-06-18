@@ -87,7 +87,6 @@ class _AgentPinResetState extends ConsumerState<AgentPinReset> {
                             child: CircularProgressIndicator(
                               strokeWidth: 6,
                               color: kWhite,
-                              backgroundColor: kRed,
                             ),
                           ),
                   )

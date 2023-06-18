@@ -20,6 +20,8 @@ class AbilityTextField extends StatelessWidget {
     this.iconName,
     this.maxLength,
     this.borderRadius,
+    this.textAlign,
+    this.borderColor,
   }) : super(key: key);
   final String? hintText;
   final String? heading;
@@ -33,6 +35,8 @@ class AbilityTextField extends StatelessWidget {
   final int? maxLines, minLines;
   final int? maxLength;
   final BorderRadius? borderRadius;
+  final TextAlign? textAlign;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,7 @@ class AbilityTextField extends StatelessWidget {
               minLines: maxLines,
               maxLines: maxLines,
               maxLength: maxLength,
-
+              textAlign: textAlign ?? TextAlign.start,
               textInputAction:
                   TextInputAction.done, // set the text input action to done
               onTap: () {
@@ -91,17 +95,19 @@ class AbilityTextField extends StatelessWidget {
                     AppStyleGilroy.kFontW5.copyWith(fontSize: 14, color: kGrey),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: borderRadius ?? BorderRadius.zero,
-                  borderSide: BorderSide(color: kPrimary.withOpacity(0.2)),
+                  borderSide: BorderSide(
+                      color: borderColor ?? kPrimary.withOpacity(0.2)),
                 ),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: borderRadius ?? BorderRadius.zero,
-                    borderSide: BorderSide(color: kPrimary.withOpacity(0.2))),
+                    borderSide: BorderSide(
+                        color: borderColor ?? kPrimary.withOpacity(0.2))),
                 errorBorder: OutlineInputBorder(
                     borderRadius: borderRadius ?? BorderRadius.zero,
-                    borderSide: BorderSide(color: kRed)),
+                    borderSide: const BorderSide(color: kRed)),
                 focusedErrorBorder: OutlineInputBorder(
                     borderRadius: borderRadius ?? BorderRadius.zero,
-                    borderSide: BorderSide(color: kRed)),
+                    borderSide: const BorderSide(color: kRed)),
               ),
             );
           },

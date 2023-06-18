@@ -1,36 +1,56 @@
-import 'package:ability/src/common_widgets/ability_button.dart';
-import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
-import 'package:ability/src/utils/helpers/validation_helper.dart';
-import 'package:ability/src/utils/user_preference/user_preference.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:ability/src/constants/app_text_style/gilroy.dart';
+import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/home_screen_bar.dart';
+import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeScreen extends ConsumerWidget {
-  const HomeScreen({super.key});
-
+  HomeScreen({super.key});
+  var currentBalance = '500,000.00';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AbilityButton(
-                  title: 'Logout',
-                  onPressed: () {
-                    AgentPreference.clearAccessToken().then((value) {
-                      PageNavigator(ctx: context).nextPageOnly(
-                          page: AgentLoginScreen(
-                              ValidationHelper(), AgentController()));
-                    });
-                  }),
-            ],
+    return Scaffold(
+      backgroundColor: kAsh1,
+      body: Column(
+        children: [
+          HomeScreenBar(currentBalance: currentBalance),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 15.84, 24, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Recent transaction',
+                  style: AppStyleGilroy.kFontW6.copyWith(fontSize: 20),
+                ),
+                const SizedBox(height: 5.05),
+                Container(
+                    width: double.maxFinite,
+                    height: 348,
+                    color: kWhite,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                    child: ListView.builder(
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return const RecentTransactionTile();
+                        }))
+              ],
+            ),
           ),
-        ),
+          // AbilityButton(
+          //     title: 'Logout',
+          //     onPressed: () {
+          //       AgentPreference.clearAccessToken().then((value) {
+          //         PageNavigator(ctx: context).nextPageOnly(
+          //             page: AgentLoginScreen(
+          //                 ValidationHelper(), AgentController()));
+          //       });
+          //     }),
+        ],
       ),
     );
   }

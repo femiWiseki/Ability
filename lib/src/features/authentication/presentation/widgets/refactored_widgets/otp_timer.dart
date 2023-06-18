@@ -82,7 +82,7 @@ class AgentOTPTimer extends StatefulWidget {
   const AgentOTPTimer({Key? key, required this.resetTimer}) : super(key: key);
 
   @override
-  _AgentOTPTimerState createState() => _AgentOTPTimerState();
+  State<AgentOTPTimer> createState() => _AgentOTPTimerState();
 }
 
 class _AgentOTPTimerState extends State<AgentOTPTimer> {
@@ -131,7 +131,7 @@ class _AgentOTPTimerState extends State<AgentOTPTimer> {
 
     return Text(
       formattedTime,
-      style: TextStyle(fontSize: 10),
+      style: const TextStyle(fontSize: 10),
     );
   }
 }

@@ -37,12 +37,9 @@ class AgentPasscodeService extends StateNotifier<bool> {
 
       final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
-      print(serviceHeader);
-      if (response.statusCode == 200) {
-        final result = jsonDecode(response.body);
-        successMessage(context: context, message: result["message"]);
-        print(result);
 
+      if (response.statusCode == 200) {
+        successMessage(context: context, message: 'Passcode set successfully');
         navigatorKey.currentState!.push(CupertinoPageRoute(
             builder: (context) =>
                 AgentLoginScreen(ValidationHelper(), AgentController())));
@@ -51,7 +48,6 @@ class AgentPasscodeService extends StateNotifier<bool> {
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);
-        print(result);
         state = false;
       }
     } on SocketException {
@@ -88,12 +84,13 @@ class AggregatorPasscodeService extends StateNotifier<bool> {
 
       final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
+
+      print(response.statusCode);
+      print(response.body);
       print(passcode);
       print(token);
       if (response.statusCode == 200) {
-        final result = jsonDecode(response.body);
-        successMessage(context: context, message: result["message"]);
-        // print(result);
+        successMessage(context: context, message: 'Passcode set successfully');
 
         navigatorKey.currentState!.push(CupertinoPageRoute(
             builder: (context) => AggregatorLoginScreen(
@@ -103,7 +100,6 @@ class AggregatorPasscodeService extends StateNotifier<bool> {
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);
-        print(result);
         state = false;
       }
     } on SocketException {

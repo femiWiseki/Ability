@@ -64,6 +64,19 @@ class ValidationHelper {
     return null;
   }
 
+  String? validateAmount(String value) {
+    if (value.isEmpty) {
+      return "Amount can not be Empty.";
+    }
+    //  else if (value.length < 10) {
+    //   return "Phone Number is not complete.";
+    // }
+    // else if (!value.isNumber) {
+    //   return "Input only numbers";
+    // }
+    return null;
+  }
+
   String? validatePinCode(String value) {
     if (value.length < 5) {
       return "Pin is not complete.";

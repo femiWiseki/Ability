@@ -11,7 +11,6 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/application/services/signup_services/resend_otp_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/otp_timer.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -160,7 +159,6 @@ class _AgentOTPScreenState extends ConsumerState<AgentOTPScreen> {
                             child: CircularProgressIndicator(
                               strokeWidth: 6,
                               color: kWhite,
-                              backgroundColor: kRed,
                             ),
                           ),
                   )

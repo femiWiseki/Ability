@@ -85,7 +85,6 @@ class _AggregatorResetPinState extends ConsumerState<AggregatorResetPin> {
                             child: CircularProgressIndicator(
                               strokeWidth: 6,
                               color: kWhite,
-                              backgroundColor: kRed,
                             ),
                           ),
                   )

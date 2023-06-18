@@ -162,7 +162,6 @@ class _AggregatorOTPScreenState extends ConsumerState<AggregatorOTPScreen> {
                             child: CircularProgressIndicator(
                               strokeWidth: 6,
                               color: kWhite,
-                              backgroundColor: kRed,
                             ),
                           ),
                   )

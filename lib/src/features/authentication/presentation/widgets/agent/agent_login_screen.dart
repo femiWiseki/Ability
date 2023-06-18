@@ -220,6 +220,7 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                       } else {
                         AgentPreference.clearLoginCredentials();
                       }
+                      print(AgentPreference.getPhoneNumber());
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
@@ -235,7 +236,6 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                             child: CircularProgressIndicator(
                               strokeWidth: 6,
                               color: kWhite,
-                              backgroundColor: kRed,
                             ),
                           ),
                   )
