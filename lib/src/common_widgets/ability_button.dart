@@ -46,7 +46,7 @@ class AbilityButton extends ConsumerWidget {
               elevation: MaterialStateProperty.all(0),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(borderRadius ?? 30.0),
+                      borderRadius: BorderRadius.circular(borderRadius ?? 10.0),
                       side: BorderSide(color: borderColor ?? kPrimary))),
               backgroundColor:
                   MaterialStateProperty.all<Color>(buttonColor ?? kPrimary),

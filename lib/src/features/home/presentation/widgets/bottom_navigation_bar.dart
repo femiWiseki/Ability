@@ -2,7 +2,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/commission/presentation/widgets/commission_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/home_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
-import 'package:ability/src/features/profile/presentation/widgets/profile_screen.dart';
+import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/agg_profile_screen.dart';
 import 'package:ability/src/features/transfer/presentation/widgets/transfer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,7 +25,7 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
     HomeScreen(),
     TransferScreen(),
     CommissionScreen(),
-    const ProfileScreen(),
+    const AggregatorProfileScreen(),
   ];
 
   @override

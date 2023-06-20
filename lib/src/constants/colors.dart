@@ -80,8 +80,8 @@ const kBlue = Color(0XFF2196F3);
 const kBorder = Color(0XFFD0D0D0);
 const kError = Color(0XFFF5F6F8);
 
-const customColor1 = Color(0xFF797979);
-const customColor2 = Color(0xFF323232);
+const customColor1 = Color(0xFFE4EEFF);
+const customColor2 = Color(0xFFD94F00);
 const customColor3 = Color(0xFF1C8540);
 const customColor4 = Color(0xFFE8FFF0);
 const customColor5 = Color(0xFF2A2D2F);

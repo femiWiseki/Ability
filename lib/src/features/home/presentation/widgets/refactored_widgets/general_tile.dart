@@ -7,6 +7,7 @@ class GeneralTile extends StatelessWidget {
   final String prefixIconPath;
   final String title;
   final Widget? suffixIcons;
+  final TextStyle? textStyle;
   final void Function()? onTap;
   const GeneralTile({
     super.key,
@@ -14,6 +15,7 @@ class GeneralTile extends StatelessWidget {
     required this.title,
     this.suffixIcons,
     this.onTap,
+    this.textStyle,
   });
 
   @override
@@ -31,11 +33,12 @@ class GeneralTile extends StatelessWidget {
                 prefixIconPath,
                 height: 16.34,
               ),
-              const SizedBox(width: 3.66),
+              const SizedBox(width: 10),
               Text(
                 title,
-                style: AppStyleGilroy.kFontW5
-                    .copyWith(fontSize: 14.53, color: kBlack2),
+                style: textStyle ??
+                    AppStyleGilroy.kFontW5
+                        .copyWith(fontSize: 15, color: kBlack2),
               ),
               const Spacer(),
               suffixIcons ?? const Icon(Icons.keyboard_arrow_right_rounded)
