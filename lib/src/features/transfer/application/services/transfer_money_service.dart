@@ -34,8 +34,8 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
       var bankName = AgentPreference.getBankName().toString();
       var accountNumber = AgentPreference.getAccountNumber();
       var accountName = AgentPreference.getAccountName();
-      var description = AgentPreference.getTransferAmount();
-      var amount = AgentPreference.getTransDesc();
+      var description = AgentPreference.getTransDesc();
+      var amount = AgentPreference.getTransferAmount();
       final indexNumber = StateProvider<int>((ref) => 1);
       String serviceUrl = kMakeTransferUrl;
 
