@@ -113,10 +113,7 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                                 .transferController.agtEnterTransferDesc.text,
                             passcode: widget
                                 .transferController.agtEnterTransferCode.text,
-                          )
-                          .then((value) {
-                        AgentPreference.clearAccountName();
-                      });
+                          );
                     }
 
                     // print(selectedBankName);
@@ -134,8 +131,21 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                     //   },
                     // );
                     // PageNavigator(ctx: context)
-                    //     .nextPageOnly(page: const AggregatorProfileScreen());
+                    //
+                    //   .nextPageOnly(page: const AggregatorProfileScreen());
                   },
+                  child: !ref.watch(loadingAgtBankDetail2)
+                      ? Text(
+                          'continue',
+                          style: AppStyleGilroy.kFontW6
+                              .copyWith(color: kWhite, fontSize: 18),
+                        )
+                      : const Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 6,
+                            color: kWhite,
+                          ),
+                        ),
                 )
               ]),
             ),

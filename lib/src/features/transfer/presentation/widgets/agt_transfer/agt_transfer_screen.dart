@@ -1,4 +1,5 @@
 import 'package:ability/src/common_widgets/app_header.dart';
+import 'package:ability/src/constants/app_text_style/inter.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/transfer/presentation/controllers/transfer_controller.dart';
@@ -18,8 +19,9 @@ class AgtTransferScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(24, 36, 24, 0),
           child: Column(
             children: [
-              const AppHeader(
-                heading: 'Transfer',
+              Text(
+                'Transfer',
+                style: AppStyleInter.kFontW6.copyWith(fontSize: 20),
               ),
               const SizedBox(height: 76.89),
               Container(
