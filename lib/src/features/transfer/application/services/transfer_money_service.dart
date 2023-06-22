@@ -23,20 +23,21 @@ import 'package:http/http.dart' as http;
 class AgtTransferMoneyService extends StateNotifier<bool> {
   AgtTransferMoneyService() : super(false);
 
-  Future<ResolveAccNumModel> resolveAccNumService({
+  resolveAccNumService({
     required BuildContext context,
-    required String amount,
-    required String description,
     required String passcode,
   }) async {
     try {
       state = true;
 
       var token = AgentPreference.getPhoneToken();
-      var bankName = AgentPreference.getBankName();
+      var bankName = AgentPreference.getBankName().toString();
       var accountNumber = AgentPreference.getAccountNumber();
+      var accountName = AgentPreference.getAccountName();
+      var description = AgentPreference.getTransferAmount();
+      var amount = AgentPreference.getTransDesc();
       final indexNumber = StateProvider<int>((ref) => 1);
-      String serviceUrl = kResolveAccountNumberUrl;
+      String serviceUrl = kMakeTransferUrl;
 
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json',
@@ -48,7 +49,8 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
         "account_number": accountNumber,
         "narration": description,
         "bankName": bankName,
-        "passcode": passcode
+        "passcode": passcode,
+        "account_name": accountName
       });
 
       final response = await http.post(Uri.parse(serviceUrl),
@@ -64,7 +66,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
         generalSuccessfullDialog(
             context: context,
             description:
-                'Congratulations your payment to gotv subscription is successful completed',
+                'Congratulations your transfer was successful completed',
             onTap: () {
               PageNavigator(ctx: context).nextPageOnly(
                   page: AgtBottomNavBar(indexProvider: indexNumber));
@@ -89,7 +91,6 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
       print(e.toString());
       state = false;
     }
-    throw ("Something went wrong");
   }
 }
 

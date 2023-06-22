@@ -10,7 +10,9 @@ import 'package:ability/src/features/authentication/presentation/providers/authe
 import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
 import 'package:ability/src/features/transfer/presentation/controllers/transfer_controller.dart';
+import 'package:ability/src/features/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -64,6 +66,14 @@ class AgtEnterTransferCode extends ConsumerWidget {
                   AbilityButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        await ref
+                            .read(loadingAgtBankDetail2.notifier)
+                            .resolveAccNumService(
+                              context: context,
+                              passcode:
+                                  transferController.agtEnterTransferCode.text,
+                            );
+                        print(AgentPreference.getBankName());
                         // await ref
                         //     .read(loadingAgentLoginPasscode.notifier)
                         //     .passcodeLoginService(
@@ -71,15 +81,6 @@ class AgtEnterTransferCode extends ConsumerWidget {
                         //         passcode: transferController.agtEnterTransferCode.text);
                       }
                       // print(AgentPreference.getPhoneToken());
-                      generalSuccessfullDialog(
-                          context: context,
-                          description:
-                              'Congratulations your payment to gotv subscription is successful completed',
-                          onTap: () {
-                            PageNavigator(ctx: context).nextPageOnly(
-                                page: AgtBottomNavBar(
-                                    indexProvider: indexNumber));
-                          });
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,

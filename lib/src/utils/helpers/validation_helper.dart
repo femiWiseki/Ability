@@ -64,6 +64,15 @@ class ValidationHelper {
     return null;
   }
 
+  String? validateAccountNumber(String value) {
+    if (value.isEmpty) {
+      return "Account number can not be Empty.";
+    } else if (value.length < 10) {
+      return "Account number is not complete.";
+    }
+    return null;
+  }
+
   String? validateAmount(String value) {
     if (value.isEmpty) {
       return "Amount can not be Empty.";

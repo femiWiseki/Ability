@@ -19,6 +19,7 @@ import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dropdown_button3/dropdown_button3.dart';
+import 'package:intl/intl.dart';
 
 class AgtTransferToBank2 extends ConsumerStatefulWidget {
   TransferController transferController;
@@ -73,26 +74,26 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                   keyboardType: TextInputType.name,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                const SizedBox(height: 27),
-                AbilityTextField(
-                    controller: widget.transferController.agtEnterTransferCode,
-                    heading: 'Enter Passcode',
-                    hintText: 'Enter Passcode',
-                    keyboardType: TextInputType.number,
-                    maxLength: 4,
-                    borderRadius: BorderRadius.circular(5),
-                    validator: (value) =>
-                        ValidationHelper().validatePasscode(value!),
-                    onChanged: (value) async {
-                      ref.watch(isEditingProvider.notifier).state = true;
-                      if (value.isEmpty) {
-                        ref.watch(isEditingProvider.notifier).state = false;
-                      }
-                      if (value.length == 4) {
-                        FocusScope.of(context).unfocus();
-                        ref.watch(isEditingProvider.notifier).state = false;
-                      }
-                    }),
+                // const SizedBox(height: 27),
+                // AbilityTextField(
+                //     controller: widget.transferController.agtEnterTransferCode,
+                //     heading: 'Enter Passcode',
+                //     hintText: 'Enter Passcode',
+                //     keyboardType: TextInputType.number,
+                //     maxLength: 4,
+                //     borderRadius: BorderRadius.circular(5),
+                //     validator: (value) =>
+                //         ValidationHelper().validatePasscode(value!),
+                //     onChanged: (value) async {
+                //       ref.watch(isEditingProvider.notifier).state = true;
+                //       if (value.isEmpty) {
+                //         ref.watch(isEditingProvider.notifier).state = false;
+                //       }
+                //       if (value.length == 4) {
+                //         FocusScope.of(context).unfocus();
+                //         ref.watch(isEditingProvider.notifier).state = false;
+                //       }
+                //     }),
                 const SizedBox(height: 96),
                 AbilityButton(
                   height: 60,
@@ -103,36 +104,29 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                       ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      await ref
-                          .read(loadingAgtBankDetail2.notifier)
-                          .resolveAccNumService(
-                            context: context,
-                            amount: widget
-                                .transferController.agtTransferAmount.text,
-                            description: widget
-                                .transferController.agtEnterTransferDesc.text,
-                            passcode: widget
-                                .transferController.agtEnterTransferCode.text,
-                          );
+                      confirmDetailsDialog(
+                        context: context,
+                        bankName: AgentPreference.getBankName().toString(),
+                        accountNumber:
+                            AgentPreference.getAccountNumber().toString(),
+                        accountName:
+                            AgentPreference.getAccountName().toString(),
+                        amount:
+                            widget.transferController.agtTransferAmount.text,
+                        onTap: () {
+                          PageNavigator(ctx: context).nextPageOnly(
+                              page: AgtEnterTransferCode(
+                                  ValidationHelper(), TransferController()));
+                        },
+                      );
+                      await AgentPreference.setTransferAmount(
+                          widget.transferController.agtTransferAmount.text);
+                      await AgentPreference.setTransDesc(
+                          widget.transferController.agtEnterTransferDesc.text);
+                      // PageNavigator(ctx: context)
+
+                      //   .nextPageOnly(page: const AggregatorProfileScreen());
                     }
-
-                    // print(selectedBankName);
-
-                    // confirmDetailsDialog(
-                    //   context: context,
-                    //   bankName: 'Guaranty trust bank plc',
-                    //   accountNumber: '0099887766',
-                    //   accountName: 'Ability Mensor',
-                    //   amount: '5000',
-                    //   onTap: () {
-                    //     PageNavigator(ctx: context).nextPageOnly(
-                    //         page: AgtEnterTransferCode(
-                    //             ValidationHelper(), TransferController()));
-                    //   },
-                    // );
-                    // PageNavigator(ctx: context)
-                    //
-                    //   .nextPageOnly(page: const AggregatorProfileScreen());
                   },
                   child: !ref.watch(loadingAgtBankDetail2)
                       ? Text(

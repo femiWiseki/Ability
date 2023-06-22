@@ -16,6 +16,8 @@ class AgentPreference {
   static const _keyAccountName = 'accountName';
   static const _keyAccountNumber = 'accountNumber';
   static const _keyBankName = 'bankName';
+  static const _keyTransferAmount = 'transferAmount';
+  static const _keyTransDesc = 'transferDesc';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -58,6 +60,12 @@ class AgentPreference {
   static Future setBankName(String bankName) async =>
       await _preferences.setString(_keyBankName, bankName);
 
+  static Future setTransferAmount(String transferAmount) async =>
+      await _preferences.setString(_keyTransferAmount, transferAmount);
+
+  static Future setTransDesc(String transferDesc) async =>
+      await _preferences.setString(_keyTransDesc, transferDesc);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -74,6 +82,11 @@ class AgentPreference {
   static String? getPhoneToken() => _preferences.getString(_keyPhoneToken);
 
   static String? getAccountName() => _preferences.getString(_keyAccountName);
+
+  static String? getTransferAmount() =>
+      _preferences.getString(_keyTransferAmount);
+
+  static String? getTransDesc() => _preferences.getString(_keyTransDesc);
 
   static String? getAccountNumber() =>
       _preferences.getString(_keyAccountNumber);

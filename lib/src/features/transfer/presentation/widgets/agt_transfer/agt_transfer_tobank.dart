@@ -88,7 +88,7 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                   maxLength: 10,
                   borderRadius: BorderRadius.circular(5),
                   validator: (value) =>
-                      ValidationHelper().validatePhoneNumber(value!),
+                      ValidationHelper().validateAccountNumber(value!),
                   onChanged: (value) async {
                     ref.watch(isEditingProvider.notifier).state = true;
                     if (value.isEmpty) {
@@ -205,8 +205,7 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                                   .agtTrasferAccountNumber.text);
                       await AgentPreference.setAccountNumber(widget
                           .transferController.agtTrasferAccountNumber.text);
-                      await AgentPreference.setBankName(
-                          selectedBankName.toString());
+                      await AgentPreference.setBankName(selectedBankName!);
                     }
 
                     // print(selectedBankName);

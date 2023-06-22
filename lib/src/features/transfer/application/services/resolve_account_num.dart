@@ -23,7 +23,7 @@ import 'package:http/http.dart' as http;
 class AgtResolveAccNumService extends StateNotifier<bool> {
   AgtResolveAccNumService() : super(false);
 
-  Future<ResolveAccNumModel> resolveAccNumService({
+  resolveAccNumService({
     required BuildContext context,
     required String bankName,
     required String accountNumber,
@@ -71,7 +71,6 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
       print(e.toString());
       state = false;
     }
-    throw ("Something went wrong");
   }
 }
 

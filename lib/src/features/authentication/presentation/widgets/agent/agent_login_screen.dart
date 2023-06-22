@@ -219,7 +219,7 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                       } else {
                         AgentPreference.clearLoginCredentials();
                       }
-                      print(AgentPreference.getPhoneNumber());
+                      // print(AgentPreference.getPhoneNumber());
                     },
                     borderColor:
                         ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
