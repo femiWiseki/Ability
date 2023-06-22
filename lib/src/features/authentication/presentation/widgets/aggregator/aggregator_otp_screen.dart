@@ -152,7 +152,7 @@ class _AggregatorOTPScreenState extends ConsumerState<AggregatorOTPScreen> {
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAggregatorOTP)
+                    child: ref.watch(loadingAggregatorOTP)
                         ? Text(
                             'continue',
                             style: AppStyleGilroy.kFontW6

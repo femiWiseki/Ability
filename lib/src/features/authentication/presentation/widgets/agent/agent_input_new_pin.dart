@@ -159,9 +159,17 @@ class _AgentInputNewPinState extends ConsumerState<AgentInputNewPin> {
                   ),
                   const SizedBox(height: 131),
                   AbilityButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        resetPinBottomSheet(context);
+                        await ref
+                            .watch(loadingAgentInputNewPin.notifier)
+                            .inputNewPinService(
+                                context: context,
+                                otp: widget.agentController.inputNewPinOTP.text,
+                                newPin:
+                                    widget.agentController.resetPassword.text,
+                                confirmPin: widget
+                                    .agentController.confirmResetPassword.text);
                       }
                     },
                     borderRadius: 10,
@@ -171,6 +179,18 @@ class _AgentInputNewPinState extends ConsumerState<AgentInputNewPin> {
                     buttonColor: ref.watch(isEditingProvider)
                         ? kPrimary.withOpacity(0.5)
                         : kPrimary,
+                    child: ref.watch(loadingAgentInputNewPin)
+                        ? Text(
+                            'continue',
+                            style: AppStyleGilroy.kFontW6
+                                .copyWith(color: kWhite, fontSize: 18),
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 6,
+                              color: kWhite,
+                            ),
+                          ),
                   )
                 ],
               ),

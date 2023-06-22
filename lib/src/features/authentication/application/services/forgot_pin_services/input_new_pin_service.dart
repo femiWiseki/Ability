@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
 import 'package:ability/src/constants/snack_messages.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -27,8 +28,8 @@ class AgentInputNewPinService extends StateNotifier<bool> {
         'Content-type': 'application/json'
       };
 
-      final String requestBody = jsonEncode(
-          {"newPin": "167676", "confirmPin": "167676", "otp": "676767"});
+      final String requestBody =
+          jsonEncode({"newPin": newPin, "confirmPin": confirmPin, "otp": otp});
 
       final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
@@ -37,6 +38,8 @@ class AgentInputNewPinService extends StateNotifier<bool> {
         final result = jsonDecode(response.body);
         successMessage(context: context, message: result["data"]["msg"]);
         print(result);
+
+        resetPinBottomSheet(context);
         state = false;
       } else {
         final result = jsonDecode(response.body);
@@ -58,7 +61,7 @@ class AgentInputNewPinService extends StateNotifier<bool> {
 class AggregatorInputNewPinService extends StateNotifier<bool> {
   AggregatorInputNewPinService() : super(false);
 
-  Future<void> resendOTPService({
+  Future<void> inputNewPinService({
     required BuildContext context,
     required String otp,
     required String newPin,
@@ -70,14 +73,16 @@ class AggregatorInputNewPinService extends StateNotifier<bool> {
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
       };
-      final String requestBody = jsonEncode(
-          {"newPin": "167676", "confirmPin": "167676", "otp": "676767"});
+      final String requestBody =
+          jsonEncode({"newPin": newPin, "confirmPin": confirmPin, "otp": otp});
       final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
         print(result);
+        resetPinBottomSheet(context);
+
         state = false;
       } else {
         final result = jsonDecode(response.body);

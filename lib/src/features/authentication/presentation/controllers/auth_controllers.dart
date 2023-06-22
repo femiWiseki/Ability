@@ -14,6 +14,7 @@ class AgentController {
 // Login
   final loginPhoneNumber = TextEditingController();
   final loginPassword = TextEditingController();
+  final loginPasscode = TextEditingController();
 
 // Reset Pin
   final pinRestEmail = TextEditingController();
@@ -36,6 +37,7 @@ class AggregatorController {
 // Login
   final loginPhoneNumber = TextEditingController();
   final loginPassword = TextEditingController();
+  final loginPasscode = TextEditingController();
 
 // // Reset Pin
   final pinRestEmail = TextEditingController();

@@ -1,31 +1,31 @@
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/commission/presentation/widgets/commission_screen.dart';
-import 'package:ability/src/features/home/presentation/widgets/home_screen.dart';
+import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_home_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
-import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/agg_profile_screen.dart';
-import 'package:ability/src/features/transfer/presentation/widgets/transfer_screen.dart';
+import 'package:ability/src/features/payment/presentation/widgets/payment_screen.dart';
+import 'package:ability/src/features/profile/presentation/widgets/agent_profile/agt_profile_screen.dart';
+import 'package:ability/src/features/transfer/presentation/widgets/agt_transfer/agt_transfer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class BottomNavBar extends ConsumerStatefulWidget {
+class AgtBottomNavBar extends ConsumerStatefulWidget {
   final StateProvider<int> indexProvider; // Added indexProvider parameter
 
-  const BottomNavBar({
+  const AgtBottomNavBar({
     Key? key,
     required this.indexProvider, // Added indexProvider parameter
   }) : super(key: key);
 
   @override
-  ConsumerState<BottomNavBar> createState() => _BottomNavBarState();
+  ConsumerState<AgtBottomNavBar> createState() => _AgtBottomNavBar();
 }
 
-class _BottomNavBarState extends ConsumerState<BottomNavBar> {
+class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
   final orangeColor = const Color(0xffFF8527);
   final screens = [
-    HomeScreen(),
-    TransferScreen(),
-    CommissionScreen(),
-    const AggregatorProfileScreen(),
+    AgtHomeScreen(),
+    const AgtTransferScreen(),
+    const PaymentScreen(),
+    const AgtProfileScreen(),
   ];
 
   @override
@@ -68,7 +68,7 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
       case 1:
         return 'Transfer';
       case 2:
-        return 'Commission';
+        return 'Payment';
       case 3:
         return 'Profile';
       default:

@@ -13,6 +13,9 @@ class AgentPreference {
   static const _keyPhoneToken = 'phoneToken';
   static const _keySavedPhoneNumber = 'savedPhoneNumber';
   static const _keySavedPassword = 'savedPassword';
+  static const _keyAccountName = 'accountName';
+  static const _keyAccountNumber = 'accountNumber';
+  static const _keyBankName = 'bankName';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -46,6 +49,15 @@ class AgentPreference {
   static Future setSavedPassword(String savedPassword) async =>
       await _preferences.setString(_keySavedPassword, savedPassword);
 
+  static Future setAccountName(String accountName) async =>
+      await _preferences.setString(_keyAccountName, accountName);
+
+  static Future setAccountNumber(String accountNumber) async =>
+      await _preferences.setString(_keyAccountNumber, accountNumber);
+
+  static Future setBankName(String bankName) async =>
+      await _preferences.setString(_keyBankName, bankName);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -59,6 +71,15 @@ class AgentPreference {
 
   static String? getAccessToken() => _preferences.getString(_keyAccessToken);
 
+  static String? getPhoneToken() => _preferences.getString(_keyPhoneToken);
+
+  static String? getAccountName() => _preferences.getString(_keyAccountName);
+
+  static String? getAccountNumber() =>
+      _preferences.getString(_keyAccountNumber);
+
+  static String? getBankName() => _preferences.getString(_keyBankName);
+
   static String? getSavedPhoneNumber() =>
       _preferences.getString(_keySavedPhoneNumber);
 
@@ -66,14 +87,19 @@ class AgentPreference {
       _preferences.getString(_keySavedPassword);
 
   /// Clear Agent Token when logged out..
-  static Future clearAccessToken() async {
-    await _preferences.remove(_keyAccessToken);
+  static Future logoutUser() async {
+    await _preferences.remove(_keyPhoneToken);
   }
 
   // Clear Agent Saved login credentials
   static Future clearLoginCredentials() async {
     await _preferences.remove(_keySavedPhoneNumber);
     await _preferences.remove(_keySavedPassword);
+  }
+
+  /// Clear AccountName..
+  static Future clearAccountName() async {
+    await _preferences.remove(_keyAccountName);
   }
 }
 
@@ -137,6 +163,8 @@ class AggregatorPreference {
 
   static String? getAccessToken() => _preferences.getString(_keyAccessToken);
 
+  static String? getPhoneToken() => _preferences.getString(_keyPhoneToken);
+
   static String? getSavedPhoneNumber() =>
       _preferences.getString(_keySavedPhoneNumber);
 
@@ -144,8 +172,8 @@ class AggregatorPreference {
       _preferences.getString(_keySavedPassword);
 
   // Clear Agent Token when logged out..
-  static Future clearAccessToken() async {
-    await _preferences.remove(_keyAccessToken);
+  static Future clearPhoneToken() async {
+    await _preferences.remove(_keyPhoneToken);
   }
 
   // Clear Agent Saved login credentials

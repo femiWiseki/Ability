@@ -1,12 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:ability/src/common_widgets/ability_button.dart';
+import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/application/services/login_services/login_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_pin_reset.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/landing_page.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
-import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
 import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/ability_phone_number.dart';
@@ -31,13 +32,13 @@ class AgentLoginScreen extends ConsumerStatefulWidget {
 class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  CountryCode? _countryCode;
-  late FlCountryCodePicker countryPicker;
+  // CountryCode? _countryCode;
+  // late FlCountryCodePicker countryPicker;
   int? maxLength = 10;
   @override
   void initState() {
-    final preferredCountries = ['NG'];
-    countryPicker = FlCountryCodePicker(filteredCountries: preferredCountries);
+    // final preferredCountries = ['NG'];
+    // countryPicker = FlCountryCodePicker(filteredCountries: preferredCountries);
     _loadSavedCredentials();
     super.initState();
   }
@@ -91,30 +92,28 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                             child: SizedBox(
                               width: 24,
                               height: 18,
-                              child:
-                                  _countryCode?.flagImage(fit: BoxFit.fill) ??
-                                      Image.asset(
-                                        'assets/icons/flag.png',
-                                        fit: BoxFit.fill,
-                                      ),
+                              child: Image.asset(
+                                'assets/icons/flag.png',
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 5.98, top: 3),
                             child: Text(
-                              _countryCode?.dialCode ?? '+234',
+                              '+234',
                               style: AppStyleGilroy.kFontW5
                                   .copyWith(fontSize: 14, color: kBlack2),
                             ),
                           ),
                           InkWell(
                             onTap: () async {
-                              final code = await countryPicker.showPicker(
-                                  context: context);
-                              setState(() {
-                                _countryCode = code;
-                                // updateMaxLength();
-                              });
+                              // final code = await countryPicker.showPicker(
+                              //     context: context);
+                              // setState(() {
+                              //   _countryCode = code;
+                              //   // updateMaxLength();
+                              // });
                             },
                             child: const Icon(
                               Icons.keyboard_arrow_down,
@@ -223,9 +222,9 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                       print(AgentPreference.getPhoneNumber());
                     },
                     borderColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     child: !ref.watch(loadingAgentLogin)
                         ? Text(
                             'continue',
@@ -238,6 +237,28 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                               color: kWhite,
                             ),
                           ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account? ",
+                        style: AppStyleRoboto.kFontW4
+                            .copyWith(fontSize: 16, color: kGrey2),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          PageNavigator(ctx: context)
+                              .nextPage(page: const LandingPage());
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: AppStyleRoboto.kFontW5
+                              .copyWith(fontSize: 16, color: kPrimary),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),

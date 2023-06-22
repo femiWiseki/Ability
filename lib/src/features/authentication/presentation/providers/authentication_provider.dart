@@ -1,4 +1,5 @@
 import 'package:ability/src/features/authentication/application/services/forgot_pin_services/input_new_pin_service.dart';
+import 'package:ability/src/features/authentication/application/services/login_services/passcode_login_service.dart';
 import 'package:ability/src/features/authentication/application/services/signup_services/create_account_service.dart';
 import 'package:ability/src/features/authentication/application/services/forgot_pin_services/pin_reset_service.dart';
 import 'package:ability/src/features/authentication/application/services/login_services/login_service.dart';
@@ -16,6 +17,10 @@ final loadingAgentOTP =
 
 final loadingAgentPasscode = StateNotifierProvider<AgentPasscodeService, bool>(
     (ref) => AgentPasscodeService());
+
+final loadingAgentLoginPasscode =
+    StateNotifierProvider<AgtPasscodeLoginService, bool>(
+        (ref) => AgtPasscodeLoginService());
 
 final loadingAgentLogin = StateNotifierProvider<AgentLoginService, bool>(
     (ref) => AgentLoginService());
@@ -39,6 +44,10 @@ final loadingAggregatorPasscode =
     StateNotifierProvider<AggregatorPasscodeService, bool>(
         (ref) => AggregatorPasscodeService());
 
+final loadingAggLoginPasscode =
+    StateNotifierProvider<AggPasscodeLoginService, bool>(
+        (ref) => AggPasscodeLoginService());
+
 final loadingAggregatorLogin =
     StateNotifierProvider<AggregatorLoginService, bool>(
         (ref) => AggregatorLoginService());
@@ -47,7 +56,7 @@ final loadingAggregatorPinRest =
     StateNotifierProvider<AggregatorPinResetService, bool>(
         (ref) => AggregatorPinResetService());
 
-final loadingAggregatorInputNewPin =
+final loadingAggInputNewPin =
     StateNotifierProvider<AggregatorInputNewPinService, bool>(
         (ref) => AggregatorInputNewPinService());
 

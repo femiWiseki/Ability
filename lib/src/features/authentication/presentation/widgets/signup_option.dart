@@ -25,8 +25,8 @@ class SignupOption extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(25, 20, 25, 0.0),
           child: Column(
             children: [
-              Row(
-                children: const [
+              const Row(
+                children: [
                   BackIcon(),
                 ],
               ),

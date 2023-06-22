@@ -2,14 +2,14 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/home/presentation/controllers/home_controllers.dart';
-import 'package:ability/src/features/home/presentation/widgets/enter_amount.dart';
+import 'package:ability/src/features/home/presentation/widgets/aggregator_home/agg_enter_amount.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/coming_soonbox.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class PaymentGateway extends ConsumerWidget {
-  const PaymentGateway({super.key});
+class AgtPaymentGateway extends ConsumerWidget {
+  const AgtPaymentGateway({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,7 +46,7 @@ class PaymentGateway extends ConsumerWidget {
                       title: 'Card',
                       onTap: () {
                         PageNavigator(ctx: context)
-                            .nextPage(page: EnterAmount(HomeControllers()));
+                            .nextPage(page: AggEnterAmount(HomeControllers()));
                       }),
                   const Divider(thickness: 1, color: kGrey3),
                   GeneralTile(

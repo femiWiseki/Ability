@@ -2,11 +2,15 @@ import 'package:ability/src/common_widgets/kflutter_switch.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_login_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/account_statement/agg_account_statement.dart';
 import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/agg_refactored_widgets/agg_contactus_tile.dart';
 import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/agg_refactored_widgets/agg_profile_card.dart';
+import 'package:ability/src/utils/helpers/validation_helper.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -212,7 +216,15 @@ class AggregatorProfileScreen extends ConsumerWidget {
                             title: 'Delete Account',
                             textStyle: AppStyleGilroy.kFontW5
                                 .copyWith(fontSize: 15, color: customColor2),
-                            onTap: () {},
+                            onTap: () {
+                              AggregatorPreference.clearPhoneToken()
+                                  .then((value) {
+                                PageNavigator(ctx: context).nextPageOnly(
+                                    page: AggregatorLoginScreen(
+                                        ValidationHelper(),
+                                        AggregatorController()));
+                              });
+                            },
                           ),
                         ],
                       ),

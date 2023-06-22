@@ -9,6 +9,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
+import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_login_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -39,14 +40,14 @@ class AggregatorPasscodeLogin extends ConsumerWidget {
                   Text('Passcode',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 10),
-                  Text('Agg Please login with your passcode',
+                  Text('Please login with your passcode',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 35),
                   Center(
                     child: GeneralPinCode(
                         pinLenght: 4,
                         boxPinShape: PinCodeFieldShape.box,
-                        controller: aggregatorController.signupPasscode,
+                        controller: aggregatorController.loginPasscode,
                         validator: (value) =>
                             validationHelper.validatePinCode2(value!)),
                   ),
@@ -55,18 +56,18 @@ class AggregatorPasscodeLogin extends ConsumerWidget {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         await ref
-                            .read(loadingAggregatorPasscode.notifier)
-                            .getPasscodeService(
+                            .read(loadingAggLoginPasscode.notifier)
+                            .passcodeLoginService(
                                 context: context,
                                 passcode:
-                                    aggregatorController.signupPasscode.text);
+                                    aggregatorController.loginPasscode.text);
                       }
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAggregatorPasscode)
+                    child: !ref.watch(loadingAggLoginPasscode)
                         ? Text(
                             'continue',
                             style: AppStyleGilroy.kFontW6
@@ -85,13 +86,14 @@ class AggregatorPasscodeLogin extends ConsumerWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          ref.watch(isAgentServiceProvider)
+                          !ref.watch(isAgentServiceProvider)
                               ? PageNavigator(ctx: context).nextPage(
                                   page: AgentLoginScreen(
                                       ValidationHelper(), AgentController()))
                               : PageNavigator(ctx: context).nextPage(
-                                  page: AgentLoginScreen(
-                                      ValidationHelper(), AgentController()));
+                                  page: AggregatorLoginScreen(
+                                      ValidationHelper(),
+                                      AggregatorController()));
                         },
                         child: Text(
                           "Login ",

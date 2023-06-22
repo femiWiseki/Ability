@@ -1,12 +1,14 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/ability_text_field.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/home/presentation/controllers/home_controllers.dart';
 import 'package:ability/src/features/home/presentation/providers/home_providers.dart';
+import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/currency_editing_controller.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
@@ -14,15 +16,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class EnterAmount extends ConsumerStatefulWidget {
+class AgtEnterAmount extends ConsumerStatefulWidget {
   HomeControllers homeControllers;
-  EnterAmount(this.homeControllers, {super.key});
+  AgtEnterAmount(this.homeControllers, {super.key});
 
   @override
-  ConsumerState<EnterAmount> createState() => _EnterAmountState();
+  ConsumerState<AgtEnterAmount> createState() => _AgtEnterAmount();
 }
 
-class _EnterAmountState extends ConsumerState<EnterAmount> {
+class _AgtEnterAmount extends ConsumerState<AgtEnterAmount> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final bool _checked = false;
   var publicKey = 'pk_test_ff5cf326e94c37944f34693bc685030cd16e5411';
@@ -55,10 +57,22 @@ class _EnterAmountState extends ConsumerState<EnterAmount> {
       charge: charge,
     );
 
+    final indexNumber = StateProvider<int>((ref) => 0);
+
     if (response.status = true) {
       message = 'Payment was successful. Ref: ${response.reference}';
       if (mounted) {}
-      fundWalletSuccessfullDialog(context);
+      generalSuccessfullDialog(
+        context: context,
+        description:
+            'Congratulations your account as been successful create continue to dashboard',
+        onTap: () {
+          PageNavigator(ctx: context).nextPageOnly(
+              page: AgtBottomNavBar(
+            indexProvider: indexNumber,
+          ));
+        },
+      );
     } else {
       print(response.message);
     }

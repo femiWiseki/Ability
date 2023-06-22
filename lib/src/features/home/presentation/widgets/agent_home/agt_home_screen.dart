@@ -2,13 +2,13 @@
 
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/home_screen_bar.dart';
+import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_home_screen_bar%20copy.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeScreen extends ConsumerWidget {
-  HomeScreen({super.key});
+class AgtHomeScreen extends ConsumerWidget {
+  AgtHomeScreen({super.key});
   var currentBalance = '500,000.00';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +16,7 @@ class HomeScreen extends ConsumerWidget {
       backgroundColor: kAsh1,
       body: Column(
         children: [
-          HomeScreenBar(currentBalance: currentBalance),
+          AgtHomeScreenBar(currentBalance: currentBalance),
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 15.84, 24, 0),
             child: Column(

@@ -6,10 +6,8 @@ import 'package:ability/src/features/authentication/presentation/controllers/aut
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_passcode_login.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_passcode_screen.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_login_screen.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_passcode_login.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/aggregator/aggregator_passcode_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +32,9 @@ class _LoginStateState extends ConsumerState<LoginState> {
 
   void _checkLoginState() async {
     await Future.delayed(const Duration(milliseconds: 500), () {});
-    if (AgentPreference.getAccessToken() == null ||
-        AggregatorPreference.getAccessToken() == null) {
-      ref.watch(isAgentServiceProvider)
+    if (AgentPreference.getPhoneToken() == null ||
+        AggregatorPreference.getPhoneToken() == null) {
+      !ref.watch(isAgentServiceProvider)
           ? PageNavigator(ctx: context).nextPageRep(
               page: AgentLoginScreen(ValidationHelper(), AgentController()),
             )

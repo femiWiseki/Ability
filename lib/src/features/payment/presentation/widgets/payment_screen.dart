@@ -3,8 +3,8 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TransferScreen extends ConsumerWidget {
-  const TransferScreen({super.key});
+class PaymentScreen extends ConsumerWidget {
+  const PaymentScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -14,7 +14,7 @@ class TransferScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Transfer Screen',
+              'Payment Screen',
               style: AppStyleGilroy.kFontW5.copyWith(fontSize: 30),
             )
           ],

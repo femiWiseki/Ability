@@ -36,7 +36,7 @@ class AggregatorPasscodeScreen extends ConsumerWidget {
                   Text('Passcode',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 10),
-                  Text('Agg Please set your passcode',
+                  Text('Please set your passcode',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 35),
                   Center(

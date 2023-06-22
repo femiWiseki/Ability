@@ -12,7 +12,6 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/otp_timer.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -166,18 +165,37 @@ class _AggregatorInputNewPinState extends ConsumerState<AggregatorInputNewPin> {
                   ),
                   const SizedBox(height: 131),
                   AbilityButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        resetPinBottomSheet(context);
+                        await ref
+                            .watch(loadingAggInputNewPin.notifier)
+                            .inputNewPinService(
+                                context: context,
+                                otp: widget
+                                    .aggregatorController.inputNewPinOTP.text,
+                                newPin: widget
+                                    .aggregatorController.resetPassword.text,
+                                confirmPin: widget.aggregatorController
+                                    .confirmResetPassword.text);
                       }
                     },
                     borderRadius: 10,
-                    borderColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
-                    buttonColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
+                    borderColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    buttonColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    child: !ref.watch(loadingAggInputNewPin)
+                        ? Text(
+                            'continue',
+                            style: AppStyleGilroy.kFontW6
+                                .copyWith(color: kWhite, fontSize: 18),
+                          )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 6,
+                              color: kWhite,
+                            ),
+                          ),
                   )
                 ],
               ),

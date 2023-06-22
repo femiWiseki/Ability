@@ -80,6 +80,8 @@ class AggregatorPinResetService extends StateNotifier<bool> {
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
         successMessage(context: context, message: result['message']);
+
+        // Routing
         navigatorKey.currentState!.push(CupertinoPageRoute(
             builder: (context) => AggregatorInputNewPin(
                 ValidationHelper(), AggregatorController())));

@@ -22,6 +22,7 @@ class AbilityTextField extends StatelessWidget {
     this.borderRadius,
     this.textAlign,
     this.borderColor,
+    this.readOnly,
   }) : super(key: key);
   final String? hintText;
   final String? heading;
@@ -37,6 +38,7 @@ class AbilityTextField extends StatelessWidget {
   final BorderRadius? borderRadius;
   final TextAlign? textAlign;
   final Color? borderColor;
+  final bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -56,18 +58,20 @@ class AbilityTextField extends StatelessWidget {
               minLines: maxLines,
               maxLines: maxLines,
               maxLength: maxLength,
+              readOnly: readOnly ?? false,
               textAlign: textAlign ?? TextAlign.start,
               textInputAction:
                   TextInputAction.done, // set the text input action to done
               onTap: () {
                 ref.watch(isEditingProvider.notifier).state = true;
               },
-              onChanged: (value) {
-                ref.watch(isEditingProvider.notifier).state = true;
-                if (value.isEmpty) {
-                  ref.watch(isEditingProvider.notifier).state = false;
-                }
-              },
+              onChanged: onChanged ??
+                  (value) {
+                    ref.watch(isEditingProvider.notifier).state = true;
+                    if (value.isEmpty) {
+                      ref.watch(isEditingProvider.notifier).state = false;
+                    }
+                  },
               onFieldSubmitted: (value) {
                 ref.watch(isEditingProvider.notifier).state = false;
               },

@@ -65,10 +65,6 @@ class _AggregatorResetPinState extends ConsumerState<AggregatorResetPin> {
                                 context: context,
                                 email: widget
                                     .aggregatorController.pinRestEmail.text);
-                        // PageNavigator(ctx: context).nextPage(
-                        //     page: AgentInputNewPin(
-                        //         ValidationHelper(), AgentController()));
-                        // agentShowBottomSheet(context);
                       }
                     },
                     borderColor:

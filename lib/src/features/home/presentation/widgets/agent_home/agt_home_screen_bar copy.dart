@@ -3,13 +3,14 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/home/presentation/providers/home_providers.dart';
-import 'package:ability/src/features/home/presentation/widgets/payment_gateway.dart';
+import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
+import 'package:ability/src/features/home/presentation/widgets/aggregator_home/agg_payment_gateway.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 
-class HomeScreenBar extends ConsumerWidget {
-  const HomeScreenBar({
+class AgtHomeScreenBar extends ConsumerWidget {
+  const AgtHomeScreenBar({
     super.key,
     required this.currentBalance,
   });
@@ -93,8 +94,9 @@ class HomeScreenBar extends ConsumerWidget {
               children: [
                 AbilityButton(
                   onPressed: () {
-                    PageNavigator(ctx: context)
-                        .nextPage(page: const PaymentGateway());
+                    final indexNumber = StateProvider<int>((ref) => 1);
+                    PageNavigator(ctx: context).nextPage(
+                        page: AgtBottomNavBar(indexProvider: indexNumber));
                   },
                   height: 44,
                   width: 167,
@@ -109,7 +111,7 @@ class HomeScreenBar extends ConsumerWidget {
                       ),
                       const SizedBox(width: 8.26),
                       Text(
-                        'Fund wallet',
+                        'Send Money',
                         style: AppStyleGilroy.kFontW7.copyWith(fontSize: 12.86),
                       ),
                     ],
@@ -120,8 +122,8 @@ class HomeScreenBar extends ConsumerWidget {
                   height: 44,
                   width: 167,
                   borderRadius: 7.35,
-                  buttonColor: kGrey19,
-                  borderColor: kGrey19,
+                  buttonColor: kWhite,
+                  borderColor: kWhite,
                   child: Row(
                     children: [
                       const Icon(
@@ -130,7 +132,7 @@ class HomeScreenBar extends ConsumerWidget {
                       ),
                       const SizedBox(width: 8.26),
                       Text(
-                        'Add Agent',
+                        'Bill Payment',
                         style: AppStyleGilroy.kFontW7.copyWith(fontSize: 12.86),
                       ),
                     ],

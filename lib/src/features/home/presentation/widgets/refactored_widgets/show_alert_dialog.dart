@@ -1,17 +1,20 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/home/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-fundWalletSuccessfullDialog(BuildContext context) {
+generalSuccessfullDialog({
+  required BuildContext context,
+  required String description,
+  required void Function()? onTap,
+}) {
   showDialog(
     context: context,
+    barrierColor: kAsh1.withOpacity(0.8),
+    barrierDismissible: false,
     builder: (BuildContext context) {
-      final indexNumber = StateProvider<int>((ref) => 0);
       return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -32,7 +35,7 @@ fundWalletSuccessfullDialog(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Congratulations your account as been successful create continue to dashboard',
+                  description,
                   textAlign: TextAlign.center,
                   style: AppStyleGilroy.kFontW5
                       .copyWith(fontSize: 12, color: kBlack2),
@@ -43,12 +46,7 @@ fundWalletSuccessfullDialog(BuildContext context) {
                     return AbilityButton(
                       width: 296,
                       borderRadius: 10,
-                      onPressed: () {
-                        PageNavigator(ctx: context).nextPageOnly(
-                            page: BottomNavBar(
-                          indexProvider: indexNumber,
-                        ));
-                      },
+                      onPressed: onTap,
                       borderColor: kPrimary,
                       buttonColor: kPrimary,
                     );

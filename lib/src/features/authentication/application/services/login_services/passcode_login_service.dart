@@ -6,7 +6,9 @@ import 'dart:io';
 import 'package:ability/globals.dart';
 import 'package:ability/src/constants/endpoints.dart';
 import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/features/home/presentation/widgets/bottom_navigation_bar.dart';
+import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
+import 'package:ability/src/features/home/presentation/widgets/aggregator_home/agg_bottom_nav_bar.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -16,21 +18,19 @@ class AgtPasscodeLoginService extends StateNotifier<bool> {
 
   Future<void> passcodeLoginService({
     required BuildContext context,
-    // required String email,
-    required String phoneNumber,
-    required String pin,
+    required String passcode,
   }) async {
     try {
       state = true;
+      var token = AgentPreference.getPhoneToken();
       final indexNumber = StateProvider<int>((ref) => 0);
-      String serviceUrl = kLoginAgentUrl;
+      String serviceUrl = kPasscodeLoginAgentUrl;
       final Map<String, String> serviceHeader = {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer $token'
       };
       final String requestBody = jsonEncode({
-        // "email": email,
-        "phoneNumber": phoneNumber,
-        "pin": pin,
+        "passcode": passcode,
       });
 
       final response = await http.post(Uri.parse(serviceUrl),
@@ -40,7 +40,7 @@ class AgtPasscodeLoginService extends StateNotifier<bool> {
         print(jsonDecode(response.body));
         // Routing
         navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => BottomNavBar(indexProvider: indexNumber)));
+            builder: (context) => AgtBottomNavBar(indexProvider: indexNumber)));
 
         state = false;
       } else {
@@ -64,31 +64,31 @@ class AggPasscodeLoginService extends StateNotifier<bool> {
 
   Future<void> passcodeLoginService({
     required BuildContext context,
-    // required String email,
-    required String phoneNumber,
-    required String pin,
+    required String passcode,
   }) async {
     try {
       state = true;
+      var token = AggregatorPreference.getPhoneToken();
       final indexNumber = StateProvider<int>((ref) => 0);
-      String serviceUrl = kLoginAggregatorUrl;
+
+      String serviceUrl = kPasscodeLoginAggUrl;
+
       final Map<String, String> serviceHeader = {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Authorization': 'Bearer $token'
       };
       final String requestBody = jsonEncode({
-        // "email": email,
-        "phoneNumber": phoneNumber,
-        "pin": pin,
+        "passcode": passcode,
       });
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
-      print(phoneNumber);
-      print(pin);
+
       if (response.statusCode == 200) {
         print(jsonDecode(response.body));
+
         // Routing
         navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => BottomNavBar(
+            builder: (context) => AggBottomNavBar(
                   indexProvider: indexNumber,
                 )));
 
