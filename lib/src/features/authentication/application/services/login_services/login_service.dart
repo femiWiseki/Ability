@@ -41,6 +41,7 @@ class AgentLoginService extends StateNotifier<bool> {
         final result = jsonDecode(response.body);
 
         await AgentPreference.setPhoneToken(result['data']['token']);
+
         // Routing
         navigatorKey.currentState!.push(CupertinoPageRoute(
             builder: (context) => AgtBottomNavBar(indexProvider: indexNumber)));

@@ -208,11 +208,11 @@ class AbilityPasswordField2 extends ConsumerWidget {
               ),
               counterText: '',
               hintText: hintText,
-              focusedBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.zero,
-                  borderSide: BorderSide(color: kPrimary)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  borderSide: const BorderSide(color: kPrimary)),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
+                borderRadius: BorderRadius.circular(5),
                 borderSide: BorderSide(color: kPrimary.withOpacity(0.3)),
               ),
               suffixIcon: GestureDetector(
@@ -234,13 +234,13 @@ class AbilityPasswordField2 extends ConsumerWidget {
               ),
               hintStyle:
                   AppStyleGilroy.kFontW5.copyWith(fontSize: 14, color: kGrey),
-              errorBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
-                borderSide: BorderSide(color: kRed),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(color: kRed),
               ),
-              focusedErrorBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
-                borderSide: BorderSide(color: kRed),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+                borderSide: const BorderSide(color: kRed),
               ),
             ),
           ),

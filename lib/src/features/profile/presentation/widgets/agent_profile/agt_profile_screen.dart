@@ -79,7 +79,7 @@ class AgtProfileScreen extends ConsumerWidget {
                             title: 'Account Statement',
                             onTap: () {
                               PageNavigator(ctx: context)
-                                  .nextPage(page: AggAccountStatement());
+                                  .nextPage(page: const AggAccountStatement());
                             },
                           ),
                           GeneralTile(

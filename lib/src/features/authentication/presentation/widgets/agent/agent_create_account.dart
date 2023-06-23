@@ -7,7 +7,6 @@ import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/authentication/application/services/signup_services/create_account_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';

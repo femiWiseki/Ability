@@ -146,9 +146,9 @@ class _AgentOTPScreenState extends ConsumerState<AgentOTPScreen> {
                       }
                     },
                     borderColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     child: !ref.watch(loadingAgentOTP)
                         ? Text(
                             'continue',

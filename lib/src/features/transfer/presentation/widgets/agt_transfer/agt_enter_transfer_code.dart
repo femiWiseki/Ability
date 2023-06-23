@@ -5,10 +5,7 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
-import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
 import 'package:ability/src/features/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
@@ -26,7 +23,7 @@ class AgtEnterTransferCode extends ConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final indexNumber = StateProvider<int>((ref) => 1);
+    // final indexNumber = StateProvider<int>((ref) => 1);
     return Scaffold(
       backgroundColor: kPrimary1,
       body: SafeArea(
@@ -86,7 +83,7 @@ class AgtEnterTransferCode extends ConsumerWidget {
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAgentLoginPasscode)
+                    child: !ref.watch(loadingAgtBankDetail2)
                         ? Text(
                             'continue',
                             style: AppStyleGilroy.kFontW6

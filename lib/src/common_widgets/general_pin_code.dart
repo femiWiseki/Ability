@@ -67,13 +67,26 @@ class _GeneralPinCodeState extends State<GeneralPinCode> {
             debugPrint("Completed");
             ref.watch(isEditingProvider.notifier).state = true;
           },
+          onSubmitted: (value) {
+            ref.watch(isEditingProvider.notifier).state = true;
+          },
+          onSaved: (newValue) {
+            ref.watch(isEditingProvider.notifier).state = true;
+          },
           onChanged: (value) {
             debugPrint(value);
-            ref.watch(isEditingProvider.notifier).state = true;
-            setState(() {
-              currentText = value;
-            });
+            ref.watch(isEditingProvider.notifier).state = false;
+            if (value.isEmpty) {
+              ref.watch(isEditingProvider.notifier).state = false;
+            }
+            // setState(() {
+            //   currentText = value;
+            // });
           },
+
+          // onTap: () {
+          //   ref.watch(isEditingProvider.notifier).state = true;
+          // },
           beforeTextPaste: (text) {
             debugPrint("Allowing to paste $text");
             return true;

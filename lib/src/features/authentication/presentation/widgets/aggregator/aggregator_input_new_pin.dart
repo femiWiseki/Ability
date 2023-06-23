@@ -11,7 +11,6 @@ import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

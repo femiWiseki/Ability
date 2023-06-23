@@ -1,4 +1,5 @@
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/expired_session.dart';
 import 'package:ability/src/features/commission/presentation/widgets/commission_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/aggregator_home/agg_home_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
@@ -20,11 +21,20 @@ class AggBottomNavBar extends ConsumerStatefulWidget {
 }
 
 class _AggBottomNavBarState extends ConsumerState<AggBottomNavBar> {
+  @override
+  void initState() {
+    super.initState();
+// Call the function after 5 minutes (300 seconds)
+    Future.delayed(const Duration(minutes: 1), () {
+      showSessionExpiredDialog(context);
+    });
+  }
+
   final orangeColor = const Color(0xffFF8527);
   final screens = [
     AggHomeScreen(),
-    AggTransferScreen(),
-    CommissionScreen(),
+    const AggTransferScreen(),
+    const CommissionScreen(),
     const AggregatorProfileScreen(),
   ];
 

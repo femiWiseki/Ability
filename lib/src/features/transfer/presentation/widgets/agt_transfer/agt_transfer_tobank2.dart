@@ -3,9 +3,7 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/ability_text_field.dart';
 import 'package:ability/src/common_widgets/app_header.dart';
-import 'package:ability/src/common_widgets/text_field_container.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
-import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
@@ -18,8 +16,6 @@ import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:dropdown_button3/dropdown_button3.dart';
-import 'package:intl/intl.dart';
 
 class AgtTransferToBank2 extends ConsumerStatefulWidget {
   TransferController transferController;
@@ -67,7 +63,7 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                       ValidationHelper().validateAmount(value!),
                 ),
                 const SizedBox(height: 27),
-                AbilityTextField(
+                GeneralTextField(
                   controller: widget.transferController.agtEnterTransferDesc,
                   heading: 'Enter Description (Optional)',
                   hintText: 'Enter Description',
@@ -114,7 +110,7 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                         amount:
                             widget.transferController.agtTransferAmount.text,
                         onTap: () {
-                          PageNavigator(ctx: context).nextPageOnly(
+                          PageNavigator(ctx: context).nextPage(
                               page: AgtEnterTransferCode(
                                   ValidationHelper(), TransferController()));
                         },

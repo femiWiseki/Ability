@@ -3,7 +3,6 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/landing_page.dart';
 import 'package:ability/user_state.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

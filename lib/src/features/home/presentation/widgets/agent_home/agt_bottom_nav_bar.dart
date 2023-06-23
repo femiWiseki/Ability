@@ -1,4 +1,5 @@
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/expired_session.dart';
 import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_home_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
 import 'package:ability/src/features/payment/presentation/widgets/payment_screen.dart';
@@ -20,6 +21,15 @@ class AgtBottomNavBar extends ConsumerStatefulWidget {
 }
 
 class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
+  @override
+  void initState() {
+    super.initState();
+// Call the function after 5 minutes (300 seconds)
+    Future.delayed(const Duration(minutes: 1), () {
+      showSessionExpiredDialog(context);
+    });
+  }
+
   final orangeColor = const Color(0xffFF8527);
   final screens = [
     AgtHomeScreen(),

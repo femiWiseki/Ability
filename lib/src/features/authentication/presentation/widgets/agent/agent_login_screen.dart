@@ -3,7 +3,6 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/authentication/application/services/login_services/login_service.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_pin_reset.dart';
 import 'package:ability/src/features/authentication/presentation/widgets/landing_page.dart';
@@ -11,11 +10,9 @@ import 'package:ability/src/utils/user_preference/user_preference.dart';
 
 import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/ability_phone_number.dart';
-import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/refactored_widgets/agent_signup_bottom_sheet.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -71,7 +68,7 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const BackIcon(),
+                  // const BackIcon(),
                   const SizedBox(height: 38),
                   Text('Welcome back',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),

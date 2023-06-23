@@ -29,9 +29,9 @@ class ValidationHelper {
 
   String? validatePassword(String value) {
     if (value.isEmpty) {
-      return "Enter a valid password";
+      return "Pin can not be empty";
     } else if (value.length < 6) {
-      return " Pin cannot be more than 6 characters";
+      return "Pin must be 6 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
       return "Pin can only be numbers";
     }
@@ -40,9 +40,9 @@ class ValidationHelper {
 
   String? validatePassword2(String value, String value2) {
     if (value.isEmpty) {
-      return "Enter a valid password";
+      return "Pin can not be empty";
     } else if (value.length < 6) {
-      return " Pin cannot be more than 6 characters";
+      return "Pin must be 6 characters";
     } else if (!value.contains(RegExp(r'[0-9]'))) {
       return "Pin must can only be numbers";
     } else if (value != value2) {
