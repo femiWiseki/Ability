@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final indexNumber = StateProvider<int>((ref) => 0);
+    // final indexNumber = StateProvider<int>((ref) => 0);
     return MaterialApp(
       scaffoldMessengerKey: snackBarKey,
       navigatorKey: navigatorKey,

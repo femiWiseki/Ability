@@ -25,7 +25,7 @@ class _AggBottomNavBarState extends ConsumerState<AggBottomNavBar> {
   void initState() {
     super.initState();
 // Call the function after 5 minutes (300 seconds)
-    Future.delayed(const Duration(minutes: 1), () {
+    Future.delayed(const Duration(minutes: 5), () {
       showSessionExpiredDialog(context);
     });
   }
