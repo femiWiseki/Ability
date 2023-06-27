@@ -21,14 +21,14 @@ class AggBottomNavBar extends ConsumerStatefulWidget {
 }
 
 class _AggBottomNavBarState extends ConsumerState<AggBottomNavBar> {
-  @override
-  void initState() {
-    super.initState();
-// Call the function after 5 minutes (300 seconds)
-    Future.delayed(const Duration(minutes: 5), () {
-      showSessionExpiredDialog(context);
-    });
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+// // Call the function after 5 minutes (300 seconds)
+//     Future.delayed(const Duration(minutes: 5), () {
+//       showSessionExpiredDialog(context);
+//     });
+//   }
 
   final orangeColor = const Color(0xffFF8527);
   final screens = [

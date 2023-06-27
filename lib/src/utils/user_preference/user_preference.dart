@@ -9,6 +9,8 @@ class AgentPreference {
   static const _keyLastName = 'lastName';
   static const _keyPhoneNumber = 'phoneNumber';
   static const _keyAccessToken = 'accessToken';
+  static const _keyRefreshToken = 'refreshToken';
+  static const _keyRefreshedToken = 'refreshedToken';
   static const _keyId = 'id';
   static const _keyPhoneToken = 'phoneToken';
   static const _keySavedPhoneNumber = 'savedPhoneNumber';
@@ -41,6 +43,12 @@ class AgentPreference {
 
   static Future setAccessToken(String accessToken) async =>
       await _preferences.setString(_keyAccessToken, accessToken);
+
+  static Future setRefreshToken(String refreshToken) async =>
+      await _preferences.setString(_keyRefreshToken, refreshToken);
+
+  static Future setRefreshedToken(String refreshedToken) async =>
+      await _preferences.setString(_keyRefreshedToken, refreshedToken);
 
   static Future setPhoneToken(String phoneToken) async =>
       await _preferences.setString(_keyPhoneToken, phoneToken);
@@ -78,6 +86,11 @@ class AgentPreference {
   static String? getId() => _preferences.getString(_keyId);
 
   static String? getAccessToken() => _preferences.getString(_keyAccessToken);
+
+  static String? getRefreshToken() => _preferences.getString(_keyRefreshToken);
+
+  static String? getRefreshedToken() =>
+      _preferences.getString(_keyRefreshedToken);
 
   static String? getPhoneToken() => _preferences.getString(_keyPhoneToken);
 

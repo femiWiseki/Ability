@@ -36,7 +36,8 @@ class AggHomeScreen extends ConsumerWidget {
                     child: ListView.builder(
                         itemCount: 10,
                         itemBuilder: (context, index) {
-                          return const RecentTransactionTile();
+                          return Text('data');
+                          // return const RecentTransactionTile();
                         }))
               ],
             ),

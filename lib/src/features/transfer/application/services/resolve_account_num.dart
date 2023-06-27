@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:ability/globals.dart';
 import 'package:ability/src/constants/endpoints.dart';
+import 'package:ability/src/constants/refresh_token_service.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/authentication/presentation/controllers/auth_controllers.dart';
@@ -42,10 +43,9 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
 
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
-
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        print(result);
+        // print(result);
 
         // Save details
         await AgentPreference.setAccountName(
@@ -55,52 +55,50 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
             .nextPage(page: AgtTransferToBank2(TransferController()));
         state = false;
         return ResolveAccNumModel.fromJson(result);
+      } else if (response.statusCode == 401) {
+        // Check if the request is unauthorized
+        String refreshUrl = kRefreshTokenUrl;
+        var refreshToken = AgentPreference.getRefreshToken();
+        final Map<String, String> refreshHeader = {'x-header': '$refreshToken'};
+
+        final refreshResponse =
+            await http.post(Uri.parse(refreshUrl), headers: refreshHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final String refreshedToken =
+              jsonDecode(refreshResponse.body)['data']['token'];
+          print(refreshedToken);
+
+          final Map<String, String> refreshedHeader = {
+            'Authorization': 'Bearer $refreshedToken'
+          };
+
+          final refreshedResponse = await http.post(Uri.parse(serviceUrl),
+              body: requestBody, headers: refreshedHeader);
+          // print(refreshedToken);
+          if (refreshedResponse.statusCode == 200) {
+            final result = jsonDecode(response.body);
+            print(result);
+
+            // Save details
+            await AgentPreference.setAccountName(
+                result['data']['data']['account_name']);
+
+            PageNavigator(ctx: context)
+                .nextPage(page: AgtTransferToBank2(TransferController()));
+            state = false;
+            return ResolveAccNumModel.fromJson(result);
+          } else {
+            final result = jsonDecode(response.body);
+            errorMessage(context: context, message: result['message']);
+            print('SecondRequest: $result');
+            state = false;
+          }
+        }
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);
-        print(result);
-        state = false;
-      }
-    } on SocketException {
-      errorMessage(
-          context: context, message: 'There is no internet connection.');
-      state = false;
-    } catch (e) {
-      print(e.toString());
-      state = false;
-    }
-  }
-}
-
-class AggregatorPinResetService extends StateNotifier<bool> {
-  AggregatorPinResetService() : super(false);
-
-  Future<void> pinResetService({
-    required BuildContext context,
-    required String email,
-  }) async {
-    try {
-      state = true;
-      String serviceUrl = kPinResetAggregatorUrl;
-      final Map<String, String> serviceHeader = {
-        'Content-type': 'application/json'
-      };
-      final String requestBody = jsonEncode({"email": email});
-      final response = await http.put(Uri.parse(serviceUrl),
-          body: requestBody, headers: serviceHeader);
-
-      if (response.statusCode == 200) {
-        final result = jsonDecode(response.body);
-        successMessage(context: context, message: result['message']);
-
-        // Routing
-        navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => AggregatorInputNewPin(
-                ValidationHelper(), AggregatorController())));
-        state = false;
-      } else {
-        final result = jsonDecode(response.body);
-        errorMessage(context: context, message: result['message']);
+        print('initialRequest: $result');
         state = false;
       }
     } on SocketException {

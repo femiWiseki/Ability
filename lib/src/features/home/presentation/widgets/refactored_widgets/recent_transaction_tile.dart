@@ -1,14 +1,23 @@
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RecentTransactionTile extends StatelessWidget {
+class RecentTransactionTile extends ConsumerWidget {
+  final String title;
+  final String dateTime;
+  final String amount;
+  final String status;
   const RecentTransactionTile({
+    required this.title,
+    required this.dateTime,
+    required this.amount,
+    required this.status,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       height: 65,
       width: double.maxFinite,
@@ -36,12 +45,12 @@ class RecentTransactionTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Pos Withdrawal',
+                          title,
                           style:
                               AppStyleGilroy.kFontW5.copyWith(fontSize: 12.71),
                         ),
                         Text(
-                          '-#4,100',
+                          amount,
                           style:
                               AppStyleGilroy.kFontW6.copyWith(fontSize: 10.89),
                         ),
@@ -51,12 +60,12 @@ class RecentTransactionTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'May 31, 20:54',
+                          dateTime,
                           style: AppStyleGilroy.kFontW6.copyWith(
                               fontSize: 7.26, color: kBlack2.withOpacity(0.6)),
                         ),
                         Text(
-                          'Successful',
+                          status,
                           style: AppStyleGilroy.kFontW6
                               .copyWith(fontSize: 10.89, color: kGreen),
                         ),

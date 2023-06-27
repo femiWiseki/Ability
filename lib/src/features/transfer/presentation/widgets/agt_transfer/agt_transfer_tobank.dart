@@ -7,6 +7,7 @@ import 'package:ability/src/common_widgets/text_field_container.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/refresh_token_service.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/transfer/presentation/providers/transfer_providers.dart';
@@ -42,7 +43,12 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
             child: Form(
               key: _formKey,
               child: Column(children: [
-                const AppHeader(heading: 'Transfer to Bank'),
+                InkWell(
+                    onTap: () {
+                      // refreshTokenService();
+                      print(AgentPreference.getRefreshedToken());
+                    },
+                    child: const AppHeader(heading: 'Transfer to Bank')),
                 const SizedBox(height: 68.89),
                 TextFieldContainer(
                   height: 50,

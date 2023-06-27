@@ -3,6 +3,7 @@ const baseUrl = "https://abitly.herokuapp.com";
 // final userId = UserPreference.getId();
 
 // Agent
+const kRefreshTokenUrl = "$baseUrl/api/v1/agents/refresh/token";
 const kCreateAccountAgentUrl = "$baseUrl/api/v1/agents/signup";
 const kVerifyAgenttUrl = "$baseUrl/api/v1/agents/auth/verify/number";
 const kLoginAgentUrl = "$baseUrl/api/v1/agents/login";
@@ -14,6 +15,8 @@ const kInputNewPinAgentUrl = "$baseUrl/api/v1/agents/reset-password";
 const kResolveAccountNumberUrl =
     "$baseUrl/api/v1/agents/resolve/account/number";
 const kMakeTransferUrl = "$baseUrl/api/v1/agents/transfer";
+const kAgtTransHistoryUrl = "$baseUrl/api/v1/agents/transaction-history";
+const kAgtProfileUrl = "$baseUrl/api/v1/agents/profile";
 
 // Aggregator
 const kCreateAccountAggregatorUrl = "$baseUrl/api/v1/aggregators/signup";

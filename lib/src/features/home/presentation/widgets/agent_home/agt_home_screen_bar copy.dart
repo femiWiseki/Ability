@@ -18,6 +18,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final agtProfile = ref.watch(getAgtProfileProvider);
     return Container(
       height: 333.32,
       width: double.maxFinite,
@@ -38,11 +39,17 @@ class AgtHomeScreenBar extends ConsumerWidget {
                           fontSize: 18.36, color: kWhite.withOpacity(0.9)),
                     ),
                     const SizedBox(height: 6),
-                    Text(
-                      'Hi Ayobami!',
-                      style: AppStyleGilroy.kFontW5.copyWith(
-                          fontSize: 11.02, color: kWhite.withOpacity(0.9)),
-                    )
+                    agtProfile.when(
+                        data: (data) {
+                          return Text(
+                            data.data.data.name,
+                            style: AppStyleGilroy.kFontW5.copyWith(
+                                fontSize: 11.02,
+                                color: kWhite.withOpacity(0.9)),
+                          );
+                        },
+                        error: (e, s) => Text(e.toString()),
+                        loading: () => const Text('.....')),
                   ],
                 ),
                 ClipOval(
