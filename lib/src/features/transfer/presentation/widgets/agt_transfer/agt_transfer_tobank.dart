@@ -7,7 +7,6 @@ import 'package:ability/src/common_widgets/text_field_container.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/constants/refresh_token_service.dart';
 import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/transfer/presentation/providers/transfer_providers.dart';

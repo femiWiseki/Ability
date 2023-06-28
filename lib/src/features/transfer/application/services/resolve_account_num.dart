@@ -63,37 +63,35 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
 
         final refreshResponse =
             await http.post(Uri.parse(refreshUrl), headers: refreshHeader);
+        print(refreshResponse);
+        final String refreshedToken =
+            jsonDecode(refreshResponse.body)['data']['token'];
+        print(refreshedToken);
 
-        if (refreshResponse.statusCode == 200) {
-          final String refreshedToken =
-              jsonDecode(refreshResponse.body)['data']['token'];
-          print(refreshedToken);
+        final Map<String, String> refreshedHeader = {
+          'Authorization': 'Bearer $refreshedToken'
+        };
 
-          final Map<String, String> refreshedHeader = {
-            'Authorization': 'Bearer $refreshedToken'
-          };
+        final refreshedResponse = await http.post(Uri.parse(serviceUrl),
+            body: requestBody, headers: refreshedHeader);
+        // print(refreshedToken);
+        if (refreshedResponse.statusCode == 200) {
+          final result = jsonDecode(response.body);
+          print(result);
 
-          final refreshedResponse = await http.post(Uri.parse(serviceUrl),
-              body: requestBody, headers: refreshedHeader);
-          // print(refreshedToken);
-          if (refreshedResponse.statusCode == 200) {
-            final result = jsonDecode(response.body);
-            print(result);
+          // Save details
+          await AgentPreference.setAccountName(
+              result['data']['data']['account_name']);
 
-            // Save details
-            await AgentPreference.setAccountName(
-                result['data']['data']['account_name']);
-
-            PageNavigator(ctx: context)
-                .nextPage(page: AgtTransferToBank2(TransferController()));
-            state = false;
-            return ResolveAccNumModel.fromJson(result);
-          } else {
-            final result = jsonDecode(response.body);
-            errorMessage(context: context, message: result['message']);
-            print('SecondRequest: $result');
-            state = false;
-          }
+          PageNavigator(ctx: context)
+              .nextPage(page: AgtTransferToBank2(TransferController()));
+          state = false;
+          return ResolveAccNumModel.fromJson(result);
+        } else {
+          final result = jsonDecode(response.body);
+          errorMessage(context: context, message: result['message']);
+          print('SecondRequest: $result');
+          state = false;
         }
       } else {
         final result = jsonDecode(response.body);

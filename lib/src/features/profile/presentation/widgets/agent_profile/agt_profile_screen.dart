@@ -6,6 +6,7 @@ import 'package:ability/src/features/authentication/presentation/controllers/aut
 import 'package:ability/src/features/authentication/presentation/widgets/agent/agent_login_screen.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/profile/presentation/providers/profile_providers.dart';
+import 'package:ability/src/features/profile/presentation/widgets/agent_profile/agt_passcode/agt_passcode_screen.dart';
 import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/account_statement/agg_account_statement.dart';
 import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/agg_refactored_widgets/agg_contactus_tile.dart';
 import 'package:ability/src/features/profile/presentation/widgets/aggregator_profile/agg_refactored_widgets/agg_profile_card.dart';
@@ -121,7 +122,10 @@ class AgtProfileScreen extends ConsumerWidget {
                           GeneralTile(
                             prefixIconPath: 'assets/icons/passcode.svg',
                             title: 'Passcode',
-                            onTap: () {},
+                            onTap: () {
+                              PageNavigator(ctx: context)
+                                  .nextPage(page: const AgtPasscodeScreen());
+                            },
                           ),
                           GeneralTile(
                             prefixIconPath: 'assets/icons/biometrics.svg',

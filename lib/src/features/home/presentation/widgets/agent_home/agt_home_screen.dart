@@ -3,7 +3,6 @@
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/home/application/services/agt_profile_service.dart';
-import 'package:ability/src/features/home/application/services/trans_history_service.dart';
 import 'package:ability/src/features/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/home/presentation/widgets/agent_home/agt_home_screen_bar%20copy.dart';
 import 'package:ability/src/features/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
@@ -44,28 +43,33 @@ class AgtHomeScreen extends ConsumerWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                   child: transHistory.when(
-                      data: (data) {
-                        final historyInfo =
-                            data.data.transactionHistory.map((e) => e).toList();
-                        return ListView.builder(
-                          itemCount: historyInfo.length,
-                          itemBuilder: (context, index) {
-                            DateTime historyTime = historyInfo[index].createdAt;
-                            String formattedDate =
-                                DateFormat('MMM dd, hh:mm').format(historyTime);
+                    data: (data) {
+                      final historyInfo =
+                          data.data.transactionHistory.map((e) => e).toList();
+                      return ListView.builder(
+                        itemCount: historyInfo.length,
+                        itemBuilder: (context, index) {
+                          DateTime historyTime = historyInfo[index].createdAt;
+                          String formattedDate =
+                              DateFormat('MMM dd, hh:mm').format(historyTime);
 
-                            return RecentTransactionTile(
-                                title:
-                                    historyInfo[index].transactionDescription,
-                                dateTime: formattedDate,
-                                amount: historyInfo[index].transactionAmount,
-                                status: historyInfo[index].transactionStatus);
-                          },
-                        );
-                      },
-                      error: (e, s) => Text(e.toString()),
-                      loading: () => const Text('')),
-                )
+                          return RecentTransactionTile(
+                              title: historyInfo[index].transactionDescription,
+                              dateTime: formattedDate,
+                              amount: historyInfo[index].transactionAmount,
+                              status: historyInfo[index].transactionStatus);
+                        },
+                      );
+                    },
+                    error: (e, s) => Text(e.toString()),
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 6,
+                        color: kWhite,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
