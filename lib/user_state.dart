@@ -3,7 +3,7 @@
 import 'package:ability/login_state.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/authentication/presentation/widgets/landing_page.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 

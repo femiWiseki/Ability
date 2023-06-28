@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
