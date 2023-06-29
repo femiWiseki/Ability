@@ -1,15 +1,18 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AgtProfileCard extends StatelessWidget {
+class AgtProfileCard extends ConsumerWidget {
   const AgtProfileCard({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final agtProfile = ref.watch(getAgtProfileProvider);
     return Container(
       width: 380,
       height: 267.38,
@@ -27,11 +30,16 @@ class AgtProfileCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15.48),
-          Text(
-            'Ajao Afeez',
-            style:
-                AppStyleGilroy.kFontW6.copyWith(fontSize: 18.64, color: kWhite),
-          ),
+          agtProfile.when(
+              data: (data) {
+                return Text(
+                  data.data.data.name,
+                  style: AppStyleGilroy.kFontW6
+                      .copyWith(fontSize: 18.64, color: kWhite),
+                );
+              },
+              error: (e, s) => Text(e.toString()),
+              loading: () => const Text('.....')),
           const SizedBox(height: 25.98),
           AbilityButton(
             onPressed: () {},

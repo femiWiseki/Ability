@@ -2,7 +2,7 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/agt_change_passcode.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/agt_input_oldpasscode.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/passcode_item_tile.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class AgtPasscodeScreen extends ConsumerWidget {
                       title: 'Change Passscode',
                       onTap: () async {
                         PageNavigator(ctx: context).nextPage(
-                            page: AgtChangePasscode(
+                            page: AgtInputOldPasscode(
                                 ValidationHelper(), AgentController()));
                       },
                     ),

@@ -47,8 +47,11 @@ class AgentCreateAccountService extends StateNotifier<bool> {
         //Save Agent Id and PhoneNumber
         final phoneNumber = result["data"]["phoneNumber"];
         final id = result["data"]["agentId"];
+        final accessToken = result["data"]["token"];
         await AgentPreference.setPhoneNumber(phoneNumber);
         await AgentPreference.setId(id);
+        await AgentPreference.setAccessToken(accessToken);
+        print(accessToken);
 
         // Routing
         navigatorKey.currentState!.push(CupertinoPageRoute(

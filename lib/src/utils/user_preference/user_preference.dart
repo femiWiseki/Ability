@@ -20,6 +20,7 @@ class AgentPreference {
   static const _keyBankName = 'bankName';
   static const _keyTransferAmount = 'transferAmount';
   static const _keyTransDesc = 'transferDesc';
+  static const _keyPasscodeStatus = 'passcodeStatus';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -74,6 +75,9 @@ class AgentPreference {
   static Future setTransDesc(String transferDesc) async =>
       await _preferences.setString(_keyTransDesc, transferDesc);
 
+  static Future setPasscodeStatus(String passcodeStatus) async =>
+      await _preferences.setString(_keyPasscodeStatus, passcodeStatus);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -112,6 +116,9 @@ class AgentPreference {
   static String? getSavedPassword() =>
       _preferences.getString(_keySavedPassword);
 
+  static String? getPasscodeStatus() =>
+      _preferences.getString(_keyPasscodeStatus);
+
   /// Clear Agent Token when logged out..
   static Future logoutUser() async {
     await _preferences.remove(_keyPhoneToken);
@@ -143,6 +150,7 @@ class AggregatorPreference {
   static const _keyPhoneToken = 'phoneToken';
   static const _keySavedPhoneNumber = 'savedPhoneNumber';
   static const _keySavedPassword = 'savedPassword';
+  static const _keyPasscodeStatus = 'passcodeStatus';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -176,6 +184,9 @@ class AggregatorPreference {
   static Future setSavedPassword(String savedPassword) async =>
       await _preferences.setString(_keySavedPassword, savedPassword);
 
+  static Future setPasscodeStatus(String passcodeStatus) async =>
+      await _preferences.setString(_keyPasscodeStatus, passcodeStatus);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -196,6 +207,9 @@ class AggregatorPreference {
 
   static String? getSavedPassword() =>
       _preferences.getString(_keySavedPassword);
+
+  static String? getPasscodeStatus() =>
+      _preferences.getString(_keyPasscodeStatus);
 
   // Clear Agent Token when logged out..
   static Future clearPhoneToken() async {

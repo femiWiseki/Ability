@@ -12,10 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class AgtChangePasscode extends ConsumerWidget {
+class AgtInputOldPasscode extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgentController agentController;
-  AgtChangePasscode(this.validationHelper, this.agentController, {super.key});
+  AgtInputOldPasscode(this.validationHelper, this.agentController, {super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -33,8 +33,8 @@ class AgtChangePasscode extends ConsumerWidget {
                 children: [
                   // const BackIcon(),
                   const AppHeader(heading: 'PASSCODE'),
-                  const SizedBox(height: 49),
-                  Text('Set Passcode',
+                  const SizedBox(height: 54.11),
+                  Text('Input old passcode',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 26.71),
                   Center(
@@ -49,11 +49,11 @@ class AgtChangePasscode extends ConsumerWidget {
                   AbilityButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await ref
-                            .read(loadingAgentPasscode.notifier)
-                            .getPasscodeService(
-                                context: context,
-                                passcode: agentController.signupPasscode.text);
+                        // await ref
+                        //     .read(loadingAgentPasscode.notifier)
+                        //     .getPasscodeService(
+                        //         context: context,
+                        //         passcode: agentController.signupPasscode.text);
                       }
                     },
                     borderColor:

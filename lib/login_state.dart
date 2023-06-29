@@ -36,20 +36,20 @@ class _LoginStateState extends ConsumerState<LoginState> {
     await Future.delayed(const Duration(milliseconds: 500), () {});
     if (AgentPreference.getPhoneToken() == null ||
         AggregatorPreference.getPhoneToken() == null) {
-      !ref.watch(isAgentServiceProvider)
-          ? PageNavigator(ctx: context).nextPageRep(
+      ref.watch(isAgentServiceProvider)
+          ? PageNavigator(ctx: context).nextPageOnly(
               page: AgentLoginScreen(ValidationHelper(), AgentController()),
             )
-          : PageNavigator(ctx: context).nextPageRep(
+          : PageNavigator(ctx: context).nextPageOnly(
               page: AggregatorLoginScreen(
                   ValidationHelper(), AggregatorController()),
             );
     } else {
       ref.watch(isAgentServiceProvider)
-          ? PageNavigator(ctx: context).nextPageRep(
+          ? PageNavigator(ctx: context).nextPageOnly(
               page: AgentPasscodeLogin(ValidationHelper(), AgentController()),
             )
-          : PageNavigator(ctx: context).nextPageRep(
+          : PageNavigator(ctx: context).nextPageOnly(
               page: AggregatorPasscodeLogin(
                   ValidationHelper(), AggregatorController()),
             );

@@ -64,7 +64,7 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
 
         final String refreshedToken =
             jsonDecode(refreshResponse.body)['data']['token'];
-        print(refreshedToken);
+        // print(refreshedToken);
 
         final Map<String, String> refreshedHeader = {
           'Content-type': 'application/json',
@@ -75,7 +75,8 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
             body: requestBody, headers: refreshedHeader);
 
         if (refreshedResponse.statusCode == 200) {
-          final result = jsonDecode(response.body);
+          final result = jsonDecode(refreshedResponse.body);
+          // print('This is my $result');
 
           // Save details
           await AgentPreference.setAccountName(

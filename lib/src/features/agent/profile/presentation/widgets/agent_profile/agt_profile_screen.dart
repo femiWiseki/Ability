@@ -8,8 +8,8 @@ import 'package:ability/src/features/agent/home/presentation/providers/home_prov
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/agt_passcode_screen.dart';
-import 'package:ability/src/features/aggregator/profile/presentation/widgets/aggregator_profile/agg_refactored_widgets/agg_contactus_tile.dart';
-import 'package:ability/src/features/aggregator/profile/presentation/widgets/aggregator_profile/agg_refactored_widgets/agg_profile_card.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_contactus_tile.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_profile_card.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
@@ -28,13 +28,13 @@ class AgtProfileScreen extends ConsumerWidget {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                'Agent Profile',
+                'Profile',
                 style: AppStyleGilroy.kFontW6.copyWith(fontSize: 30),
               ),
               const SizedBox(height: 16.91),
-              const AggProfileCard(), // Create for Agent too
+              const AgtProfileCard(), // Create for Agent too
               const SizedBox(height: 20),
-              const AggContactUsTile(),
+              const AgtContactUsTile(),
               const SizedBox(height: 20),
               Expanded(
                 child: ListView(

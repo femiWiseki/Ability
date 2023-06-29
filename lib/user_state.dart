@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:ability/login_state.dart';
+import 'package:ability/passcode_state.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
@@ -30,7 +31,7 @@ class _UserStateState extends State<UserState> {
         AggregatorPreference.getId() == null) {
       PageNavigator(ctx: context).nextPageOnly(page: const LandingPage());
     } else {
-      PageNavigator(ctx: context).nextPageOnly(page: const LoginState());
+      PageNavigator(ctx: context).nextPageOnly(page: const PasscodeState());
     }
   }
 

@@ -36,11 +36,7 @@ class AgentOTPService extends StateNotifier<bool> {
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-
-        //Save Agent Id and PhoneNumber
-        final accessToken = result["data"]["token"];
-        await AgentPreference.setAccessToken(accessToken);
-        print(accessToken);
+        print(result);
 
         // Routing
         agentSignupBottomSheet(context);

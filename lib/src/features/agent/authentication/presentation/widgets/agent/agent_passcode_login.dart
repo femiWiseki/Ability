@@ -37,7 +37,7 @@ class AgentPasscodeLogin extends ConsumerWidget {
                   const SizedBox(height: 39),
                   Text('Passcode',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 54.11),
                   Text('Please login with your passcode',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 35),

@@ -36,8 +36,13 @@ class AgentPasscodeService extends StateNotifier<bool> {
 
       final response = await http.put(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
-
+      print(token);
       if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+
+        //Save Agent Passcode Status
+        await AgentPreference.setPasscodeStatus(result['status']);
+
         successMessage(context: context, message: 'Passcode set successfully');
         navigatorKey.currentState!.push(CupertinoPageRoute(
             builder: (context) =>

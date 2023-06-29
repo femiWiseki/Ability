@@ -42,6 +42,10 @@ class AggregatorPasscodeService extends StateNotifier<bool> {
       print(passcode);
       print(token);
       if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+
+        //Save Agent Passcode Status
+        await AggregatorPreference.setPasscodeStatus(result['status']);
         successMessage(context: context, message: 'Passcode set successfully');
 
         navigatorKey.currentState!.push(CupertinoPageRoute(

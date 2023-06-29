@@ -18,7 +18,6 @@ class AgtProfileService {
       String serviceUrl = kAgtProfileUrl;
 
       final Map<String, String> serviceHeader = {
-        'Content-type': 'application/json',
         'Authorization': 'Bearer $token'
       };
 
