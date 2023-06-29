@@ -67,9 +67,9 @@ class AbilityTextField extends StatelessWidget {
               },
               onChanged: onChanged ??
                   (value) {
-                    ref.watch(isEditingProvider.notifier).state = true;
+                    ref.watch(isEditingProvider.notifier).state = false;
                     if (value.isEmpty) {
-                      ref.watch(isEditingProvider.notifier).state = false;
+                      ref.watch(isEditingProvider.notifier).state = true;
                     }
                   },
               onFieldSubmitted: (value) {

@@ -58,6 +58,7 @@ const kGrey20 = Color(0XFF888888);
 const kGrey21 = Color(0XFFEBEBEB);
 const kGrey22 = Color(0XFFDCDCDC);
 const kGrey23 = Color(0XFF6D7579);
+const kGrey24 = Color(0XFF7A7A7A);
 
 // Ash Group
 const kAsh1 = Color(0XFFF2F2F4);

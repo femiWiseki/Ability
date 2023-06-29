@@ -49,9 +49,6 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
 
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
-      print(requestBody);
-      print(response.statusCode);
-      print(response.body);
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
@@ -66,11 +63,47 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
                   page: AgtBottomNavBar(indexProvider: indexNumber));
             });
 
-        // Save details
-        await AgentPreference.setAccountName(
-            result['data']['data']['account_name']);
         state = false;
         return ResolveAccNumModel.fromJson(result);
+        // Check if the request is unauthorized
+      } else if (response.statusCode == 401) {
+        String refreshUrl = kRefreshTokenUrl;
+        var refreshToken = AgentPreference.getRefreshToken();
+        final Map<String, String> refreshHeader = {'x-header': '$refreshToken'};
+
+        final refreshResponse =
+            await http.post(Uri.parse(refreshUrl), headers: refreshHeader);
+
+        final String refreshedToken =
+            jsonDecode(refreshResponse.body)['data']['token'];
+        print(refreshedToken);
+
+        final Map<String, String> refreshedHeader = {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer $refreshedToken'
+        };
+
+        final refreshedResponse = await http.post(Uri.parse(serviceUrl),
+            body: requestBody, headers: refreshedHeader);
+
+        if (refreshedResponse.statusCode == 200) {
+          final result = jsonDecode(response.body);
+
+          generalSuccessfullDialog(
+              context: context,
+              description:
+                  'Congratulations your transfer was successful completed',
+              onTap: () {
+                PageNavigator(ctx: context).nextPageOnly(
+                    page: AgtBottomNavBar(indexProvider: indexNumber));
+              });
+          state = false;
+          return ResolveAccNumModel.fromJson(result);
+        } else {
+          final result = jsonDecode(response.body);
+          errorMessage(context: context, message: result['message']);
+          state = false;
+        }
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);

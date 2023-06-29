@@ -39,9 +39,6 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
 
-      // print(response.statusCode);
-      // print(response.body);
-
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
         // print(result);
@@ -55,17 +52,15 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
 
         state = false;
         return ResolveAccNumModel.fromJson(result);
-      } else if (response.statusCode == 401) {
+
         // Check if the request is unauthorized
-        print('Just testing');
+      } else if (response.statusCode == 401) {
         String refreshUrl = kRefreshTokenUrl;
         var refreshToken = AgentPreference.getRefreshToken();
         final Map<String, String> refreshHeader = {'x-header': '$refreshToken'};
 
         final refreshResponse =
             await http.post(Uri.parse(refreshUrl), headers: refreshHeader);
-        // print(refreshResponse.body);
-        // print(refreshResponse.statusCode);
 
         final String refreshedToken =
             jsonDecode(refreshResponse.body)['data']['token'];
@@ -78,14 +73,9 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
 
         final refreshedResponse = await http.post(Uri.parse(serviceUrl),
             body: requestBody, headers: refreshedHeader);
-        print(refreshedResponse.statusCode);
-        print(refreshedResponse.body);
-        print(requestBody);
-        print(serviceUrl);
 
         if (refreshedResponse.statusCode == 200) {
           final result = jsonDecode(response.body);
-          // print(result);
 
           // Save details
           await AgentPreference.setAccountName(
@@ -98,7 +88,6 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
         } else {
           final result = jsonDecode(response.body);
           errorMessage(context: context, message: result['message']);
-          // print('SecondRequest: $result');
           state = false;
         }
       } else {
