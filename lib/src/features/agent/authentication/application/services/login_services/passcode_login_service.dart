@@ -42,6 +42,39 @@ class AgtPasscodeLoginService extends StateNotifier<bool> {
             builder: (context) => AgtBottomNavBar(indexProvider: indexNumber)));
 
         state = false;
+      } else if (response.statusCode == 401) {
+        String refreshUrl = kRefreshTokenUrl;
+        var refreshToken = AgentPreference.getRefreshToken();
+        final Map<String, String> refreshHeader = {'x-header': '$refreshToken'};
+
+        final refreshResponse =
+            await http.post(Uri.parse(refreshUrl), headers: refreshHeader);
+
+        final String refreshedToken =
+            jsonDecode(refreshResponse.body)['data']['token'];
+        // print(refreshedToken);
+
+        final Map<String, String> refreshedHeader = {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer $refreshedToken'
+        };
+
+        final refreshedResponse = await http.post(Uri.parse(serviceUrl),
+            body: requestBody, headers: refreshedHeader);
+
+        if (refreshedResponse.statusCode == 200) {
+          print(jsonDecode(refreshedResponse.body));
+          // Routing
+          navigatorKey.currentState!.push(CupertinoPageRoute(
+              builder: (context) =>
+                  AgtBottomNavBar(indexProvider: indexNumber)));
+
+          state = false;
+        } else {
+          final result = jsonDecode(response.body);
+          errorMessage(context: context, message: result['message']);
+          state = false;
+        }
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);

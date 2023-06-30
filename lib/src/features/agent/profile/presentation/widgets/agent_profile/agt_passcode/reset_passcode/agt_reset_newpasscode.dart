@@ -5,17 +5,20 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/change_passcode/agt_confirm_newpasscode.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class AgtInputOldPasscode extends ConsumerWidget {
+class AgtResetNewPasscode extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgentController agentController;
-  AgtInputOldPasscode(this.validationHelper, this.agentController, {super.key});
+  AgtResetNewPasscode(this.validationHelper, this.agentController, {super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -34,21 +37,24 @@ class AgtInputOldPasscode extends ConsumerWidget {
                   // const BackIcon(),
                   const AppHeader(heading: 'PASSCODE'),
                   const SizedBox(height: 54.11),
-                  Text('Input old passcode',
+                  Text('Input new passcode',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 26.71),
                   Center(
                     child: GeneralPinCode(
                         pinLenght: 4,
                         boxPinShape: PinCodeFieldShape.box,
-                        controller: agentController.changePasscode,
+                        controller: agentController.resetNewPasscode,
                         validator: (value) =>
-                            validationHelper.validatePinCode2(value!)),
+                            validationHelper.validateNewPasscode(value!)),
                   ),
                   const SizedBox(height: 153.54),
                   AbilityButton(
                     onPressed: () async {
+                      final indexNumber = StateProvider((ref) => 3);
                       if (_formKey.currentState!.validate()) {
+                        PageNavigator(ctx: context).nextPage(
+                            page: AgtBottomNavBar(indexProvider: indexNumber));
                         // await ref
                         //     .read(loadingAgentPasscode.notifier)
                         //     .getPasscodeService(

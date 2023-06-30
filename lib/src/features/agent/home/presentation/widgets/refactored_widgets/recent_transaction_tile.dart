@@ -1,7 +1,9 @@
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
+import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class RecentTransactionTile extends ConsumerWidget {
   final String title;
@@ -50,9 +52,13 @@ class RecentTransactionTile extends ConsumerWidget {
                               AppStyleGilroy.kFontW5.copyWith(fontSize: 12.71),
                         ),
                         Text(
-                          amount,
+                          NumberFormat.currency(
+                                  locale: 'en_NG',
+                                  decimalDigits: 2,
+                                  symbol: '₦')
+                              .format(int.parse(amount)),
                           style:
-                              AppStyleGilroy.kFontW6.copyWith(fontSize: 10.89),
+                              AppStyleRoboto.kFontW6.copyWith(fontSize: 10.89),
                         ),
                       ],
                     ),

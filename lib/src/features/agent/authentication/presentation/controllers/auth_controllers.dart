@@ -22,6 +22,13 @@ class AgentController {
   final resetPassword = TextEditingController();
   final confirmResetPassword = TextEditingController();
 
-// Profile Pin
-  final changePasscode = TextEditingController();
+// Change Passcode
+  final oldPasscode = TextEditingController();
+  final newPasscode = TextEditingController();
+  final confirmNewPasscode = TextEditingController();
+
+// Reset Passcode
+  final resetPasscode = TextEditingController();
+  final verifyOTPPasscode = TextEditingController();
+  final resetNewPasscode = TextEditingController();
 }

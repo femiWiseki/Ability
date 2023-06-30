@@ -31,6 +31,35 @@ class AgtProfileService {
         print(result);
 
         return AgtProfileModel.fromJson(result);
+      } else if (response.statusCode == 401) {
+        String refreshUrl = kRefreshTokenUrl;
+        var refreshToken = AgentPreference.getRefreshToken();
+        final Map<String, String> refreshHeader = {'x-header': '$refreshToken'};
+
+        final refreshResponse =
+            await http.post(Uri.parse(refreshUrl), headers: refreshHeader);
+
+        final String refreshedToken =
+            jsonDecode(refreshResponse.body)['data']['token'];
+        // print(refreshedToken);
+
+        final Map<String, String> refreshedHeader = {
+          'Authorization': 'Bearer $refreshedToken'
+        };
+
+        final refreshedResponse =
+            await http.get(Uri.parse(serviceUrl), headers: refreshedHeader);
+
+        if (refreshedResponse.statusCode == 200) {
+          final result = jsonDecode(refreshedResponse.body);
+          print(result);
+
+          return AgtProfileModel.fromJson(result);
+        } else {
+          final result = jsonDecode(response.body);
+          // errorMessage(context: context, message: result['message']);
+          print(result);
+        }
       } else {
         final result = jsonDecode(response.body);
         // errorMessage(context: context, message: result['message']);

@@ -3,28 +3,34 @@
 import 'dart:async';
 
 import 'package:ability/src/common_widgets/ability_button.dart';
+import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/application/services/resend_otp_service.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/reset_passcode/agt_reset_newpasscode.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AgentOTPScreen extends ConsumerStatefulWidget {
+class AgtVerifyResetPasscode extends ConsumerStatefulWidget {
   ValidationHelper validationHelper;
   AgentController agentController;
-  AgentOTPScreen(this.validationHelper, this.agentController, {super.key});
+  AgtVerifyResetPasscode(this.validationHelper, this.agentController,
+      {super.key});
 
   @override
-  ConsumerState<AgentOTPScreen> createState() => _AgentOTPScreenState();
+  ConsumerState<AgtVerifyResetPasscode> createState() =>
+      _AgtVerifyResetPasscodeState();
 }
 
-class _AgentOTPScreenState extends ConsumerState<AgentOTPScreen> {
+class _AgtVerifyResetPasscodeState
+    extends ConsumerState<AgtVerifyResetPasscode> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ValueNotifier<int> _timerNotifier = ValueNotifier<int>(60);
 
@@ -69,14 +75,8 @@ class _AgentOTPScreenState extends ConsumerState<AgentOTPScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const BackIcon(),
-                  const SizedBox(height: 39),
-                  Text('OTP',
-                      style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
-                  const SizedBox(height: 10),
-                  Text('Please enter the code sent to your Email',
-                      style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
-                  const SizedBox(height: 35),
+                  const AppHeader(heading: 'PASSCODE'),
+                  const SizedBox(height: 74),
                   Container(
                     height: 105,
                     decoration: BoxDecoration(
@@ -94,7 +94,8 @@ class _AgentOTPScreenState extends ConsumerState<AgentOTPScreen> {
                         child: GeneralPinCode(
                             pinLenght: 6,
                             fieldWidth: 27,
-                            controller: widget.agentController.signupOTPPin,
+                            controller:
+                                widget.agentController.verifyOTPPasscode,
                             validator: (value) => widget.validationHelper
                                 .validatePinCode(value!)),
                       ),
@@ -136,14 +137,17 @@ class _AgentOTPScreenState extends ConsumerState<AgentOTPScreen> {
                   const SizedBox(height: 171),
                   AbilityButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        await ref
-                            .read(loadingAgentOTP.notifier)
-                            .agentOTPService(
-                                context: context,
-                                otp: widget.agentController.signupOTPPin.text);
-                        // agentShowBottomSheet(context);
-                      }
+                      PageNavigator(ctx: context).nextPage(
+                          page: AgtResetNewPasscode(
+                              ValidationHelper(), AgentController()));
+                      // if (_formKey.currentState!.validate()) {
+                      //   await ref
+                      //       .read(loadingAgentOTP.notifier)
+                      //       .agentOTPService(
+                      //           context: context,
+                      //           otp: widget.agentController.signupOTPPin.text);
+                      //   // agentShowBottomSheet(context);
+                      // }
                     },
                     borderColor:
                         ref.watch(isEditingProvider) ? kGrey23 : kPrimary,

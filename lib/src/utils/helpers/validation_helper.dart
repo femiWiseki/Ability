@@ -111,4 +111,38 @@ class ValidationHelper {
       return null;
     }
   }
+
+  String? validateOldPasscode(String value) {
+    if (value.length < 3) {
+      return "Passcode is not complete.";
+    } else if (value.isEmpty) {
+      return "Passcode can not be empty";
+      // } else if (value != value2) {
+      //   return "Passcode is not correct.";
+    } else {
+      return null;
+    }
+  }
+
+  String? validateNewPasscode(String value) {
+    if (value.length < 3) {
+      return "Passcode is not complete.";
+    } else if (value.isEmpty) {
+      return "Passcode can not be empty";
+    } else {
+      return null;
+    }
+  }
+
+  String? validateConfirmNewPasscode(String value) {
+    if (value.length < 3) {
+      return "Passcode is not complete.";
+    } else if (value.isEmpty) {
+      return "Passcode can not be empty";
+      // } else if (value != value2) {
+      //   return "Passcode do not match.";
+    } else {
+      return null;
+    }
+  }
 }

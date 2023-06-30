@@ -8,7 +8,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
-import 'package:ability/src/features/agent/transfer/domain/models/resolve_acc_num_model.dart';
+import 'package:ability/src/features/agent/transfer/domain/models/agt_transfer_money_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,7 +52,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        print(result);
+        // print(result);
 
         generalSuccessfullDialog(
             context: context,
@@ -64,7 +64,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
             });
 
         state = false;
-        return ResolveAccNumModel.fromJson(result);
+        return AgtTransferMoneyModel.fromJson(result);
         // Check if the request is unauthorized
       } else if (response.statusCode == 401) {
         String refreshUrl = kRefreshTokenUrl;
@@ -76,7 +76,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
 
         final String refreshedToken =
             jsonDecode(refreshResponse.body)['data']['token'];
-        print(refreshedToken);
+        // print(refreshedToken);
 
         final Map<String, String> refreshedHeader = {
           'Content-type': 'application/json',
@@ -87,7 +87,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
             body: requestBody, headers: refreshedHeader);
 
         if (refreshedResponse.statusCode == 200) {
-          final result = jsonDecode(response.body);
+          final result = jsonDecode(refreshedResponse.body);
 
           generalSuccessfullDialog(
               context: context,
@@ -98,7 +98,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
                     page: AgtBottomNavBar(indexProvider: indexNumber));
               });
           state = false;
-          return ResolveAccNumModel.fromJson(result);
+          return AgtTransferMoneyModel.fromJson(result);
         } else {
           final result = jsonDecode(response.body);
           errorMessage(context: context, message: result['message']);

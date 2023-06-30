@@ -5,17 +5,19 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/change_passcode/agt_input_newpasscode.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class AgtChangePasscode extends ConsumerWidget {
+class AgtInputOldPasscode extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgentController agentController;
-  AgtChangePasscode(this.validationHelper, this.agentController, {super.key});
+  AgtInputOldPasscode(this.validationHelper, this.agentController, {super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -33,27 +35,31 @@ class AgtChangePasscode extends ConsumerWidget {
                 children: [
                   // const BackIcon(),
                   const AppHeader(heading: 'PASSCODE'),
-                  const SizedBox(height: 49),
-                  Text('Set Passcode',
+                  const SizedBox(height: 54.11),
+                  Text('Input old passcode',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 26.71),
-                  // Center(
-                  //   child: GeneralPinCode(
-                  //       pinLenght: 4,
-                  //       boxPinShape: PinCodeFieldShape.box,
-                  //       controller: agentController.changePasscode,
-                  //       validator: (value) =>
-                  //           validationHelper.validatePinCode2(value!)),
-                  // ),
+                  Center(
+                    child: GeneralPinCode(
+                        pinLenght: 4,
+                        boxPinShape: PinCodeFieldShape.box,
+                        controller: agentController.oldPasscode,
+                        validator: (value) =>
+                            validationHelper.validateOldPasscode(value!)),
+                  ),
                   const SizedBox(height: 153.54),
                   AbilityButton(
                     onPressed: () async {
+                      print(agentController.loginPasscode.text);
                       if (_formKey.currentState!.validate()) {
-                        await ref
-                            .read(loadingAgentPasscode.notifier)
-                            .getPasscodeService(
-                                context: context,
-                                passcode: agentController.signupPasscode.text);
+                        PageNavigator(ctx: context).nextPage(
+                            page: AgtInputNewPasscode(
+                                ValidationHelper(), AgentController()));
+                        // await ref
+                        //     .read(loadingAgentPasscode.notifier)
+                        //     .getPasscodeService(
+                        //         context: context,
+                        //         passcode: agentController.signupPasscode.text);
                       }
                     },
                     borderColor:

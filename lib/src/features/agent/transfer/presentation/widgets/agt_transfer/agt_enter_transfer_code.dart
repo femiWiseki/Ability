@@ -71,13 +71,7 @@ class AgtEnterTransferCode extends ConsumerWidget {
                                   transferController.agtEnterTransferCode.text,
                             );
                         print(AgentPreference.getBankName());
-                        // await ref
-                        //     .read(loadingAgentLoginPasscode.notifier)
-                        //     .passcodeLoginService(
-                        //         context: context,
-                        //         passcode: transferController.agtEnterTransferCode.text);
                       }
-                      // print(AgentPreference.getPhoneToken());
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
