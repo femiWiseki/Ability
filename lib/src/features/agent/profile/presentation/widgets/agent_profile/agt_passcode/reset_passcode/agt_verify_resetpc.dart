@@ -13,10 +13,12 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/application/services/resend_otp_service.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/reset_passcode/agt_reset_newpasscode.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class AgtVerifyResetPasscode extends ConsumerStatefulWidget {
   ValidationHelper validationHelper;
@@ -134,7 +136,7 @@ class _AgtVerifyResetPasscodeState
                       ),
                     ],
                   ),
-                  const SizedBox(height: 171),
+                  const SizedBox(height: 170),
                   AbilityButton(
                     onPressed: () async {
                       PageNavigator(ctx: context).nextPage(
@@ -142,18 +144,20 @@ class _AgtVerifyResetPasscodeState
                               ValidationHelper(), AgentController()));
                       // if (_formKey.currentState!.validate()) {
                       //   await ref
-                      //       .read(loadingAgentOTP.notifier)
-                      //       .agentOTPService(
-                      //           context: context,
-                      //           otp: widget.agentController.signupOTPPin.text);
+                      //       .read(loadingAgtVerifyPasscode.notifier)
+                      //       .resetPasscodeService(
+                      //         context: context,
+                      //         otp:
+                      //             widget.agentController.verifyOTPPasscode.text,
+                      //       );
                       //   // agentShowBottomSheet(context);
                       // }
                     },
                     borderColor:
-                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
-                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAgentOTP)
+                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    child: !ref.watch(loadingAgtVerifyPasscode)
                         ? Text(
                             'continue',
                             style: AppStyleGilroy.kFontW6

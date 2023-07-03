@@ -17,6 +17,11 @@ const kResolveAccountNumberUrl =
 const kMakeTransferUrl = "$baseUrl/api/v1/agents/transfer";
 const kAgtTransHistoryUrl = "$baseUrl/api/v1/agents/transaction-history";
 const kAgtProfileUrl = "$baseUrl/api/v1/agents/profile";
+const kAgtResetPasscodeUrl = "$baseUrl/api/v1/agents/forgot/passcode";
+const kAgtVerifyResetPasscodeUrl =
+    "$baseUrl/api/v1/agents/verify/reset/passcode";
+const kAgtSaveBeneficiaryUrl = "$baseUrl/api/v1/agents/save/beneficiary";
+const kAgtGetSavedBeneficiaryUrl = "$baseUrl/api/v1/agents/beneficiaries";
 
 // Aggregator
 const kCreateAccountAggregatorUrl = "$baseUrl/api/v1/aggregators/signup";

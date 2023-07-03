@@ -169,6 +169,12 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                                         !ref
                                             .read(savePasswordProvider.notifier)
                                             .state;
+
+                                    if (value == true) {
+                                      print("Beneficiary is saved");
+                                    } else {
+                                      print("Beneficiary is not saved");
+                                    }
                                   },
                                 ),
                               ),

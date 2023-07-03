@@ -70,26 +70,50 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                   keyboardType: TextInputType.name,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                // const SizedBox(height: 27),
-                // AbilityTextField(
-                //     controller: widget.transferController.agtEnterTransferCode,
-                //     heading: 'Enter Passcode',
-                //     hintText: 'Enter Passcode',
-                //     keyboardType: TextInputType.number,
-                //     maxLength: 4,
-                //     borderRadius: BorderRadius.circular(5),
-                //     validator: (value) =>
-                //         ValidationHelper().validatePasscode(value!),
-                //     onChanged: (value) async {
-                //       ref.watch(isEditingProvider.notifier).state = true;
-                //       if (value.isEmpty) {
-                //         ref.watch(isEditingProvider.notifier).state = false;
-                //       }
-                //       if (value.length == 4) {
-                //         FocusScope.of(context).unfocus();
-                //         ref.watch(isEditingProvider.notifier).state = false;
-                //       }
-                //     }),
+                const SizedBox(height: 8),
+                Consumer(
+                  builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    return Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        SizedBox(
+                          width: 11,
+                          height: 11,
+                          child: Checkbox(
+                            checkColor: kPrimary, // color of tick Mark
+                            activeColor: kWhite,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            side: MaterialStateBorderSide.resolveWith(
+                              (states) => BorderSide(
+                                  width: 1.0, color: kPrimary.withOpacity(0.8)),
+                            ),
+                            value: ref.watch(saveBeneficiaryProvider),
+                            onChanged: (value) {
+                              ref.read(saveBeneficiaryProvider.notifier).state =
+                                  !ref
+                                      .read(saveBeneficiaryProvider.notifier)
+                                      .state;
+                              if (value == true) {
+                                print("Beneficiary is saved");
+                              } else {
+                                print("Beneficiary is not saved");
+                              }
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          "Save as beneficiary",
+                          style: AppStyleGilroy.kFontW5
+                              .copyWith(color: kPrimary, fontSize: 14),
+                        ),
+                      ],
+                    );
+                  },
+                ),
                 const SizedBox(height: 96),
                 AbilityButton(
                   height: 60,
@@ -100,21 +124,21 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                       ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      confirmDetailsDialog(
-                        context: context,
-                        bankName: AgentPreference.getBankName().toString(),
-                        accountNumber:
-                            AgentPreference.getAccountNumber().toString(),
-                        accountName:
-                            AgentPreference.getAccountName().toString(),
-                        amount:
-                            widget.transferController.agtTransferAmount.text,
-                        onTap: () {
-                          PageNavigator(ctx: context).nextPage(
-                              page: AgtEnterTransferCode(
-                                  ValidationHelper(), TransferController()));
-                        },
-                      );
+                      // confirmDetailsDialog(
+                      //   context: context,
+                      //   bankName: AgentPreference.getBankName().toString(),
+                      //   accountNumber:
+                      //       AgentPreference.getAccountNumber().toString(),
+                      //   accountName:
+                      //       AgentPreference.getAccountName().toString(),
+                      //   amount:
+                      //       widget.transferController.agtTransferAmount.text,
+                      //   onTap: () {
+                      //     PageNavigator(ctx: context).nextPage(
+                      //         page: AgtEnterTransferCode(
+                      //             ValidationHelper(), TransferController()));
+                      //   },
+                      // );
                       await AgentPreference.setTransferAmount(
                           widget.transferController.agtTransferAmount.text);
                       await AgentPreference.setTransDesc(

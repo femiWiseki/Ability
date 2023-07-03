@@ -9,7 +9,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
-import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/change_passcode/agt_confirm_newpasscode.dart';
+import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -51,22 +51,22 @@ class AgtResetNewPasscode extends ConsumerWidget {
                   const SizedBox(height: 153.54),
                   AbilityButton(
                     onPressed: () async {
-                      final indexNumber = StateProvider((ref) => 3);
+                      // final indexNumber = StateProvider((ref) => 3);
                       if (_formKey.currentState!.validate()) {
-                        PageNavigator(ctx: context).nextPage(
-                            page: AgtBottomNavBar(indexProvider: indexNumber));
-                        // await ref
-                        //     .read(loadingAgentPasscode.notifier)
-                        //     .getPasscodeService(
-                        //         context: context,
-                        //         passcode: agentController.signupPasscode.text);
+                        // PageNavigator(ctx: context).nextPage(
+                        //     page: AgtBottomNavBar(indexProvider: indexNumber));
+                        await ref
+                            .read(loadingAgtResetNewPasscode.notifier)
+                            .newPasscodeService(
+                                context: context,
+                                newPasscode: agentController.newPasscode.text);
                       }
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAgentPasscode)
+                    child: !ref.watch(loadingAgtResetNewPasscode)
                         ? Text(
                             'continue',
                             style: AppStyleGilroy.kFontW6

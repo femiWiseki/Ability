@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 BuildContext? context;
 final agtSaveBeneficiary = StateProvider<bool>((ref) => false);
+final saveBeneficiaryProvider = StateProvider((ref) => false);
 
 final loadingAgtBankDetail1 =
     StateNotifierProvider<AgtResolveAccNumService, bool>(

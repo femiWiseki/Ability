@@ -6,6 +6,7 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/reset_passcode/agt_verify_resetpc.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
@@ -56,26 +57,22 @@ class _AgtResetPasscodeState extends ConsumerState<AgtResetPasscode> {
                   AbilityButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        PageNavigator(ctx: context).nextPage(
-                            page: AgtVerifyResetPasscode(
-                                ValidationHelper(), AgentController()));
-                        // await ref
-                        //     .read(loadingAgentPinRest.notifier)
-                        //     .pinResetService(
-                        //         context: context,
-                        //         email:
-                        //             widget.agentController.pinRestEmail.text);
                         // PageNavigator(ctx: context).nextPage(
-                        //     page: AgentInputNewPin(
+                        //     page: AgtVerifyResetPasscode(
                         //         ValidationHelper(), AgentController()));
-                        // agentShowBottomSheet(context);
+                        await ref
+                            .read(loadingAgtResetPasscode.notifier)
+                            .resetPasscodeService(
+                                context: context,
+                                email:
+                                    widget.agentController.resetPasscode.text);
                       }
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAgentPinRest)
+                    child: !ref.watch(loadingAgtResetPasscode)
                         ? Text(
                             'continue',
                             style: AppStyleGilroy.kFontW6
