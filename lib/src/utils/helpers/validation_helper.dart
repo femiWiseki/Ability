@@ -53,7 +53,7 @@ class ValidationHelper {
 
   String? validatePhoneNumber(String value) {
     if (value.isEmpty) {
-      return "Phone number can not be Empty.";
+      return "Number can not be Empty.";
     }
     //  else if (value.length < 10) {
     //   return "Phone Number is not complete.";

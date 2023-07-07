@@ -39,6 +39,7 @@ class AgentLoginService extends StateNotifier<bool> {
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
+        print(result);
 
         await AgentPreference.setPhoneToken(result['data']['token']);
         await AgentPreference.setRefreshToken(result['data']['refreshToken']);

@@ -15,6 +15,7 @@ const kInputNewPinAgentUrl = "$baseUrl/api/v1/agents/reset-password";
 const kResolveAccountNumberUrl =
     "$baseUrl/api/v1/agents/resolve/account/number";
 const kMakeTransferUrl = "$baseUrl/api/v1/agents/transfer";
+const kSaveBeneficiaryUrl = "$baseUrl/api/v1/agents/save/beneficiary";
 const kAgtTransHistoryUrl = "$baseUrl/api/v1/agents/transaction-history";
 const kAgtProfileUrl = "$baseUrl/api/v1/agents/profile";
 const kAgtResetPasscodeUrl = "$baseUrl/api/v1/agents/forgot/passcode";

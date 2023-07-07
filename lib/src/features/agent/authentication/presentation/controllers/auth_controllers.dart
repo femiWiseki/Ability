@@ -10,6 +10,8 @@ class AgentController {
   final signupConfirmPin = TextEditingController();
   final signupOTPPin = TextEditingController();
   final signupPasscode = TextEditingController();
+  final signupAggID = TextEditingController();
+  final signupAccNumber = TextEditingController();
 
 // Login
   final loginPhoneNumber = TextEditingController();

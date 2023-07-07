@@ -3,48 +3,54 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ability/globals.dart';
 import 'package:ability/src/constants/endpoints.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
+import 'package:ability/src/features/agent/transfer/domain/models/agt_transfer_money_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class AgtResetNewPasscodeService extends StateNotifier<bool> {
-  AgtResetNewPasscodeService() : super(false);
+class AgtSaveBeneficiaryService extends StateNotifier<bool> {
+  AgtSaveBeneficiaryService() : super(false);
 
-  Future<void> newPasscodeService(
-      {required BuildContext context, required String newPasscode}) async {
+  saveBeneficiaryService({
+    required BuildContext context,
+    // required String passcode,
+  }) async {
     try {
       state = true;
+      String serviceUrl = kSaveBeneficiaryUrl;
+      var token = AgentPreference.getPhoneToken();
+      var bankName = AgentPreference.getBankName().toString();
+      var accountNumber = AgentPreference.getAccountNumber();
+      var accountName = AgentPreference.getAccountName();
 
-      String serviceUrl = kPasscodeAgentUrl;
-      final token = AgentPreference.getPhoneToken();
-      final indexNumber = StateProvider<int>((ref) => 3);
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json',
         'Authorization': 'Bearer $token'
       };
 
-      final String requestBody = jsonEncode({"passcode": newPasscode});
+      final String requestBody = jsonEncode({
+        "accountNumber": accountNumber,
+        "bankName": bankName,
+        "accountName": accountName
+      });
 
-      final response = await http.put(Uri.parse(serviceUrl),
+      final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
 
-      // print(response.statusCode);
-      // print(response.body);
-
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final result = jsonDecode(response.body);
-        // successMessage(context: context, message: result["data"]["msg"]);
-        print(result);
+        // print(result);
+        ;
 
-        // Routing
-        navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => AgtBottomNavBar(indexProvider: indexNumber)));
         state = false;
+        return AgtTransferMoneyModel.fromJson(result);
+        // Check if the request is unauthorized
       } else if (response.statusCode == 401) {
         String refreshUrl = kRefreshTokenUrl;
         var refreshToken = AgentPreference.getRefreshToken();
@@ -62,20 +68,14 @@ class AgtResetNewPasscodeService extends StateNotifier<bool> {
           'Authorization': 'Bearer $refreshedToken'
         };
 
-        final refreshedResponse = await http.put(Uri.parse(serviceUrl),
+        final refreshedResponse = await http.post(Uri.parse(serviceUrl),
             body: requestBody, headers: refreshedHeader);
-        print(refreshedResponse.statusCode);
-        print(refreshedResponse.statusCode);
 
-        if (refreshedResponse.statusCode == 200) {
-          // print(jsonDecode(refreshedResponse.body));
-
-          // Routing
-          navigatorKey.currentState!.push(CupertinoPageRoute(
-              builder: (context) =>
-                  AgtBottomNavBar(indexProvider: indexNumber)));
+        if (refreshedResponse.statusCode == 201) {
+          final result = jsonDecode(refreshedResponse.body);
 
           state = false;
+          return AgtTransferMoneyModel.fromJson(result);
         } else {
           final result = jsonDecode(response.body);
           errorMessage(context: context, message: result['message']);

@@ -60,7 +60,7 @@ class AgentCreateAccount extends ConsumerWidget {
                   AbilityTextField(
                       controller: agentController.signupEmail,
                       heading: 'Email Address',
-                      hintText: 'Email address',
+                      hintText: 'Email Address',
                       iconName: Icons.email_rounded,
                       validator: (value) =>
                           EmailValidator.validate(value!.trim())
@@ -73,6 +73,22 @@ class AgentCreateAccount extends ConsumerWidget {
                     maxLength: 11,
                     keyboardType: TextInputType.phone,
                     controller: agentController.signupPhone,
+                    validator: (value) =>
+                        validationHelper.validatePhoneNumber(value!),
+                  ),
+                  const SizedBox(height: 15),
+                  AbilityTextField(
+                    heading: 'Aggregator ID (Optional)',
+                    hintText: 'Enter aggregator id',
+                    controller: agentController.signupAggID,
+                  ),
+                  const SizedBox(height: 15),
+                  AbilityTextField(
+                    heading: 'Account Number',
+                    hintText: 'Enter Account Number',
+                    maxLength: 10,
+                    keyboardType: TextInputType.phone,
+                    controller: agentController.signupAccNumber,
                     validator: (value) =>
                         validationHelper.validatePhoneNumber(value!),
                   ),
@@ -120,6 +136,8 @@ class AgentCreateAccount extends ConsumerWidget {
                                   agentController.signupPhone.text.trim(),
                               pin: agentController.signupCreatePin.text,
                               bvn: agentController.signupBVN.text.trim(),
+                              aggId: agentController.signupAggID.text.trim(),
+                              accNumber: agentController.signupAccNumber.text,
                             );
                       }
                       await AgentPreference.setEmail(
