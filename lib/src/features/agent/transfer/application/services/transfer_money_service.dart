@@ -17,7 +17,7 @@ import 'package:http/http.dart' as http;
 class AgtTransferMoneyService extends StateNotifier<bool> {
   AgtTransferMoneyService() : super(false);
 
-  resolveAccNumService({
+  transferMoneyService({
     required BuildContext context,
     required String passcode,
   }) async {

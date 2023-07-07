@@ -5,10 +5,14 @@ import 'package:ability/src/common_widgets/ability_text_field.dart';
 import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/transfer/application/repositories/bank_list.dart';
+import 'package:ability/src/features/agent/transfer/application/services/agt_save_bene_service.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
+import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_enter_transfer_code.dart';
+import 'package:ability/src/features/agent/transfer/presentation/widgets/refactored_widgets/confirm_details_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +98,9 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                                       .read(saveBeneficiaryProvider.notifier)
                                       .state;
                               if (value == true) {
-                                saveBeneficiary() {}
+                                AgtSaveBeneficiaryService()
+                                    .saveBeneficiaryService(context: context);
+
                                 print("Beneficiary is saved");
                               } else {
                                 print("Beneficiary is not saved");
@@ -122,21 +128,21 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                       ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      // confirmDetailsDialog(
-                      //   context: context,
-                      //   bankName: AgentPreference.getBankName().toString(),
-                      //   accountNumber:
-                      //       AgentPreference.getAccountNumber().toString(),
-                      //   accountName:
-                      //       AgentPreference.getAccountName().toString(),
-                      //   amount:
-                      //       widget.transferController.agtTransferAmount.text,
-                      //   onTap: () {
-                      //     PageNavigator(ctx: context).nextPage(
-                      //         page: AgtEnterTransferCode(
-                      //             ValidationHelper(), TransferController()));
-                      //   },
-                      // );
+                      confirmDetailsDialog(
+                        context: context,
+                        bankName: AgentPreference.getBankName().toString(),
+                        accountNumber:
+                            AgentPreference.getAccountNumber().toString(),
+                        accountName:
+                            AgentPreference.getAccountName().toString(),
+                        amount:
+                            widget.transferController.agtTransferAmount.text,
+                        onTap: () {
+                          PageNavigator(ctx: context).nextPage(
+                              page: AgtEnterTransferCode(
+                                  ValidationHelper(), TransferController()));
+                        },
+                      );
                       await AgentPreference.setTransferAmount(
                           widget.transferController.agtTransferAmount.text);
                       await AgentPreference.setTransDesc(

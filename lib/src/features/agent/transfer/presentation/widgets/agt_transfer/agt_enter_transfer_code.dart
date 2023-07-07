@@ -65,11 +65,12 @@ class AgtEnterTransferCode extends ConsumerWidget {
                       if (_formKey.currentState!.validate()) {
                         await ref
                             .read(loadingAgtBankDetail2.notifier)
-                            .resolveAccNumService(
+                            .transferMoneyService(
                               context: context,
                               passcode:
                                   transferController.agtEnterTransferCode.text,
                             );
+                        // saveBeneficiary();
                         print(AgentPreference.getBankName());
                       }
                     },
