@@ -4,11 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
-import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
-import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
-import 'package:ability/src/features/agent/transfer/domain/models/agt_transfer_money_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -42,14 +38,14 @@ class AgtSaveBeneficiaryService extends StateNotifier<bool> {
 
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
+      // print(response.statusCode);
+      // print(response.body);
 
       if (response.statusCode == 201) {
         final result = jsonDecode(response.body);
-        // print(result);
-        ;
+        print(result);
 
         state = false;
-        return AgtTransferMoneyModel.fromJson(result);
         // Check if the request is unauthorized
       } else if (response.statusCode == 401) {
         String refreshUrl = kRefreshTokenUrl;
@@ -61,7 +57,7 @@ class AgtSaveBeneficiaryService extends StateNotifier<bool> {
 
         final String refreshedToken =
             jsonDecode(refreshResponse.body)['data']['token'];
-        // print(refreshedToken);
+        print(refreshedToken);
 
         final Map<String, String> refreshedHeader = {
           'Content-type': 'application/json',
@@ -70,15 +66,18 @@ class AgtSaveBeneficiaryService extends StateNotifier<bool> {
 
         final refreshedResponse = await http.post(Uri.parse(serviceUrl),
             body: requestBody, headers: refreshedHeader);
+        print(refreshedResponse.statusCode);
+        print(refreshedResponse.body);
 
         if (refreshedResponse.statusCode == 201) {
           final result = jsonDecode(refreshedResponse.body);
+          print(result);
 
           state = false;
-          return AgtTransferMoneyModel.fromJson(result);
         } else {
-          final result = jsonDecode(response.body);
-          errorMessage(context: context, message: result['message']);
+          final result = jsonDecode(refreshedResponse.body);
+          print(result);
+          // errorMessage(context: context, message: result['message']);
           state = false;
         }
       } else {

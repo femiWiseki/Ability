@@ -2,6 +2,7 @@
 
 // import 'package:ability/splash_screen.dart'
 import 'package:ability/splash_screen.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
       // home: AggregatorLoginScreen(ValidationHelper(), AggregatorController()),
       // home: AgentLoginScreen(ValidationHelper(), AgentController()),
       // home: BottomNavBar(indexProvider: indexNumber),
+      // home: LandingPage(),
     );
   }
 }

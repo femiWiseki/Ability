@@ -59,9 +59,9 @@ dependencies:
   flutter_paystack: ^1.0.7
 
 flutter_icons:
-  image_path: "assets/icons/ability_logo.png"
+  image_path: "assets/icons/play_app_logo.png"
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/icons/ability_logo.png"
+  adaptive_icon_foreground: "assets/icons/play_app_logo.png"
   android: true
   ios: true
 

@@ -6,6 +6,8 @@ import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/transfer/application/services/agt_save_bene_service.dart';
+import 'package:ability/src/features/agent/transfer/application/services/saved_bene_service.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
@@ -23,7 +25,6 @@ class AgtEnterTransferCode extends ConsumerWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final indexNumber = StateProvider<int>((ref) => 1);
     return Scaffold(
       backgroundColor: kPrimary1,
       body: SafeArea(
@@ -63,6 +64,10 @@ class AgtEnterTransferCode extends ConsumerWidget {
                   AbilityButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        ref.watch(saveBeneficiaryProvider) == true
+                            ? AgtSaveBeneficiaryService()
+                                .saveBeneficiaryService(context: context)
+                            : null;
                         await ref
                             .read(loadingAgtBankDetail2.notifier)
                             .transferMoneyService(
@@ -70,6 +75,8 @@ class AgtEnterTransferCode extends ConsumerWidget {
                               passcode:
                                   transferController.agtEnterTransferCode.text,
                             );
+                        AgtSavedBeneficiaryService().agtSavedBeneficiary();
+
                         // saveBeneficiary();
                         print(AgentPreference.getBankName());
                       }

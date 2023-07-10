@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks
 
 import 'dart:convert';
 import 'dart:io';
@@ -6,8 +6,10 @@ import 'dart:io';
 import 'package:ability/src/constants/endpoints.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
+import 'package:ability/src/features/agent/home/application/services/trans_history_service.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
+import 'package:ability/src/features/agent/transfer/application/services/saved_bene_service.dart';
 import 'package:ability/src/features/agent/transfer/domain/models/agt_transfer_money_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,7 +25,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
   }) async {
     try {
       state = true;
-
+      // var isBeneSaved = Provider((ref) => ref.watch(saveBeneficiaryProvider));
       var token = AgentPreference.getPhoneToken();
       var bankName = AgentPreference.getBankName().toString();
       var accountNumber = AgentPreference.getAccountNumber();
@@ -49,11 +51,19 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
 
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
+      // print(response.statusCode);
+      // print(response.body);
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
         // print(result);
 
+        AgtTransHistoryService().agtTransHistoryService();
+        AgtSavedBeneficiaryService().agtSavedBeneficiary();
+        // isBeneSaved == true
+        //     ? AgtSaveBeneficiaryService()
+        //         .saveBeneficiaryService(context: context)
+        //     : null;
         generalSuccessfullDialog(
             context: context,
             description:
@@ -85,10 +95,17 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
 
         final refreshedResponse = await http.post(Uri.parse(serviceUrl),
             body: requestBody, headers: refreshedHeader);
-
+        // print(refreshedResponse.statusCode);
+        // print(refreshedResponse.body);
         if (refreshedResponse.statusCode == 200) {
           final result = jsonDecode(refreshedResponse.body);
 
+          AgtTransHistoryService().agtTransHistoryService();
+          AgtSavedBeneficiaryService().agtSavedBeneficiary();
+          // isBeneSaved == true
+          //     ? AgtSaveBeneficiaryService()
+          //         .saveBeneficiaryService(context: context)
+          //     : null;
           generalSuccessfullDialog(
               context: context,
               description:
@@ -100,7 +117,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
           state = false;
           return AgtTransferMoneyModel.fromJson(result);
         } else {
-          final result = jsonDecode(response.body);
+          final result = jsonDecode(refreshedResponse.body);
           errorMessage(context: context, message: result['message']);
           state = false;
         }

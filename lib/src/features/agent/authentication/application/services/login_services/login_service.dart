@@ -45,8 +45,11 @@ class AgentLoginService extends StateNotifier<bool> {
         await AgentPreference.setRefreshToken(result['data']['refreshToken']);
 
         // Routing
-        navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => AgtBottomNavBar(indexProvider: indexNumber)));
+        navigatorKey.currentState!.pushAndRemoveUntil(
+            CupertinoPageRoute(
+              builder: (context) => AgtBottomNavBar(indexProvider: indexNumber),
+            ),
+            (Route<dynamic> route) => false);
 
         state = false;
       } else {

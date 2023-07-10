@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //Primary group
-const kPrimary = Color(0XFF0145FE);
+const kPrimary = Color(0XFF1FC188);
 const kPrimary1 = Color(0XFFF5F6F8);
 const kPrimary2 = Color(0XFFADD365);
 

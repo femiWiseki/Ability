@@ -48,9 +48,9 @@ class _AbilityPhoneNumberState extends State<AbilityPhoneNumber> {
                 ref.watch(isEditingProvider.notifier).state = true;
               },
               onChanged: (value) {
-                ref.watch(isEditingProvider.notifier).state = true;
+                ref.watch(isEditingProvider.notifier).state = false;
                 if (value.isEmpty) {
-                  ref.watch(isEditingProvider.notifier).state = false;
+                  ref.watch(isEditingProvider.notifier).state = true;
                 }
                 if (value.length >= widget.maxLength!) {
                   FocusScope.of(context).unfocus();
@@ -62,7 +62,7 @@ class _AbilityPhoneNumberState extends State<AbilityPhoneNumber> {
               },
               onTapOutside: (event) {
                 // FocusScope.of(context).unfocus();
-                ref.watch(isEditingProvider.notifier).state = false;
+                // ref.watch(isEditingProvider.notifier).state = false;
               },
               decoration: InputDecoration(
                 prefixIcon: widget.prefixWidget,

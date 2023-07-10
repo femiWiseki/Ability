@@ -9,7 +9,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
-import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_beneficiary/agt_bene_transfer_code.dart';
+import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_enter_transfer_code.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/refactored_widgets/confirm_details_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
@@ -77,17 +77,17 @@ class AgtTransferToBeneficiary2 extends ConsumerWidget {
                         amount: transferController.agtBeneAmount.text,
                         onTap: () {
                           PageNavigator(ctx: context).nextPage(
-                              page: AgtBeneTransferCode(
+                              page: AgtEnterTransferCode(
                                   ValidationHelper(), TransferController()));
                         },
                       );
                       await AgentPreference.setTransferAmount(
-                          transferController.agtTransferAmount.text);
+                          transferController.agtBeneAmount.text);
                       await AgentPreference.setTransDesc(
-                          transferController.agtEnterTransferDesc.text);
-                      // PageNavigator(ctx: context)
-
-                      //   .nextPageOnly(page: const AggregatorProfileScreen());
+                          transferController.agtBeneDescription.text);
+                      await AgentPreference.setAccountNumber(accountNumber);
+                      await AgentPreference.setBankName(bankName);
+                      await AgentPreference.setAccountName(accountName);
                     }
                   },
                   child: !ref.watch(loadingAgtBankDetail2)

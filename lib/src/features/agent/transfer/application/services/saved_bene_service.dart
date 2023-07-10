@@ -4,18 +4,18 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
-import 'package:ability/src/features/agent/home/domain/models/agt_profile_model.dart';
+import 'package:ability/src/features/agent/transfer/domain/models/agt_beneficiary_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:http/http.dart' as http;
 
 class AgtSavedBeneficiaryService {
-  Future<AgtProfileModel> agtProfileService(
+  Future<BeneficiaryModel> agtSavedBeneficiary(
       // required BuildContext context,
       ) async {
     try {
       var token = AgentPreference.getPhoneToken();
 
-      String serviceUrl = kAgtProfileUrl;
+      String serviceUrl = kAgtGetSavedBeneficiaryUrl;
 
       final Map<String, String> serviceHeader = {
         'Authorization': 'Bearer $token'
@@ -30,7 +30,7 @@ class AgtSavedBeneficiaryService {
         final result = jsonDecode(response.body);
         print(result);
 
-        return AgtProfileModel.fromJson(result);
+        return BeneficiaryModel.fromJson(result);
       } else if (response.statusCode == 401) {
         String refreshUrl = kRefreshTokenUrl;
         var refreshToken = AgentPreference.getRefreshToken();
@@ -54,7 +54,7 @@ class AgtSavedBeneficiaryService {
           final result = jsonDecode(refreshedResponse.body);
           print(result);
 
-          return AgtProfileModel.fromJson(result);
+          return BeneficiaryModel.fromJson(result);
         } else {
           final result = jsonDecode(response.body);
           // errorMessage(context: context, message: result['message']);

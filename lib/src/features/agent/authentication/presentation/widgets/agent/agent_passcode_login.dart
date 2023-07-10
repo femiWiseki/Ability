@@ -81,6 +81,11 @@ class AgentPasscodeLogin extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Text(
+                        "Can't remember passcode? ",
+                        style: AppStyleRoboto.kFontW4
+                            .copyWith(fontSize: 16, color: kGrey2),
+                      ),
                       InkWell(
                         onTap: () {
                           ref.watch(isAgentServiceProvider)
@@ -92,15 +97,10 @@ class AgentPasscodeLogin extends ConsumerWidget {
                                       ValidationHelper(), AgentController()));
                         },
                         child: Text(
-                          "Login ",
+                          "Login",
                           style: AppStyleRoboto.kFontW5
                               .copyWith(fontSize: 16, color: kPrimary),
                         ),
-                      ),
-                      Text(
-                        "with your password",
-                        style: AppStyleRoboto.kFontW4
-                            .copyWith(fontSize: 16, color: kGrey2),
                       ),
                     ],
                   )

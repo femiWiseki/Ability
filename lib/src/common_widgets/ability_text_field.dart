@@ -63,17 +63,17 @@ class AbilityTextField extends StatelessWidget {
               textInputAction:
                   TextInputAction.done, // set the text input action to done
               onTap: () {
-                ref.watch(isEditingProvider.notifier).state = false;
+                ref.watch(isEditingProvider.notifier).state = true;
               },
               onChanged: onChanged ??
                   (value) {
-                    ref.watch(isEditingProvider.notifier).state = true;
+                    ref.watch(isEditingProvider.notifier).state = false;
                     if (value.isEmpty) {
-                      ref.watch(isEditingProvider.notifier).state = false;
+                      ref.watch(isEditingProvider.notifier).state = true;
                     }
                   },
               onFieldSubmitted: (value) {
-                ref.watch(isEditingProvider.notifier).state = true;
+                ref.watch(isEditingProvider.notifier).state = false;
               },
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();

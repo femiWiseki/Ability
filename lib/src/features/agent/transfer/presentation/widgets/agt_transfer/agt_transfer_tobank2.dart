@@ -98,8 +98,8 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                                       .read(saveBeneficiaryProvider.notifier)
                                       .state;
                               if (value == true) {
-                                AgtSaveBeneficiaryService()
-                                    .saveBeneficiaryService(context: context);
+                                // AgtSaveBeneficiaryService()
+                                //     .saveBeneficiaryService(context: context);
 
                                 print("Beneficiary is saved");
                               } else {

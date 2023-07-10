@@ -40,10 +40,13 @@ class AggPasscodeLoginService extends StateNotifier<bool> {
         print(jsonDecode(response.body));
 
         // Routing
-        navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => AggBottomNavBar(
-                  indexProvider: indexNumber,
-                )));
+        navigatorKey.currentState!.pushAndRemoveUntil(
+            CupertinoPageRoute(
+              builder: (context) => AggBottomNavBar(
+                indexProvider: indexNumber,
+              ),
+            ),
+            (Route<dynamic> route) => false);
 
         state = false;
       } else {

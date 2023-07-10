@@ -37,7 +37,7 @@ class AgtPasscodeLoginService extends StateNotifier<bool> {
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        // print(result);
+        print(result);
 
         await AgentPreference.setPhoneToken(result['data']['token']);
 
@@ -68,14 +68,17 @@ class AgtPasscodeLoginService extends StateNotifier<bool> {
 
         if (refreshedResponse.statusCode == 200) {
           final result = jsonDecode(refreshedResponse.body);
-          // print(result);
+          print(result);
 
           await AgentPreference.setPhoneToken(result['data']['token']);
 
           // Routing
-          navigatorKey.currentState!.push(CupertinoPageRoute(
-              builder: (context) =>
-                  AgtBottomNavBar(indexProvider: indexNumber)));
+          navigatorKey.currentState!.pushAndRemoveUntil(
+              CupertinoPageRoute(
+                builder: (context) =>
+                    AgtBottomNavBar(indexProvider: indexNumber),
+              ),
+              (Route<dynamic> route) => false);
 
           state = false;
         } else {
