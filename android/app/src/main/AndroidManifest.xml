@@ -2,7 +2,7 @@
     package="com.example.ability">
    <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="Ability"
+        android:label="Supply Smart"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
