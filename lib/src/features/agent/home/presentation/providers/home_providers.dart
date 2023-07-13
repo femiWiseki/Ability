@@ -1,7 +1,9 @@
 import 'package:ability/src/features/agent/home/application/services/agt_profile_service.dart';
 import 'package:ability/src/features/agent/home/application/services/trans_history_service.dart';
+import 'package:ability/src/features/agent/home/application/services/withdrawal_history_service.dart';
 import 'package:ability/src/features/agent/home/domain/models/agt_profile_model.dart';
 import 'package:ability/src/features/agent/home/domain/models/agt_trans_history_model.dart';
+import 'package:ability/src/features/agent/home/domain/models/withdrawal_history_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final hideCurrentBalance = StateProvider<bool>((ref) => false);
@@ -15,6 +17,17 @@ final getAgtTransHistoryProvider = FutureProvider<AgtTransHIstoryModel>((ref) {
   final transHistory = ref.watch(agtTransHistoryPovider);
 
   return transHistory.agtTransHistoryService();
+});
+
+/// This provider is used to get all agent transaction history
+final agtWithdrawalHistoryPovider = StateProvider<AgtWithdrawalHistoryService>(
+    (ref) => AgtWithdrawalHistoryService());
+
+final getAgtWithdrawalHistoryProvider =
+    FutureProvider<AgtWithdrawalHistoryModel>((ref) {
+  final withdrawalHistory = ref.watch(agtWithdrawalHistoryPovider);
+
+  return withdrawalHistory.agtTransHistoryService();
 });
 
 /// This provider is used to get the Agent profile infomation

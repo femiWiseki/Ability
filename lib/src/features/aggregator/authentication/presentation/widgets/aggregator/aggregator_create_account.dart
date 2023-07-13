@@ -41,7 +41,8 @@ class AggregatorCreateAccount extends ConsumerWidget {
                   Text('Create Account',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 10),
-                  Text('Sign up on abity to access our suite of service',
+                  Text(
+                      'Sign up on smart supply as an aggregator to access our suite of service.',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 40),
                   AbilityTextField(
@@ -72,7 +73,7 @@ class AggregatorCreateAccount extends ConsumerWidget {
                     heading: 'Phone Number',
                     hintText: 'Phone number',
                     maxLength: 11,
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.number,
                     controller: aggregatorController.signupPhone,
                     validator: (value) =>
                         validationHelper.validatePhoneNumber(value!),
@@ -84,6 +85,7 @@ class AggregatorCreateAccount extends ConsumerWidget {
                     hintText: 'Enter 6-digit pin',
                     maxLength: 6,
                     iconName: Icons.lock_rounded,
+                    keyboardType: TextInputType.number,
                     borderRadius: BorderRadius.zero,
                     validator: (value) =>
                         validationHelper.validatePassword(value!),
@@ -95,6 +97,7 @@ class AggregatorCreateAccount extends ConsumerWidget {
                     hintText: 'Enter 6-digit pin',
                     maxLength: 6,
                     iconName: Icons.lock_rounded,
+                    keyboardType: TextInputType.number,
                     borderRadius: BorderRadius.zero,
                     validator: (value) => validationHelper.validatePassword2(
                         value!, aggregatorController.signupCreatePin.text),

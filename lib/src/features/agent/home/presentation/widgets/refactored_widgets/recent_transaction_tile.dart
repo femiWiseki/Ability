@@ -56,7 +56,7 @@ class RecentTransactionTile extends ConsumerWidget {
                                   locale: 'en_NG',
                                   decimalDigits: 2,
                                   symbol: '₦')
-                              .format(int.parse(amount)),
+                              .format(double.parse(amount)),
                           style:
                               AppStyleRoboto.kFontW6.copyWith(fontSize: 10.89),
                         ),

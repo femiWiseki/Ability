@@ -28,6 +28,8 @@ const kBlack9 = Color(0XFF0D0D0D);
 const kBlack10 = Color(0XFF111111);
 const kBlack11 = Color(0XFF212121);
 const kBlack50 = Color(0XFFB8BABA);
+
+////
 const kCreditColor = Color(0XFF29AC61);
 const kDebitColor = Color(0XFFEF2800);
 const kNavBarSelectedItemColor = Color(0xFF231F20);

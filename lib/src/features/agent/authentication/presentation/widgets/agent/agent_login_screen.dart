@@ -72,6 +72,10 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                   const SizedBox(height: 38),
                   Text('Welcome back',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
+                  const SizedBox(height: 10),
+                  Text(
+                      'Login on smart supply as agent to access our suite of service.',
+                      style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 61),
                   AbilityPhoneNumber(
                     phoneController: widget.agentController.loginPhoneNumber,

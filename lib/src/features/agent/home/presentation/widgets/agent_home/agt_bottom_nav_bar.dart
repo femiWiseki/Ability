@@ -33,7 +33,7 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
   final screens = [
     AgtHomeScreen(),
     const AgtTransferScreen(),
-    const PaymentScreen(),
+    // const PaymentScreen(),
     const AgtProfileScreen(),
   ];
 
@@ -48,7 +48,7 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
           height: 78.79,
           width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
+            padding: const EdgeInsets.symmetric(horizontal: 50),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(screens.length, (index) {
@@ -77,9 +77,8 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
       case 1:
         return 'Transfer';
       case 2:
-        return 'Payment';
-      case 3:
         return 'Profile';
+
       default:
         return '';
     }
@@ -92,9 +91,8 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
       case 1:
         return 'assets/icons/transfer.svg';
       case 2:
-        return 'assets/icons/commission.svg';
-      case 3:
         return 'assets/icons/profile.svg';
+
       default:
         return '';
     }

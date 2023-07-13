@@ -17,6 +17,8 @@ const kResolveAccountNumberUrl =
 const kMakeTransferUrl = "$baseUrl/api/v1/agents/transfer";
 const kSaveBeneficiaryUrl = "$baseUrl/api/v1/agents/save/beneficiary";
 const kAgtTransHistoryUrl = "$baseUrl/api/v1/agents/transaction-history";
+const kAgtWithdrawalHistoryUrl =
+    "$baseUrl/api/v1/agents/withdrawal/notifications";
 const kAgtProfileUrl = "$baseUrl/api/v1/agents/profile";
 const kAgtResetPasscodeUrl = "$baseUrl/api/v1/agents/forgot/passcode";
 const kAgtVerifyResetPasscodeUrl =

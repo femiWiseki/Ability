@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 class AppHeader extends StatelessWidget {
   final String? heading;
+  final Widget? suffixIcon;
   const AppHeader({
     this.heading,
+    this.suffixIcon,
     super.key,
   });
 
@@ -27,7 +29,7 @@ class AppHeader extends StatelessWidget {
           heading ?? '',
           style: AppStyleInter.kFontW6.copyWith(fontSize: 20),
         ),
-        const SizedBox(width: 25),
+        suffixIcon ?? const SizedBox(width: 25),
       ],
     );
   }

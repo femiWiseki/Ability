@@ -4,7 +4,6 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/agent/transfer/domain/models/agt_beneficiary_model.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_beneficiary/agt_transfer_tobene2.dart';
@@ -52,65 +51,75 @@ class AgtTransferToBeneficiary1 extends ConsumerWidget {
                   child: savedBeneficiaries.when(
                       data: (data) {
                         final beneDetails = data.data.values.toList();
-                        return ListView.builder(
-                            itemCount: beneDetails.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 24),
-                                child: InkWell(
-                                  onTap: () {
-                                    PageNavigator(ctx: context).nextPage(
-                                        page: AgtTransferToBeneficiary2(
-                                      TransferController(),
-                                      bankName: beneDetails[index].bankName,
-                                      accountNumber:
-                                          beneDetails[index].accountNumber,
-                                      accountName:
-                                          beneDetails[index].accountName,
-                                    ));
-                                  },
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: 44,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          width: 250,
-                                          height: 44,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Text(
-                                                beneDetails[index].accountName,
-                                                style: AppStyleGilroy.kFontW6
-                                                    .copyWith(
-                                                        fontSize: 16,
-                                                        color: kGrey24),
+                        return beneDetails.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: beneDetails.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 24),
+                                    child: InkWell(
+                                      onTap: () {
+                                        PageNavigator(ctx: context).nextPage(
+                                            page: AgtTransferToBeneficiary2(
+                                          TransferController(),
+                                          bankName: beneDetails[index].bankName,
+                                          accountNumber:
+                                              beneDetails[index].accountNumber,
+                                          accountName:
+                                              beneDetails[index].accountName,
+                                        ));
+                                      },
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        height: 44,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: 250,
+                                              height: 44,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Text(
+                                                    beneDetails[index]
+                                                        .accountName,
+                                                    style: AppStyleGilroy
+                                                        .kFontW6
+                                                        .copyWith(
+                                                            fontSize: 16,
+                                                            color: kGrey24),
+                                                  ),
+                                                  Text(
+                                                    "${beneDetails[index].accountNumber} ${beneDetails[index].bankName}",
+                                                    style: AppStyleGilroy
+                                                        .kFontW5
+                                                        .copyWith(
+                                                            fontSize: 10,
+                                                            color: kBlack2),
+                                                  )
+                                                ],
                                               ),
-                                              Text(
-                                                "${beneDetails[index].accountNumber} ${beneDetails[index].bankName}",
-                                                style: AppStyleGilroy.kFontW5
-                                                    .copyWith(
-                                                        fontSize: 10,
-                                                        color: kBlack2),
-                                              )
-                                            ],
-                                          ),
+                                            ),
+                                            const ClipOval(
+                                              child: CircleAvatar(),
+                                            )
+                                          ],
                                         ),
-                                        const ClipOval(
-                                          child: CircleAvatar(),
-                                        )
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                })
+                            : const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [Text('No Beneficiary added yet')],
                               );
-                            });
                       },
                       error: (e, s) => Text(e.toString()),
                       loading: () => const Center(

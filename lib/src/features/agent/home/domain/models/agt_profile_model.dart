@@ -58,7 +58,7 @@ class DataData {
   String name;
   String email;
   String walletId;
-  int walletBalance;
+  double walletBalance;
   bool isVerified;
   String phoneNumber;
   String deviceId;

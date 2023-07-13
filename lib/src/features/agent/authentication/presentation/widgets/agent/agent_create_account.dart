@@ -40,7 +40,8 @@ class AgentCreateAccount extends ConsumerWidget {
                   Text('Create Account',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 10),
-                  Text('Sign up on abity to access our suite of service',
+                  Text(
+                      'Sign up on smart supply as agent to access our suite of service.',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 40),
                   AbilityTextField(
@@ -87,7 +88,7 @@ class AgentCreateAccount extends ConsumerWidget {
                     heading: 'Account Number',
                     hintText: 'Enter Account Number',
                     maxLength: 10,
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.number,
                     controller: agentController.signupAccNumber,
                     validator: (value) =>
                         validationHelper.validatePhoneNumber(value!),

@@ -1,5 +1,6 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
+import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
@@ -71,8 +72,8 @@ class AgtHomeScreenBar extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  " ${ref.watch(hideCurrentBalance) ? '#$currentBalance' : '*******'} ",
-                  style: AppStyleGilroy.kFontW7
+                  " ${ref.watch(hideCurrentBalance) ? currentBalance : '*******'} ",
+                  style: AppStyleRoboto.kFontW7
                       .copyWith(fontSize: 27.55, color: kWhite),
                 ),
                 GestureDetector(
