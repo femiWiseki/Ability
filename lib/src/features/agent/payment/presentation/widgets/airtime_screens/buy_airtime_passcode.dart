@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
@@ -65,9 +65,6 @@ class BuyAirtimePasscode extends ConsumerWidget {
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
                         if (_formKey.currentState!.validate()) {
-                          !ref.watch(loadingBuyAirtime)
-                              ? isLoadingDialog(context)
-                              : null;
                           await ref
                               .watch(loadingBuyAirtime.notifier)
                               .airtimeService(

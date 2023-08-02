@@ -19,9 +19,4 @@ void isLoadingDialog(BuildContext context) {
       ),
     ),
   );
-
-  // Close the dialog after 5 seconds
-  Future.delayed(const Duration(seconds: 6), () {
-    Navigator.of(context).pop();
-  });
 }

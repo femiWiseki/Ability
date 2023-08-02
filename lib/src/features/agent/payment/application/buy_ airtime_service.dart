@@ -8,6 +8,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
+import 'package:ability/src/features/agent/payment/presentation/widgets/refactored_widgets/isloading_dialog.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,6 +27,7 @@ class BuyAirtimeService extends StateNotifier<bool> {
   }) async {
     try {
       state = true;
+      isLoadingDialog(context);
       // var isBeneSaved = Provider((ref) => ref.watch(saveBeneficiaryProvider));
       var token = AgentPreference.getPhoneToken();
       String serviceUrl = kBuyAirtimeUrl;
@@ -48,13 +50,14 @@ class BuyAirtimeService extends StateNotifier<bool> {
       print(response.body);
       // print(requestBody);
       // print(token);
+      Navigator.pop(context);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         generalSuccessfullDialog(
           context: context,
           description: 'Congratulations your transfer was successful completed',
           onTap: () {
-            final indexNumber = StateProvider<int>((ref) => 1);
+            final indexNumber = StateProvider<int>((ref) => 2);
 
             PageNavigator(ctx: context).nextPageOnly(
               page: AgtBottomNavBar(indexProvider: indexNumber),
@@ -95,7 +98,7 @@ class BuyAirtimeService extends StateNotifier<bool> {
             description:
                 'Congratulations your transfer was successful completed',
             onTap: () {
-              final indexNumber = StateProvider<int>((ref) => 1);
+              final indexNumber = StateProvider<int>((ref) => 2);
 
               PageNavigator(ctx: context).nextPageOnly(
                 page: AgtBottomNavBar(indexProvider: indexNumber),

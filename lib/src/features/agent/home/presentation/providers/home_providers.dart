@@ -24,7 +24,7 @@ final agtWithdrawalHistoryPovider = StateProvider<AgtWithdrawalHistoryService>(
     (ref) => AgtWithdrawalHistoryService());
 
 final getAgtWithdrawalHistoryProvider =
-    FutureProvider<AgtWithdrawalHistoryModel>((ref) {
+    FutureProvider.autoDispose<AgtWithdrawalHistoryModel>((ref) {
   final withdrawalHistory = ref.watch(agtWithdrawalHistoryPovider);
 
   return withdrawalHistory.agtTransHistoryService();
@@ -34,7 +34,8 @@ final getAgtWithdrawalHistoryProvider =
 final agtProfilePovider =
     StateProvider<AgtProfileService>((ref) => AgtProfileService());
 
-final getAgtProfileProvider = FutureProvider<AgtProfileModel>((ref) {
+final getAgtProfileProvider =
+    FutureProvider.autoDispose<AgtProfileModel>((ref) {
   final agtProfile = ref.watch(agtProfilePovider);
 
   return agtProfile.agtProfileService();

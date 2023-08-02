@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ValidationHelper {
   String? validateUserName(String value) {
     if (value.length < 4) {
@@ -76,10 +78,9 @@ class ValidationHelper {
   String? validateAmount(String value) {
     if (value.isEmpty) {
       return "Amount can not be Empty.";
+    } else if (int.parse(value) < 10) {
+      return "Amount can't be less than 10 Naira.";
     }
-    //  else if (value.length < 10) {
-    //   return "Phone Number is not complete.";
-    // }
     // else if (!value.isNumber) {
     //   return "Input only numbers";
     // }

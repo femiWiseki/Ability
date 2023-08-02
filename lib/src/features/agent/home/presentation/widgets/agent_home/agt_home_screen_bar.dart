@@ -8,14 +8,12 @@ import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 
 class AgtHomeScreenBar extends ConsumerWidget {
   const AgtHomeScreenBar({
     super.key,
-    required this.currentBalance,
   });
-
-  final String currentBalance;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,7 +47,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                                 color: kWhite.withOpacity(0.9)),
                           );
                         },
-                        error: (e, s) => Text(e.toString()),
+                        error: (e, s) => const Text(''),
                         loading: () => const Text('.....')),
                   ],
                 ),
@@ -68,33 +66,41 @@ class AgtHomeScreenBar extends ConsumerWidget {
                   .copyWith(fontSize: 16.53, color: kWhite),
             ),
             const SizedBox(height: 16.48),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  " ${ref.watch(hideCurrentBalance) ? currentBalance : '*******'} ",
-                  style: AppStyleRoboto.kFontW7
-                      .copyWith(fontSize: 27.55, color: kWhite),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    ref.read(hideCurrentBalance.notifier).state =
-                        !ref.read(hideCurrentBalance.notifier).state;
-                  },
-                  child: ref.watch(hideCurrentBalance)
-                      ? const Icon(
-                          Icons.visibility_outlined,
-                          color: kWhite,
-                          size: 30,
-                        )
-                      : const Icon(
-                          Icons.visibility_off_outlined,
-                          color: kWhite,
-                          size: 30,
-                        ),
-                ),
-              ],
-            ),
+            agtProfile.when(
+                data: (data) {
+                  var currentBalance = NumberFormat.currency(
+                          locale: 'en_NG', decimalDigits: 2, symbol: '₦')
+                      .format(data.data.data.walletBalance);
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        " ${ref.watch(hideCurrentBalance) ? currentBalance : '*******'} ",
+                        style: AppStyleRoboto.kFontW7
+                            .copyWith(fontSize: 27.55, color: kWhite),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          ref.read(hideCurrentBalance.notifier).state =
+                              !ref.read(hideCurrentBalance.notifier).state;
+                        },
+                        child: ref.watch(hideCurrentBalance)
+                            ? const Icon(
+                                Icons.visibility_outlined,
+                                color: kWhite,
+                                size: 30,
+                              )
+                            : const Icon(
+                                Icons.visibility_off_outlined,
+                                color: kWhite,
+                                size: 30,
+                              ),
+                      ),
+                    ],
+                  );
+                },
+                error: ((error, stackTrace) => const Text('')),
+                loading: () => const Text('......')),
             const SizedBox(height: 43.7),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
