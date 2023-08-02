@@ -13,6 +13,7 @@ class GeneralPinCode extends StatefulWidget {
   final int pinLenght;
   final PinCodeFieldShape? boxPinShape;
   final double? fieldWidth;
+  final void Function()? pinIsComplete;
   const GeneralPinCode({
     super.key,
     required this.pinLenght,
@@ -20,6 +21,7 @@ class GeneralPinCode extends StatefulWidget {
     this.boxPinShape,
     this.fieldWidth,
     required this.validator,
+    this.pinIsComplete,
   });
 
   @override
@@ -66,6 +68,9 @@ class _GeneralPinCodeState extends State<GeneralPinCode> {
           onCompleted: (v) {
             debugPrint("Completed");
             ref.watch(isEditingProvider.notifier).state = true;
+            if (widget.pinLenght == 4) {
+              widget.pinIsComplete!.call();
+            }
           },
           onSubmitted: (value) {
             ref.watch(isEditingProvider.notifier).state = true;

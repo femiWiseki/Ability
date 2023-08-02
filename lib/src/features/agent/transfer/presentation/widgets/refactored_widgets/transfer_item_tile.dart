@@ -15,19 +15,22 @@ class TransferItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style:
-                AppStyleGilroy.kFontW5.copyWith(fontSize: 15, color: kBlack2),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_right_rounded,
-            color: kBlack2,
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style:
+                  AppStyleGilroy.kFontW5.copyWith(fontSize: 15, color: kBlack2),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_right_rounded,
+              color: kBlack2,
+            )
+          ],
+        ),
       ),
     );
   }

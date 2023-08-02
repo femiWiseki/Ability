@@ -26,6 +26,9 @@ const kAgtVerifyResetPasscodeUrl =
 const kAgtSaveBeneficiaryUrl = "$baseUrl/api/v1/agents/save/beneficiary";
 const kAgtGetSavedBeneficiaryUrl = "$baseUrl/api/v1/agents/beneficiaries";
 
+// Agent Payment Urls
+const kBuyAirtimeUrl = "$baseUrl/api/v1/agents/bill";
+
 // Aggregator
 const kCreateAccountAggregatorUrl = "$baseUrl/api/v1/aggregators/signup";
 const kVerifyAggregatorUrl = "$baseUrl/api/v1/aggregators/auth/verify/number";

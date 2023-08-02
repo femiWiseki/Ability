@@ -125,7 +125,11 @@ class AgtHomeScreenBar extends ConsumerWidget {
                   ),
                 ),
                 AbilityButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final indexNumber = StateProvider<int>((ref) => 2);
+                    PageNavigator(ctx: context).nextPage(
+                        page: AgtBottomNavBar(indexProvider: indexNumber));
+                  },
                   height: 44,
                   width: 167,
                   borderRadius: 7.35,

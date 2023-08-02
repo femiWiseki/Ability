@@ -33,7 +33,7 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
   final screens = [
     AgtHomeScreen(),
     const AgtTransferScreen(),
-    const PaymentScreen(),
+    // const PaymentScreen(),
     const AgtProfileScreen(),
   ];
 

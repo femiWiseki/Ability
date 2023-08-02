@@ -31,12 +31,11 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
 
   final orangeColor = const Color(0xffFF8527);
   final screens = [
-    AgtHomeScreen(),
+    const AgtHomeScreen(),
     const AgtTransferScreen(),
-    // const PaymentScreen(),
+    const AgtPaymentScreen(),
     const AgtProfileScreen(),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +47,7 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
           height: 78.79,
           width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
+            padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(screens.length, (index) {
@@ -77,8 +76,9 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
       case 1:
         return 'Transfer';
       case 2:
+        return 'Payment';
+      case 3:
         return 'Profile';
-
       default:
         return '';
     }
@@ -91,8 +91,9 @@ class _AgtBottomNavBar extends ConsumerState<AgtBottomNavBar> {
       case 1:
         return 'assets/icons/transfer.svg';
       case 2:
+        return 'assets/icons/commission.svg';
+      case 3:
         return 'assets/icons/profile.svg';
-
       default:
         return '';
     }

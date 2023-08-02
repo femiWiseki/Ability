@@ -27,7 +27,7 @@ class AgtTransferScreen extends ConsumerWidget {
               Container(
                 height: 166,
                 width: double.maxFinite,
-                padding: const EdgeInsets.fromLTRB(31, 35, 31, 0),
+                padding: const EdgeInsets.fromLTRB(31, 12, 31, 0),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(22.7), color: kWhite),
                 child: Column(
@@ -39,12 +39,10 @@ class AgtTransferScreen extends ConsumerWidget {
                             page: AgtTransferToBank(TransferController()));
                       },
                     ),
-                    const SizedBox(height: 23),
                     const Divider(
                       color: kGrey3,
                       thickness: 1,
                     ),
-                    const SizedBox(height: 23),
                     TransferItemTile(
                       title: 'Transfer to Beneficiary',
                       onTap: () {

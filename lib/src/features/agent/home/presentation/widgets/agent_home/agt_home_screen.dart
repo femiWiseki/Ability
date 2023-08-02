@@ -12,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class AgtHomeScreen extends ConsumerWidget {
-  AgtHomeScreen({super.key});
+  const AgtHomeScreen({super.key});
   final double currentBalance = 500000.00;
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -2,7 +2,7 @@ import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/agent/payment/presentation/providers/home_providers.dart';
+import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/aggregator_home/agg_payment_gateway.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
