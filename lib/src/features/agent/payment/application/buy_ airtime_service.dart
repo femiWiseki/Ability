@@ -40,7 +40,7 @@ class BuyAirtimeService extends StateNotifier<bool> {
       final String requestBody = jsonEncode({
         "customer": "+234$customerNum",
         "amount": amount,
-        "paymentType": paymentType,
+        "paymentType": networkProvider,
         "biller_name": networkProvider,
         "passcode": passcode
       });

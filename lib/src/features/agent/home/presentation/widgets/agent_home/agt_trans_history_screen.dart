@@ -100,13 +100,14 @@ class _AgtTransactionHistoryState extends ConsumerState<AgtTransactionHistory> {
                                         .format(historyTime);
 
                                 return RecentTransactionTile(
-                                    title: historyInfo[index]
-                                        .transactionDescription,
+                                    title: historyInfo[index].transactionType,
                                     dateTime: formattedDate,
                                     amount:
                                         historyInfo[index].transactionAmount,
-                                    status:
-                                        historyInfo[index].transactionStatus);
+                                    status: historyInfo[index]
+                                        .transactionStatus
+                                        .name
+                                        .toUpperCase());
                               },
                             ),
                           ),

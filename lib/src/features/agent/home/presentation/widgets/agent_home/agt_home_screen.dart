@@ -3,6 +3,7 @@
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/constants/upcase_letter.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_home_screen_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_trans_history_screen.dart';
@@ -72,15 +73,14 @@ class AgtHomeScreen extends ConsumerWidget {
                                   String formattedDate =
                                       DateFormat('MMM dd, hh:mm')
                                           .format(historyTime);
-
+                                  final info = historyInfo[index];
                                   return RecentTransactionTile(
-                                      title: historyInfo[index]
-                                          .transactionDescription,
+                                      title: convertToUppercase(
+                                          info.transactionType),
                                       dateTime: formattedDate,
-                                      amount:
-                                          historyInfo[index].transactionAmount,
-                                      status:
-                                          historyInfo[index].transactionStatus);
+                                      amount: info.transactionAmount,
+                                      status: convertToUppercase(
+                                          info.transactionStatus.name));
                                 },
                               )
                             : const Column(

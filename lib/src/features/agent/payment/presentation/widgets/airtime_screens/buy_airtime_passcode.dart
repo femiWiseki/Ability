@@ -71,9 +71,8 @@ class BuyAirtimePasscode extends ConsumerWidget {
                                 context: context,
                                 customerNum: customerNum,
                                 amount: amount,
-                                paymentType:
-                                    paymentType.toUpperCase().substring(0, 7),
-                                networkProvider: networkProvider.toUpperCase(),
+                                paymentType: paymentType,
+                                networkProvider: networkProvider,
                                 passcode:
                                     paymentController.buyAirtimePasscode.text,
                               );

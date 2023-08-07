@@ -107,7 +107,7 @@ confirmAirtimeDialog({
                             customerNum: customerNum,
                             amount: amount,
                             paymentType: billsPayment,
-                            networkProvider: networkProvider,
+                            networkProvider: billsPayment,
                           ),
                         );
                       },

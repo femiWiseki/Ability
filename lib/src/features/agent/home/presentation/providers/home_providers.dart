@@ -13,7 +13,8 @@ final walletAmountProvider = StateProvider((ref) => '');
 final agtTransHistoryPovider =
     StateProvider<AgtTransHistoryService>((ref) => AgtTransHistoryService());
 
-final getAgtTransHistoryProvider = FutureProvider<AgtTransHIstoryModel>((ref) {
+final getAgtTransHistoryProvider =
+    FutureProvider.autoDispose<AgtTransHIstoryModel>((ref) {
   final transHistory = ref.watch(agtTransHistoryPovider);
 
   return transHistory.agtTransHistoryService();
