@@ -80,7 +80,7 @@ class AgtHomeScreen extends ConsumerWidget {
                                       dateTime: formattedDate,
                                       amount: info.transactionAmount,
                                       status: convertToUppercase(
-                                          info.transactionStatus.name));
+                                          info.transactionStatus));
                                 },
                               )
                             : const Column(

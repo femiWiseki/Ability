@@ -6,24 +6,21 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/providers/payment_providers.dart';
-import 'package:ability/src/features/agent/payment/presentation/widgets/refactored_widgets/isloading_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class BuyAirtimePasscode extends ConsumerWidget {
+class BuyDataPasscode extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgtPaymentController paymentController;
   final String customerNum;
   final int amount;
-  final String paymentType;
-  final String networkProvider;
-  BuyAirtimePasscode(this.validationHelper, this.paymentController,
+  final String dataPlan;
+  BuyDataPasscode(this.validationHelper, this.paymentController,
       {required this.customerNum,
       required this.amount,
-      required this.networkProvider,
-      required this.paymentType,
+      required this.dataPlan,
       super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -40,7 +37,7 @@ class BuyAirtimePasscode extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const AppHeader(heading: 'Buy Airtime'),
+                  const AppHeader(heading: 'Buy Data'),
                   const SizedBox(height: 55.11),
                   Container(
                     width: 121,
@@ -60,21 +57,17 @@ class BuyAirtimePasscode extends ConsumerWidget {
                     child: GeneralPinCode(
                       pinLenght: 4,
                       boxPinShape: PinCodeFieldShape.box,
-                      controller: paymentController.airtimePasscode,
+                      controller: paymentController.dataPasscode,
                       validator: (value) =>
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
                         if (_formKey.currentState!.validate()) {
-                          await ref
-                              .watch(loadingBuyAirtime.notifier)
-                              .airtimeService(
+                          await ref.watch(loadingBuyData.notifier).dataService(
                                 context: context,
                                 customerNum: customerNum,
                                 amount: amount,
-                                paymentType: paymentType,
-                                networkProvider: networkProvider,
-                                passcode:
-                                    paymentController.airtimePasscode.text,
+                                dataPlan: dataPlan,
+                                passcode: paymentController.dataPasscode.text,
                               );
                         }
                       },

@@ -3,6 +3,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/airtime_screens/buy_airtime.dart';
+import 'package:ability/src/features/agent/payment/presentation/widgets/data_screens/buy_data.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_beneficiary/agt_transfer_tobene1.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_transfer_tobank.dart';
@@ -76,8 +77,8 @@ class AgtPaymentScreen extends ConsumerWidget {
                     TransferItemTile(
                       title: 'Buy Data',
                       onTap: () {
-                        // PageNavigator(ctx: context)
-                        //     .nextPage(page: AgtTransferToBeneficiary1());
+                        PageNavigator(ctx: context)
+                            .nextPage(page: BuyData(AgtPaymentController()));
                       },
                     ),
                     const Divider(

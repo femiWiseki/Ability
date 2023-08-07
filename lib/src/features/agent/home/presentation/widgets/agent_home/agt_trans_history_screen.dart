@@ -106,7 +106,6 @@ class _AgtTransactionHistoryState extends ConsumerState<AgtTransactionHistory> {
                                         historyInfo[index].transactionAmount,
                                     status: historyInfo[index]
                                         .transactionStatus
-                                        .name
                                         .toUpperCase());
                               },
                             ),

@@ -1,4 +1,10 @@
+import 'package:ability/src/features/agent/payment/presentation/providers/payment_providers.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 const baseUrl = "https://abitly.herokuapp.com";
+
+// final dataNtw = AgentPreference.getDataNetwork();
 // final accessToken = UserPreference.getAccessToken();
 // final userId = UserPreference.getId();
 
@@ -27,7 +33,8 @@ const kAgtSaveBeneficiaryUrl = "$baseUrl/api/v1/agents/save/beneficiary";
 const kAgtGetSavedBeneficiaryUrl = "$baseUrl/api/v1/agents/beneficiaries";
 
 // Agent Payment Urls
-const kBuyAirtimeUrl = "$baseUrl/api/v1/agents/bill";
+const kSendBillDetailsUrl = "$baseUrl/api/v1/agents/bill";
+var kGetDataDetailsUrl = "$baseUrl/api/v1/agents/billcategories";
 
 // Aggregator
 const kCreateAccountAggregatorUrl = "$baseUrl/api/v1/aggregators/signup";

@@ -21,6 +21,7 @@ class AgentPreference {
   static const _keyTransferAmount = 'transferAmount';
   static const _keyTransDesc = 'transferDesc';
   static const _keyPasscodeStatus = 'passcodeStatus';
+  static const _keyDataNetwork = 'dataNetwork';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -78,6 +79,9 @@ class AgentPreference {
   static Future setPasscodeStatus(String passcodeStatus) async =>
       await _preferences.setString(_keyPasscodeStatus, passcodeStatus);
 
+  static Future setDataNetwork(String dataNetwork) async =>
+      await _preferences.setString(_keyDataNetwork, dataNetwork);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -118,6 +122,8 @@ class AgentPreference {
 
   static String? getPasscodeStatus() =>
       _preferences.getString(_keyPasscodeStatus);
+
+  static String? getDataNetwork() => _preferences.getString(_keyDataNetwork);
 
   /// Clear Agent Token when logged out..
   static Future logoutUser() async {

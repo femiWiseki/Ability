@@ -14,15 +14,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class BuyAirtimeService extends StateNotifier<bool> {
-  BuyAirtimeService() : super(false);
+class BuyDataService extends StateNotifier<bool> {
+  BuyDataService() : super(false);
 
-  airtimeService({
+  dataService({
     required BuildContext context,
     required String customerNum,
     required int amount,
-    required String paymentType,
-    required String networkProvider,
+    required String dataPlan,
     required String passcode,
   }) async {
     try {
@@ -40,15 +39,15 @@ class BuyAirtimeService extends StateNotifier<bool> {
       final String requestBody = jsonEncode({
         "customer": "+234$customerNum",
         "amount": amount,
-        "paymentType": networkProvider,
-        "biller_name": networkProvider,
+        "paymentType": dataPlan,
+        "biller_name": dataPlan,
         "passcode": passcode
       });
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
       print(response.statusCode);
       print(response.body);
-      // print(requestBody);
+      print(requestBody);
       // print(token);
       Navigator.pop(context);
 

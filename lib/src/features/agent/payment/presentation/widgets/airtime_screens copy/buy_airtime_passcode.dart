@@ -73,8 +73,7 @@ class BuyAirtimePasscode extends ConsumerWidget {
                                 amount: amount,
                                 paymentType: paymentType,
                                 networkProvider: networkProvider,
-                                passcode:
-                                    paymentController.airtimePasscode.text,
+                                passcode: paymentController.airtimeAmount.text,
                               );
                         }
                       },
