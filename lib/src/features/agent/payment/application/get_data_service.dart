@@ -12,9 +12,8 @@ class GetDataService {
   Future<DataBundleModel> getData() async {
     try {
       var token = AgentPreference.getPhoneToken();
-      final dataNtw = AgentPreference.getDataNetwork();
 
-      String serviceUrl = '$kGetDataDetailsUrl/$dataNtw?data_bundle=1';
+      String serviceUrl = kGetDataUrl;
 
       final Map<String, String> serviceHeader = {
         'Authorization': 'Bearer $token'
