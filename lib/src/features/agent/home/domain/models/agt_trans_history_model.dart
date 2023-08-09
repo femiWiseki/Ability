@@ -70,43 +70,43 @@ class TransactionHistory {
   String id;
   String agentId;
   String transactionStatus;
-  String transactionReference;
   String transactionType;
   String transactionAmount;
-  DateTime transactionDate;
-  String transactionDescription;
-  dynamic transactionFailureReason;
+  dynamic transactionDate;
   String transactionId;
   String transactionRecipient;
-  String transactionTransferCode;
-  dynamic transactionSourceDetails;
   String recipientBank;
   String recipientAccountName;
   String recipientAccountNumber;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
+  String? transactionReference;
+  String? transactionDescription;
+  dynamic transactionFailureReason;
+  String? transactionTransferCode;
+  dynamic transactionSourceDetails;
 
   TransactionHistory({
     required this.id,
     required this.agentId,
     required this.transactionStatus,
-    required this.transactionReference,
     required this.transactionType,
     required this.transactionAmount,
     required this.transactionDate,
-    required this.transactionDescription,
-    this.transactionFailureReason,
     required this.transactionId,
     required this.transactionRecipient,
-    required this.transactionTransferCode,
-    this.transactionSourceDetails,
     required this.recipientBank,
     required this.recipientAccountName,
     required this.recipientAccountNumber,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    this.transactionReference,
+    this.transactionDescription,
+    this.transactionFailureReason,
+    this.transactionTransferCode,
+    this.transactionSourceDetails,
   });
 
   factory TransactionHistory.fromJson(Map<String, dynamic> json) =>
@@ -114,43 +114,43 @@ class TransactionHistory {
         id: json["_id"],
         agentId: json["agentId"],
         transactionStatus: json["transactionStatus"],
-        transactionReference: json["transactionReference"],
         transactionType: json["transactionType"],
         transactionAmount: json["transactionAmount"],
-        transactionDate: DateTime.parse(json["transactionDate"]),
-        transactionDescription: json["transactionDescription"],
-        transactionFailureReason: json["transactionFailureReason"],
+        transactionDate: json["transactionDate"],
         transactionId: json["transactionId"],
         transactionRecipient: json["transactionRecipient"],
-        transactionTransferCode: json["transactionTransferCode"],
-        transactionSourceDetails: json["transactionSourceDetails"],
         recipientBank: json["recipientBank"],
         recipientAccountName: json["recipientAccountName"],
         recipientAccountNumber: json["recipientAccountNumber"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        transactionReference: json["transactionReference"],
+        transactionDescription: json["transactionDescription"],
+        transactionFailureReason: json["transactionFailureReason"],
+        transactionTransferCode: json["transactionTransferCode"],
+        transactionSourceDetails: json["transactionSourceDetails"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
         "agentId": agentId,
         "transactionStatus": transactionStatus,
-        "transactionReference": transactionReference,
         "transactionType": transactionType,
         "transactionAmount": transactionAmount,
-        "transactionDate": transactionDate.toIso8601String(),
-        "transactionDescription": transactionDescription,
-        "transactionFailureReason": transactionFailureReason,
+        "transactionDate": transactionDate,
         "transactionId": transactionId,
         "transactionRecipient": transactionRecipient,
-        "transactionTransferCode": transactionTransferCode,
-        "transactionSourceDetails": transactionSourceDetails,
         "recipientBank": recipientBank,
         "recipientAccountName": recipientAccountName,
         "recipientAccountNumber": recipientAccountNumber,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
+        "transactionReference": transactionReference,
+        "transactionDescription": transactionDescription,
+        "transactionFailureReason": transactionFailureReason,
+        "transactionTransferCode": transactionTransferCode,
+        "transactionSourceDetails": transactionSourceDetails,
       };
 }

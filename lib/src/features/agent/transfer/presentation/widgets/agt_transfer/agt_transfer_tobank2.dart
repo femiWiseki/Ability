@@ -7,8 +7,8 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/currency_editing_controller.dart';
 import 'package:ability/src/features/agent/transfer/application/repositories/bank_list.dart';
-import 'package:ability/src/features/agent/transfer/application/services/agt_save_bene_service.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_enter_transfer_code.dart';
@@ -30,8 +30,18 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? selectedBankName;
-
   BankListRepo bankListRepo = BankListRepo();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.transferController.agtTransferAmount = CurrencyEditingController(
+      initialValue: 0.00,
+      onValueChange: (newValue) {
+        setState(() {});
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,13 +153,15 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                                   ValidationHelper(), TransferController()));
                         },
                       );
+                      var transferDesc =
+                          widget.transferController.agtEnterTransferDesc.text;
+
                       await AgentPreference.setTransferAmount(
                           widget.transferController.agtTransferAmount.text);
-                      await AgentPreference.setTransDesc(
-                          widget.transferController.agtEnterTransferDesc.text);
-                      // PageNavigator(ctx: context)
 
-                      //   .nextPageOnly(page: const AggregatorProfileScreen());
+                      await AgentPreference.setTransDesc(transferDesc.isEmpty
+                          ? 'Transfer from ${AgentPreference.getUsername()}'
+                          : transferDesc);
                     }
                   },
                   child: !ref.watch(loadingAgtBankDetail2)

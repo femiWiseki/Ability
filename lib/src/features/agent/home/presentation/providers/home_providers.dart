@@ -32,6 +32,7 @@ final getAgtWithdrawalHistoryProvider =
 });
 
 /// This provider is used to get the Agent profile infomation
+final agtProfileName = StateProvider<String>((ref) => '');
 final agtProfilePovider =
     StateProvider<AgtProfileService>((ref) => AgtProfileService());
 

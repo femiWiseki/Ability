@@ -5,6 +5,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
@@ -40,8 +41,10 @@ class AgtHomeScreenBar extends ConsumerWidget {
                     const SizedBox(height: 6),
                     agtProfile.when(
                         data: (data) {
+                          var agtName = data.data.data.name;
+                          AgentPreference.setUsername(agtName);
                           return Text(
-                            data.data.data.name,
+                            agtName,
                             style: AppStyleGilroy.kFontW5.copyWith(
                                 fontSize: 11.02,
                                 color: kWhite.withOpacity(0.9)),

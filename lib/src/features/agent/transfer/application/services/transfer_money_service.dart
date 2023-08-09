@@ -9,6 +9,7 @@ import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/application/services/trans_history_service.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
+import 'package:ability/src/features/agent/payment/presentation/widgets/refactored_widgets/isloading_dialog.dart';
 import 'package:ability/src/features/agent/transfer/application/services/saved_bene_service.dart';
 import 'package:ability/src/features/agent/transfer/domain/models/agt_transfer_money_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
@@ -25,6 +26,8 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
   }) async {
     try {
       state = true;
+      isLoadingDialog(context);
+
       // var isBeneSaved = Provider((ref) => ref.watch(saveBeneficiaryProvider));
       var token = AgentPreference.getPhoneToken();
       var bankName = AgentPreference.getBankName().toString();
@@ -53,17 +56,12 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
           body: requestBody, headers: serviceHeader);
       // print(response.statusCode);
       // print(response.body);
+      Navigator.pop(context);
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
         // print(result);
 
-        AgtTransHistoryService().agtTransHistoryService();
-        AgtSavedBeneficiaryService().agtSavedBeneficiary();
-        // isBeneSaved == true
-        //     ? AgtSaveBeneficiaryService()
-        //         .saveBeneficiaryService(context: context)
-        //     : null;
         generalSuccessfullDialog(
             context: context,
             description:
@@ -100,12 +98,6 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
         if (refreshedResponse.statusCode == 200) {
           final result = jsonDecode(refreshedResponse.body);
 
-          AgtTransHistoryService().agtTransHistoryService();
-          AgtSavedBeneficiaryService().agtSavedBeneficiary();
-          // isBeneSaved == true
-          //     ? AgtSaveBeneficiaryService()
-          //         .saveBeneficiaryService(context: context)
-          //     : null;
           generalSuccessfullDialog(
               context: context,
               description:

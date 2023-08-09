@@ -13,9 +13,9 @@ import 'package:ability/src/features/aggregator/transfer/application/repositorie
 import 'package:ability/src/features/aggregator/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:dropdown_button3/dropdown_button3.dart';
 
 class AgtTransferToBank extends ConsumerStatefulWidget {
   TransferController transferController;
@@ -28,6 +28,13 @@ class AgtTransferToBank extends ConsumerStatefulWidget {
 class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? selectedBankName;
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
 
   BankListRepo bankListRepo = BankListRepo();
 
@@ -76,6 +83,45 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                         setState(() {
                           selectedBankName = value as String;
                         });
+                      },
+                      dropdownSearchData: DropdownSearchData(
+                        searchController: textEditingController,
+                        searchInnerWidgetHeight: 50,
+                        searchInnerWidget: Container(
+                          height: 50,
+                          padding: const EdgeInsets.only(
+                            top: 8,
+                            bottom: 4,
+                            right: 8,
+                            left: 8,
+                          ),
+                          child: TextFormField(
+                            expands: true,
+                            maxLines: null,
+                            controller: textEditingController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 8,
+                              ),
+                              hintText: 'Search for an item...',
+                              hintStyle: const TextStyle(fontSize: 12),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                        searchMatchFn: (item, searchValue) {
+                          return item.value.toString().contains(searchValue);
+                        },
+                      ),
+                      //This to clear the search value when you close the menu
+                      onMenuStateChange: (isOpen) {
+                        if (!isOpen) {
+                          textEditingController.clear();
+                        }
                       },
                     ),
                   ),

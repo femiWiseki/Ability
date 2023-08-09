@@ -18,7 +18,7 @@ class CurrencyEditingController extends TextEditingController {
         .format(double.parse(text));
     return TextSpan(
         text: formattedText,
-        style: AppStyleRoboto.kFontW6.copyWith(fontSize: 25, color: kBlack2));
+        style: AppStyleRoboto.kFontW6.copyWith(fontSize: 16, color: kBlack2));
   }
 
   @override

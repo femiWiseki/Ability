@@ -41,9 +41,9 @@ class AgtSaveBeneficiaryService extends StateNotifier<bool> {
       // print(response.statusCode);
       // print(response.body);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final result = jsonDecode(response.body);
-        print(result);
+        print('Beneficiary saved: $result');
 
         state = false;
         // Check if the request is unauthorized
@@ -82,7 +82,7 @@ class AgtSaveBeneficiaryService extends StateNotifier<bool> {
         }
       } else {
         final result = jsonDecode(response.body);
-        errorMessage(context: context, message: result['message']);
+        // errorMessage(context: context, message: result['message']);
         print(result);
         state = false;
       }

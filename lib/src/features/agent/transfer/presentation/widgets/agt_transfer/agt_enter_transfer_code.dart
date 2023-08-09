@@ -1,17 +1,13 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
-import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/transfer/application/services/agt_save_bene_service.dart';
-import 'package:ability/src/features/agent/transfer/application/services/saved_bene_service.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
-import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -54,49 +50,27 @@ class AgtEnterTransferCode extends ConsumerWidget {
                   const SizedBox(height: 39.71),
                   Center(
                     child: GeneralPinCode(
-                        pinLenght: 4,
-                        boxPinShape: PinCodeFieldShape.box,
-                        controller: transferController.agtEnterTransferCode,
-                        validator: (value) =>
-                            validationHelper.validatePinCode2(value!)),
-                  ),
-                  const SizedBox(height: 139.54),
-                  AbilityButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        ref.watch(saveBeneficiaryProvider) == true
-                            ? AgtSaveBeneficiaryService()
-                                .saveBeneficiaryService(context: context)
-                            : null;
-                        await ref
-                            .read(loadingAgtBankDetail2.notifier)
-                            .transferMoneyService(
-                              context: context,
-                              passcode:
-                                  transferController.agtEnterTransferCode.text,
-                            );
-                        AgtSavedBeneficiaryService().agtSavedBeneficiary();
-
-                        // saveBeneficiary();
-                        print(AgentPreference.getBankName());
-                      }
-                    },
-                    borderColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    buttonColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                    child: !ref.watch(loadingAgtBankDetail2)
-                        ? Text(
-                            'continue',
-                            style: AppStyleGilroy.kFontW6
-                                .copyWith(color: kWhite, fontSize: 18),
-                          )
-                        : const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 6,
-                              color: kWhite,
-                            ),
-                          ),
+                      pinLenght: 4,
+                      boxPinShape: PinCodeFieldShape.box,
+                      controller: transferController.agtEnterTransferCode,
+                      validator: (value) =>
+                          validationHelper.validatePinCode2(value!),
+                      pinIsComplete: () async {
+                        if (_formKey.currentState!.validate()) {
+                          await ref
+                              .read(loadingAgtBankDetail2.notifier)
+                              .transferMoneyService(
+                                context: context,
+                                passcode: transferController
+                                    .agtEnterTransferCode.text,
+                              );
+                          ref.watch(saveBeneficiaryProvider) == true
+                              ? AgtSaveBeneficiaryService()
+                                  .saveBeneficiaryService(context: context)
+                              : false;
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

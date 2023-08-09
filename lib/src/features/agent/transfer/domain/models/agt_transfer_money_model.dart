@@ -36,7 +36,7 @@ class Data {
   String transactionStatus;
   String transactionReference;
   DateTime transactionDate;
-  int transactionAmount;
+  dynamic transactionAmount;
 
   Data({
     required this.narration,

@@ -1,5 +1,4 @@
 import 'package:ability/src/common_widgets/app_header.dart';
-import 'package:ability/src/constants/app_text_style/inter.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
@@ -7,10 +6,8 @@ import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/transaction_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:dropdown_button3/dropdown_button3.dart';
 
 class AgtTransactionHistory extends ConsumerStatefulWidget {
   const AgtTransactionHistory({super.key});
