@@ -69,20 +69,25 @@ class AgtTransferToBeneficiary2 extends ConsumerWidget {
                       ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
+                      int parsedTransAmtVal =
+                          int.parse(transferController.agtBeneAmount.text);
+                      String transferAmount = parsedTransAmtVal.toString();
+                      print(transferAmount);
+                      print(transferAmount.runtimeType);
                       confirmDetailsDialog(
                         context: context,
                         bankName: bankName,
                         accountNumber: accountNumber,
                         accountName: accountName,
-                        amount: transferController.agtBeneAmount.text,
+                        amount: transferAmount,
                         onTap: () {
                           PageNavigator(ctx: context).nextPage(
                               page: AgtEnterTransferCode(
                                   ValidationHelper(), TransferController()));
                         },
                       );
-                      await AgentPreference.setTransferAmount(
-                          transferController.agtBeneAmount.text);
+
+                      await AgentPreference.setTransferAmount(transferAmount);
                       await AgentPreference.setTransDesc(
                           transferController.agtBeneDescription.text);
                       await AgentPreference.setAccountNumber(accountNumber);

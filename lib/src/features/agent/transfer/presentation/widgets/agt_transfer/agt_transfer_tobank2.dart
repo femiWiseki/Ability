@@ -70,8 +70,8 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                   hintText: 'Enter Amount',
                   keyboardType: TextInputType.number,
                   borderRadius: BorderRadius.circular(5),
-                  validator: (value) =>
-                      ValidationHelper().validateAmount(value!),
+                  // validator: (value) =>
+                  //     ValidationHelper().validateAmount(value!),
                 ),
                 const SizedBox(height: 27),
                 GeneralTextField(
@@ -138,6 +138,11 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                       ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
+                      int parsedValue = int.parse(
+                          widget.transferController.agtTransferAmount.text);
+                      String transferAmount = parsedValue.toString();
+                      print(transferAmount);
+                      print(transferAmount.runtimeType);
                       confirmDetailsDialog(
                         context: context,
                         bankName: AgentPreference.getBankName().toString(),
@@ -145,8 +150,7 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                             AgentPreference.getAccountNumber().toString(),
                         accountName:
                             AgentPreference.getAccountName().toString(),
-                        amount:
-                            widget.transferController.agtTransferAmount.text,
+                        amount: transferAmount,
                         onTap: () {
                           PageNavigator(ctx: context).nextPage(
                               page: AgtEnterTransferCode(
@@ -156,8 +160,7 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                       var transferDesc =
                           widget.transferController.agtEnterTransferDesc.text;
 
-                      await AgentPreference.setTransferAmount(
-                          widget.transferController.agtTransferAmount.text);
+                      await AgentPreference.setTransferAmount(transferAmount);
 
                       await AgentPreference.setTransDesc(transferDesc.isEmpty
                           ? 'Transfer from ${AgentPreference.getUsername()}'

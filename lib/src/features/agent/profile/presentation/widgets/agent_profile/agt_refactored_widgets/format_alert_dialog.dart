@@ -1,6 +1,7 @@
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
+import 'package:ability/src/features/aggregator/profile/presentation/providers/profile_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,10 +15,15 @@ formatDialog(BuildContext context) {
           borderRadius: BorderRadius.circular(20),
         ),
         title: SizedBox(
-          height: 200,
+          height: 150,
           width: 345,
           child: Consumer(
             builder: (context, ref, child) {
+              void selectFormat(BuildContext context, String format) {
+                ref.read(fileFormatterProvider.notifier).state = format;
+                Navigator.of(context).pop();
+              }
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -28,14 +34,9 @@ formatDialog(BuildContext context) {
                           .copyWith(fontSize: 14, color: kGrey2),
                     ),
                   ),
-                  const SizedBox(height: 58),
+                  const SizedBox(height: 20),
                   TextButton(
-                      onPressed: () {
-                        ref
-                            .read(fileFormatProvider.notifier)
-                            .selectFormat('PDF');
-                        Navigator.of(context).pop();
-                      },
+                      onPressed: () => selectFormat(context, 'PDF'),
                       child: Text(
                         'PDF',
                         style: AppStyleGilroy.kFontW5
@@ -43,12 +44,7 @@ formatDialog(BuildContext context) {
                       )),
                   const Divider(thickness: 1, color: kGrey3),
                   TextButton(
-                      onPressed: () {
-                        ref
-                            .read(fileFormatProvider.notifier)
-                            .selectFormat('Microsoft Excel');
-                        Navigator.of(context).pop();
-                      },
+                      onPressed: () => selectFormat(context, 'Microsoft Excel'),
                       child: Text(
                         'Microsoft Excel',
                         style: AppStyleGilroy.kFontW5

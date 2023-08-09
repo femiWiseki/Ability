@@ -56,6 +56,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
           body: requestBody, headers: serviceHeader);
       // print(response.statusCode);
       // print(response.body);
+      print(requestBody);
       Navigator.pop(context);
 
       if (response.statusCode == 200) {
@@ -111,6 +112,7 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
         } else {
           final result = jsonDecode(refreshedResponse.body);
           errorMessage(context: context, message: result['message']);
+          print(result['message']);
           state = false;
         }
       } else {

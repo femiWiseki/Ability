@@ -7,6 +7,7 @@ import 'package:ability/src/features/agent/authentication/presentation/widgets/a
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_account_statement.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/agt_passcode_screen.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_contactus_tile.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_profile_card.dart';
@@ -79,8 +80,8 @@ class AgtProfileScreen extends ConsumerWidget {
                                 'assets/icons/account_statement.svg',
                             title: 'Account Statement',
                             onTap: () {
-                              // PageNavigator(ctx: context)
-                              //     .nextPage(page: const AggAccountStatement());
+                              PageNavigator(ctx: context)
+                                  .nextPage(page: const AgtAccountStatement());
                             },
                           ),
                           GeneralTile(
