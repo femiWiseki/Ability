@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/app_header.dart';
@@ -6,11 +6,14 @@ import 'package:ability/src/common_widgets/text_field_container.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/snack_messages.dart';
+import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/format_alert_dialog.dart';
 import 'package:ability/src/features/aggregator/profile/presentation/providers/profile_providers.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AgtAccountStatement extends ConsumerStatefulWidget {
   const AgtAccountStatement({super.key});
@@ -26,6 +29,15 @@ class _AgtAccountStatementState extends ConsumerState<AgtAccountStatement> {
   DateTime _selectedDate2 = DateTime(0);
 
   final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
+
+  Future<void> openURL(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,21 +119,38 @@ class _AgtAccountStatementState extends ConsumerState<AgtAccountStatement> {
             ),
             const SizedBox(height: 88),
             AbilityButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_selectedDate.year == 0 ||
                     _selectedDate2.year == 0 ||
                     fileFormat.isEmpty) {
                   errorMessage(
                       context: context, message: 'All fields must be filled');
                 } else {
-                  // PageNavigator(ctx: context)
-                  //     .nextPageOnly(page: const AggregatorProfileScreen());
+                  await AgentPreference.setAccStatemtFmt(fileFormat);
+                  print(_selectedDate.toIso8601String());
+                  await ref
+                      .watch(loadingAgtAccStatemt.notifier)
+                      .agtAccStatement();
+
+                  Navigator.pop(context);
                 }
               },
               height: 60,
               buttonColor: fileFormat.isEmpty ? kGrey23 : kPrimary,
               borderColor: fileFormat.isEmpty ? kGrey23 : kPrimary,
               borderRadius: 10,
+              child: !ref.watch(loadingAgtAccStatemt)
+                  ? Text(
+                      'continue',
+                      style: AppStyleGilroy.kFontW6
+                          .copyWith(color: kWhite, fontSize: 18),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 6,
+                        color: kWhite,
+                      ),
+                    ),
             )
           ]),
         ),
@@ -143,6 +172,7 @@ class _AgtAccountStatementState extends ConsumerState<AgtAccountStatement> {
         _selectedDate = picked;
       });
     }
+    await AgentPreference.setAccStartDate(_selectedDate.toIso8601String());
   }
 
   Future<void> _showDatePicker2(BuildContext context) async {
@@ -159,5 +189,6 @@ class _AgtAccountStatementState extends ConsumerState<AgtAccountStatement> {
         _selectedDate2 = picked2;
       });
     }
+    await AgentPreference.setAccEndDate(_selectedDate2.toIso8601String());
   }
 }

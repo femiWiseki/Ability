@@ -23,6 +23,9 @@ class AgentPreference {
   static const _keyPasscodeStatus = 'passcodeStatus';
   static const _keyDataNetwork = 'dataNetwork';
   static const _keyUsername = 'username';
+  static const _keyAccStartDate = 'accStartDate';
+  static const _keyAccEndDate = 'accEndDate';
+  static const _keyAccStatemtFmt = 'accStatemtFmt';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -86,6 +89,15 @@ class AgentPreference {
   static Future setUsername(String username) async =>
       await _preferences.setString(_keyUsername, username);
 
+  static Future setAccStartDate(String accStartDate) async =>
+      await _preferences.setString(_keyAccStartDate, accStartDate);
+
+  static Future setAccEndDate(String accEndDate) async =>
+      await _preferences.setString(_keyAccEndDate, accEndDate);
+
+  static Future setAccStatemtFmt(String accStatemtFmt) async =>
+      await _preferences.setString(_keyAccStatemtFmt, accStatemtFmt);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -130,6 +142,13 @@ class AgentPreference {
   static String? getDataNetwork() => _preferences.getString(_keyDataNetwork);
 
   static String? getUsername() => _preferences.getString(_keyUsername);
+
+  static String? getAccStartDate() => _preferences.getString(_keyAccStartDate);
+
+  static String? getAccEndDate() => _preferences.getString(_keyAccEndDate);
+
+  static String? getAccStatemtFmt() =>
+      _preferences.getString(_keyAccStatemtFmt);
 
   /// Clear Agent Token when logged out..
   static Future logoutUser() async {

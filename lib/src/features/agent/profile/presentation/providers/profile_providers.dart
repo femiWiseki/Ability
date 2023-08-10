@@ -1,3 +1,4 @@
+import 'package:ability/src/features/agent/profile/application/services/agt_acc_statement_service.dart';
 import 'package:ability/src/features/agent/profile/application/services/passcode_services/agt_resetnew_service.dart';
 import 'package:ability/src/features/agent/profile/application/services/passcode_services/agt_resetpc_service.dart';
 import 'package:ability/src/features/agent/profile/application/services/passcode_services/agt_verifypc_service.dart';
@@ -19,3 +20,7 @@ final loadingAgtVerifyPasscode =
 final loadingAgtResetNewPasscode =
     StateNotifierProvider<AgtResetNewPasscodeService, bool>(
         (ref) => AgtResetNewPasscodeService());
+
+final loadingAgtAccStatemt =
+    StateNotifierProvider<AgtAccStatementService, bool>(
+        (ref) => AgtAccStatementService());

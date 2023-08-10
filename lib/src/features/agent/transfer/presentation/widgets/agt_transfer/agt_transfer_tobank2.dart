@@ -70,8 +70,8 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                   hintText: 'Enter Amount',
                   keyboardType: TextInputType.number,
                   borderRadius: BorderRadius.circular(5),
-                  // validator: (value) =>
-                  //     ValidationHelper().validateAmount(value!),
+                  validator: (value) =>
+                      ValidationHelper().validateAmount(value!),
                 ),
                 const SizedBox(height: 27),
                 GeneralTextField(

@@ -57,6 +57,8 @@ dependencies:
   iconsax: ^0.0.8
   flutter_launcher_icons: ^0.12.0
   flutter_paystack: ^1.0.7
+  local_auth: ^2.1.6
+  url_launcher: ^6.1.12
 
 flutter_icons:
   image_path: "assets/icons/play_app_logo.png"

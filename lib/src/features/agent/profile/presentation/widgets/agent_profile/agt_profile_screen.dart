@@ -218,7 +218,7 @@ class AgtProfileScreen extends ConsumerWidget {
                           ),
                           GeneralTile(
                             prefixIconPath: 'assets/icons/delete_account.svg',
-                            title: 'Delete Account',
+                            title: 'Sign out',
                             textStyle: AppStyleGilroy.kFontW5
                                 .copyWith(fontSize: 15, color: customColor2),
                             onTap: () {
