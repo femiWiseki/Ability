@@ -3,7 +3,6 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/custom_snack_bar.dart';
 import 'package:flutter/material.dart';
 
-
 void successMessage({
   required BuildContext context,
   required String message,
@@ -45,7 +44,7 @@ void successMessage({
         ),
       ),
     ),
-    displayDuration: const Duration(seconds: 3),
+    displayDuration: const Duration(seconds: 5),
     dismissDirection: DismissDirection.up,
     curve: Curves.easeIn,
     reverseCurve: Curves.easeOut,
@@ -87,7 +86,8 @@ void errorMessage({
               Expanded(
                 child: Text(
                   message,
-                  style: AppStylePoppins.kFontW5.copyWith(fontSize: 14, color: kBlack),
+                  style: AppStylePoppins.kFontW5
+                      .copyWith(fontSize: 14, color: kBlack),
                 ),
               )
             ],
@@ -95,7 +95,7 @@ void errorMessage({
         ),
       ),
     ),
-    displayDuration: const Duration(seconds: 3),
+    displayDuration: const Duration(seconds: 5),
     dismissDirection: DismissDirection.horizontal,
     curve: Curves.easeIn,
     reverseCurve: Curves.easeOut,

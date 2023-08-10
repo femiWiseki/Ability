@@ -42,6 +42,9 @@ class AgtHomeScreenBar extends ConsumerWidget {
                     agtProfile.when(
                         data: (data) {
                           var agtName = data.data.data.name;
+                          var agtPhoneNumber = data.data.data.phoneNumber;
+                          print(agtPhoneNumber);
+                          AgentPreference.setPhoneNumber(agtPhoneNumber);
                           AgentPreference.setUsername(agtName);
                           return Text(
                             agtName,

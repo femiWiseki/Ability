@@ -26,6 +26,7 @@ class AgentPreference {
   static const _keyAccStartDate = 'accStartDate';
   static const _keyAccEndDate = 'accEndDate';
   static const _keyAccStatemtFmt = 'accStatemtFmt';
+  static const _keyFingerBiometrics = 'fingerBiometrics';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -98,6 +99,9 @@ class AgentPreference {
   static Future setAccStatemtFmt(String accStatemtFmt) async =>
       await _preferences.setString(_keyAccStatemtFmt, accStatemtFmt);
 
+  static Future<void> setFingerBiometrics(bool value) async =>
+      await _preferences.setBool(_keyFingerBiometrics, value);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -150,6 +154,9 @@ class AgentPreference {
   static String? getAccStatemtFmt() =>
       _preferences.getString(_keyAccStatemtFmt);
 
+  static bool getFingerBiometrics() =>
+      _preferences.getBool(_keyFingerBiometrics) ?? false;
+
   /// Clear Agent Token when logged out..
   static Future logoutUser() async {
     await _preferences.remove(_keyPhoneToken);
@@ -164,6 +171,11 @@ class AgentPreference {
   /// Clear AccountName..
   static Future clearAccountName() async {
     await _preferences.remove(_keyAccountName);
+  }
+
+  // Clear fingerBiometrics
+  static Future clearFingerBiometrics() async {
+    await _preferences.remove(_keyFingerBiometrics);
   }
 }
 

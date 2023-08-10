@@ -14,6 +14,7 @@ const kRefreshTokenUrl = "$baseUrl/api/v1/agents/refresh/token";
 const kCreateAccountAgentUrl = "$baseUrl/api/v1/agents/signup";
 const kVerifyAgenttUrl = "$baseUrl/api/v1/agents/auth/verify/number";
 const kLoginAgentUrl = "$baseUrl/api/v1/agents/login";
+const kFingerprintLoginUrl = "$baseUrl/api/v1/agents/login/biometric";
 const kPasscodeLoginAgentUrl = "$baseUrl/api/v1/agents/login/passcode";
 const kResendOTPAgentUrl = "$baseUrl/api/v1/agents/email/resend";
 const kPasscodeAgentUrl = "$baseUrl/api/v1/agents/set/passcode";
@@ -43,6 +44,7 @@ var kGetCableUrl =
 // Agent Profile Urls
 var kAgtAccStatementUrl =
     "$baseUrl/api/v1/agents/download/transactions?startDate=$accStartDate&endDate=$accEndDate";
+var kEnrollFingerPrintUrl = "$baseUrl/api/v1/agents/biometric";
 
 // Aggregator
 const kCreateAccountAggregatorUrl = "$baseUrl/api/v1/aggregators/signup";

@@ -1,16 +1,21 @@
 import 'package:ability/src/common_widgets/kflutter_switch.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/fingerprint_auth.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_login_screen.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/general_tile.dart';
+import 'package:ability/src/features/agent/profile/application/services/agt_enroll_fingerprint_service.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_account_statement.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/agt_passcode_screen.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_contactus_tile.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_profile_card.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/signout_alert_dialog.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/unenroll_fingerprint_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +26,20 @@ class AgtProfileScreen extends ConsumerWidget {
   const AgtProfileScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    void onAuthenticationSuccess() {
+      // Place your post-authentication logic here
+      if (ref.read(fingerBiometricsProvider.notifier).state == true) {
+        AgtEnrollFingerPTService().enrollFingerPrint(context);
+        successMessage(
+            context: context,
+            message: 'Biometrics for Password activated successfully');
+      } else {
+        errorMessage(
+            context: context,
+            message: 'Biometrics not enabled, try again later');
+      }
+    }
+
     return Scaffold(
       backgroundColor: kAsh1,
       body: SafeArea(
@@ -132,12 +151,41 @@ class AgtProfileScreen extends ConsumerWidget {
                             prefixIconPath: 'assets/icons/biometrics.svg',
                             title: 'Biometrics',
                             suffixIcons: KFlutterSwitch(
-                              value: ref.watch(onBiometrics),
+                              value: ref.watch(fingerBiometricsProvider),
                               onToggle: (value) {
-                                ref.read(onBiometrics.notifier).state = value;
+                                if (value) {
+                                  userFingerPrintAuth(
+                                      context: context,
+                                      proceedAuth: onAuthenticationSuccess);
+                                  ref
+                                      .read(fingerBiometricsProvider.notifier)
+                                      .state = value;
+                                  AgentPreference.setFingerBiometrics(value);
+                                } else {
+                                  unenrollFingerPTDialog(
+                                    context: context,
+                                    unenrollFinger: () {
+                                      AgtEnrollFingerPTService()
+                                          .enrollFingerPrint(context);
+                                      successMessage(
+                                          context: context,
+                                          message:
+                                              'Biometrics disable successfully');
+                                      ref
+                                          .read(
+                                              fingerBiometricsProvider.notifier)
+                                          .state = value;
+                                      AgentPreference.setFingerBiometrics(
+                                          value);
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                }
                               },
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              print(AgentPreference.getFingerBiometrics());
+                            },
                           ),
                         ],
                       ),
@@ -222,11 +270,7 @@ class AgtProfileScreen extends ConsumerWidget {
                             textStyle: AppStyleGilroy.kFontW5
                                 .copyWith(fontSize: 15, color: customColor2),
                             onTap: () {
-                              AgentPreference.logoutUser().then((value) {
-                                PageNavigator(ctx: context).nextPageOnly(
-                                    page: AgentLoginScreen(
-                                        ValidationHelper(), AgentController()));
-                              });
+                              signoutAlertDialog(context);
                             },
                           ),
                         ],

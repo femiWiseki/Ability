@@ -2,11 +2,15 @@
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
+import 'package:ability/src/constants/fingerprint_auth.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/constants/snack_messages.dart';
+import 'package:ability/src/features/agent/authentication/application/services/login_services/login_service.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_pin_reset.dart';
 import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
+import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 
 import 'package:ability/src/common_widgets/ability_password_field.dart';
@@ -32,11 +36,24 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
   // CountryCode? _countryCode;
   // late FlCountryCodePicker countryPicker;
   int? maxLength = 10;
+  void onAuthenticationSuccess() {
+    // Place your post-authentication logic here
+    if (ref.read(fingerBiometricsProvider.notifier).state == true) {
+      FingerprintLoginService().fingerprintLogin(context: context);
+      print('Fingerprint authentication successful, on to HomeScreen!');
+    } else {
+      errorMessage(
+          context: context,
+          message: 'Please Enable Fingerprint Biometric for Enhanced Security');
+    }
+  }
+
   @override
   void initState() {
     // final preferredCountries = ['NG'];
     // countryPicker = FlCountryCodePicker(filteredCountries: preferredCountries);
     _loadSavedCredentials();
+    userFingerPrintAuth(context: context, proceedAuth: onAuthenticationSuccess);
     super.initState();
   }
 
@@ -245,7 +262,33 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                             ),
                           ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: Text('or',
+                        style: AppStyleGilroy.kFontW4.copyWith(fontSize: 16)),
+                  ),
+                  const SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: () async {
+                      // Call userFingerPrintAuth and provide the callback function
+                      userFingerPrintAuth(
+                        context: context,
+                        proceedAuth: onAuthenticationSuccess,
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Use fingerprint ",
+                          style: AppStyleRoboto.kFontW4
+                              .copyWith(fontSize: 14, color: kGrey2),
+                        ),
+                        const Icon(Icons.fingerprint_outlined, color: kPrimary),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 30),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -7,6 +7,7 @@ import 'package:ability/src/common_widgets/text_field_container.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/providers/payment_providers.dart';
@@ -130,9 +131,15 @@ class _BuyDataState extends ConsumerState<BuyData> {
                   borderRadius: 5,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   onTap: () {
-                    dataServiceBottomSheet(
-                      context: context,
-                    );
+                    if (selectedNetwork != null) {
+                      dataServiceBottomSheet(
+                        context: context,
+                      );
+                    } else {
+                      errorMessage(
+                          context: context,
+                          message: 'Select a network provider');
+                    }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

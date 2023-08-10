@@ -68,37 +68,42 @@ class AgentLoginService extends StateNotifier<bool> {
   }
 }
 
-class AggregatorLoginService extends StateNotifier<bool> {
-  AggregatorLoginService() : super(false);
+class FingerprintLoginService extends StateNotifier<bool> {
+  FingerprintLoginService() : super(false);
 
-  Future<void> getLoginService({
+  Future<void> fingerprintLogin({
     required BuildContext context,
-    required String phoneNumber,
-    required String pin,
   }) async {
     try {
       state = true;
       final indexNumber = StateProvider<int>((ref) => 0);
-      String serviceUrl = kLoginAggregatorUrl;
+      String serviceUrl = kFingerprintLoginUrl;
+      var phoneNumber = AgentPreference.getPhoneNumber();
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json'
       };
       final String requestBody = jsonEncode({
         "phoneNumber": phoneNumber,
-        "pin": pin,
       });
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
+
+      print(response.statusCode);
+      print(phoneNumber);
+      print(response.body);
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        print(result);
-        await AggregatorPreference.setPhoneToken(result['data']['token']);
-        // Routing
-        navigatorKey.currentState!.push(CupertinoPageRoute(
-            builder: (context) => AggBottomNavBar(
-                  indexProvider: indexNumber,
-                )));
+        // print(result);
 
+        await AgentPreference.setPhoneToken(result['data']['token']);
+        await AgentPreference.setRefreshToken(result['data']['refreshToken']);
+
+        // Routing
+        navigatorKey.currentState!.pushAndRemoveUntil(
+            CupertinoPageRoute(
+              builder: (context) => AgtBottomNavBar(indexProvider: indexNumber),
+            ),
+            (Route<dynamic> route) => false);
         state = false;
       } else {
         final result = jsonDecode(response.body);
