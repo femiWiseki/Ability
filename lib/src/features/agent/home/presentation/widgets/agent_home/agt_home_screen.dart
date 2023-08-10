@@ -5,6 +5,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/upcase_letter.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_airtm_trans_his.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_home_screen_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_trans_history_screen.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
@@ -75,12 +76,27 @@ class AgtHomeScreen extends ConsumerWidget {
                                           .format(historyTime);
                                   final info = historyInfo[index];
                                   return RecentTransactionTile(
-                                      title: convertToUppercase(
-                                          info.transactionType),
-                                      dateTime: formattedDate,
-                                      amount: info.transactionAmount,
-                                      status: convertToUppercase(
-                                          info.transactionStatus));
+                                    title: convertToUppercase(
+                                        info.transactionType),
+                                    dateTime: formattedDate,
+                                    amount: info.transactionAmount,
+                                    status: convertToUppercase(
+                                        info.transactionStatus),
+                                    onTap: () {
+                                      PageNavigator(ctx: context).nextPage(
+                                          page: AgtAirTransHistory(
+                                        transType: info.transactionType,
+                                        transAmount: info.transactionAmount,
+                                        transDateTime: formattedDate,
+                                        transStatus: convertToUppercase(
+                                            info.transactionStatus),
+                                        transNumber: info.transactionId,
+                                        transOperator: info.recipientBank,
+                                        phoneNumber: info.transactionRecipient,
+                                        paidWith: 'Bank Balance',
+                                      ));
+                                    },
+                                  );
                                 },
                               )
                             : const Column(
@@ -91,8 +107,7 @@ class AgtHomeScreen extends ConsumerWidget {
                       error: (e, s) => Text(e.toString()),
                       loading: () => const Center(
                         child: CircularProgressIndicator(
-                          strokeWidth: 6,
-                          color: kWhite,
+                          color: kPrimary,
                         ),
                       ),
                     ),
