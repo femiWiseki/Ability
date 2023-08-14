@@ -91,8 +91,8 @@ class AgtHomeScreen extends ConsumerWidget {
                                         transStatus: convertToUppercase(
                                             info.transactionStatus),
                                         transNumber: info.transactionId,
-                                        transOperator: '',
-                                        phoneNumber: '',
+                                        transOperator: info.recipientBank,
+                                        phoneNumber: info.transactionRecipient,
                                         paidWith: 'Bank Balance',
                                       ));
                                     },

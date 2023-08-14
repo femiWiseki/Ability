@@ -62,11 +62,11 @@ class AgtAirtimeDetails extends ConsumerWidget {
           child: Column(
             children: [
               const AppHeader(heading: 'Transaction History'),
-              const SizedBox(height: 37.11),
+              const SizedBox(height: 50),
               Screenshot(
                 controller: screenshotController,
                 child: Container(
-                  height: 460,
+                  height: 440,
                   width: 380,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25), color: kWhite),
@@ -150,7 +150,8 @@ class AgtAirtimeDetails extends ConsumerWidget {
                         AccStatementTile(
                             prefixText: 'Paid with', suffixText: paidWith),
                         AccStatementTile(
-                            prefixText: 'Operator', suffixText: transOperator),
+                            prefixText: 'Operator',
+                            suffixText: convertToUppercase(transOperator)),
                         AccStatementTile(
                             prefixText: 'Phone Number',
                             suffixText: phoneNumber),
@@ -160,7 +161,10 @@ class AgtAirtimeDetails extends ConsumerWidget {
                           color: kGrey3,
                         ),
                         AccStatementTile(
-                            prefixText: 'Transaction number', suffixText: ''),
+                          prefixText: 'Transaction number',
+                          suffixText: transNumber,
+                          suffixTextFontSize: 10,
+                        ),
                       ],
                     ),
                   ),

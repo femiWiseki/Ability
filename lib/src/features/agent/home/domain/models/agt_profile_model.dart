@@ -57,8 +57,9 @@ class DataData {
   String id;
   String name;
   String email;
+  bool isBiometricRegistered;
   String walletId;
-  dynamic walletBalance;
+  int walletBalance;
   bool isVerified;
   String phoneNumber;
   String deviceId;
@@ -67,7 +68,16 @@ class DataData {
   String resetOtp;
   bool smssettings;
   DateTime walletCreatedDate;
+  String bvn;
   String terminalId;
+  String virtualAccountNumber;
+  String viritualAccountName;
+  String virtualCustomeCode;
+  String virtualAccountId;
+  String virtualBankName;
+  int virtualAccountBalance;
+  DateTime virtualAccountCreatedAt;
+  bool rememberMe;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -76,6 +86,7 @@ class DataData {
     required this.id,
     required this.name,
     required this.email,
+    required this.isBiometricRegistered,
     required this.walletId,
     required this.walletBalance,
     required this.isVerified,
@@ -86,7 +97,16 @@ class DataData {
     required this.resetOtp,
     required this.smssettings,
     required this.walletCreatedDate,
+    required this.bvn,
     required this.terminalId,
+    required this.virtualAccountNumber,
+    required this.viritualAccountName,
+    required this.virtualCustomeCode,
+    required this.virtualAccountId,
+    required this.virtualBankName,
+    required this.virtualAccountBalance,
+    required this.virtualAccountCreatedAt,
+    required this.rememberMe,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -96,6 +116,7 @@ class DataData {
         id: json["_id"],
         name: json["name"],
         email: json["email"],
+        isBiometricRegistered: json["isBiometricRegistered"],
         walletId: json["walletId"],
         walletBalance: json["walletBalance"],
         isVerified: json["isVerified"],
@@ -106,7 +127,17 @@ class DataData {
         resetOtp: json["resetOtp"],
         smssettings: json["smssettings"],
         walletCreatedDate: DateTime.parse(json["walletCreatedDate"]),
+        bvn: json["bvn"],
         terminalId: json["terminalId"],
+        virtualAccountNumber: json["virtualAccountNumber"],
+        viritualAccountName: json["viritualAccountName"],
+        virtualCustomeCode: json["virtualCustomeCode"],
+        virtualAccountId: json["virtualAccountId"],
+        virtualBankName: json["virtualBankName"],
+        virtualAccountBalance: json["virtualAccountBalance"],
+        virtualAccountCreatedAt:
+            DateTime.parse(json["virtualAccountCreatedAt"]),
+        rememberMe: json["rememberMe"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
       );
@@ -116,6 +147,7 @@ class DataData {
         "_id": id,
         "name": name,
         "email": email,
+        "isBiometricRegistered": isBiometricRegistered,
         "walletId": walletId,
         "walletBalance": walletBalance,
         "isVerified": isVerified,
@@ -126,7 +158,16 @@ class DataData {
         "resetOtp": resetOtp,
         "smssettings": smssettings,
         "walletCreatedDate": walletCreatedDate.toIso8601String(),
+        "bvn": bvn,
         "terminalId": terminalId,
+        "virtualAccountNumber": virtualAccountNumber,
+        "viritualAccountName": viritualAccountName,
+        "virtualCustomeCode": virtualCustomeCode,
+        "virtualAccountId": virtualAccountId,
+        "virtualBankName": virtualBankName,
+        "virtualAccountBalance": virtualAccountBalance,
+        "virtualAccountCreatedAt": virtualAccountCreatedAt.toIso8601String(),
+        "rememberMe": rememberMe,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
       };

@@ -20,7 +20,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final agtProfile = ref.watch(getAgtProfileProvider);
     return Container(
-      height: 333.32,
+      height: 340,
       width: double.maxFinite,
       color: kPrimary,
       child: Padding(
@@ -65,13 +65,13 @@ class AgtHomeScreenBar extends ConsumerWidget {
                 )
               ],
             ),
-            const SizedBox(height: 35.18),
+            const SizedBox(height: 20),
             Text(
               'Current Balance',
               style: AppStyleGilroy.kFontW5
                   .copyWith(fontSize: 16.53, color: kWhite),
             ),
-            const SizedBox(height: 16.48),
+            const SizedBox(height: 10),
             agtProfile.when(
                 data: (data) {
                   var currentBalance = NumberFormat.currency(
@@ -107,7 +107,82 @@ class AgtHomeScreenBar extends ConsumerWidget {
                 },
                 error: ((error, stackTrace) => const Text('')),
                 loading: () => const Text('......')),
-            const SizedBox(height: 43.7),
+            const SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Virtual Account Name :',
+                  style: AppStyleGilroy.kFontW7
+                      .copyWith(fontSize: 12, color: kWhite),
+                ),
+                agtProfile.when(
+                    data: (data) {
+                      var virAccName = data.data.data.viritualAccountName;
+                      return SizedBox(
+                        width: 200,
+                        child: Text(
+                          virAccName,
+                          style: AppStyleGilroy.kFontW5
+                              .copyWith(fontSize: 12, color: kWhite),
+                        ),
+                      );
+                    },
+                    error: (e, s) => const Text(''),
+                    loading: () => const Text('.....')),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Virtual Account Number :',
+                  style: AppStyleGilroy.kFontW7
+                      .copyWith(fontSize: 13, color: kWhite),
+                ),
+                agtProfile.when(
+                    data: (data) {
+                      var virAccBank = data.data.data.virtualAccountNumber;
+                      return SizedBox(
+                        width: 180,
+                        child: Text(
+                          virAccBank,
+                          style: AppStyleGilroy.kFontW5
+                              .copyWith(fontSize: 12, color: kWhite),
+                        ),
+                      );
+                    },
+                    error: (e, s) => const Text(''),
+                    loading: () => const Text('.....')),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Virtual Bank Name :',
+                  style: AppStyleGilroy.kFontW7
+                      .copyWith(fontSize: 13, color: kWhite),
+                ),
+                agtProfile.when(
+                    data: (data) {
+                      var virBankName = data.data.data.virtualBankName;
+                      return SizedBox(
+                        width: 180,
+                        child: Text(
+                          virBankName,
+                          style: AppStyleGilroy.kFontW5
+                              .copyWith(fontSize: 12, color: kWhite),
+                        ),
+                      );
+                    },
+                    error: (e, s) => const Text(''),
+                    loading: () => const Text('.....')),
+              ],
+            ),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
