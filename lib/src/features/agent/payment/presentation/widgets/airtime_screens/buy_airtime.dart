@@ -8,6 +8,7 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/currency_editing_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/airtime_screens/confirm_airtime_dialog.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
@@ -47,6 +48,17 @@ class _BuyAirtimeState extends ConsumerState<BuyAirtime> {
       'text': 'GLO',
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    widget.payController.airtimeAmount = CurrencyEditingController(
+      initialValue: 0.00,
+      onValueChange: (newValue) {
+        setState(() {});
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +128,7 @@ class _BuyAirtimeState extends ConsumerState<BuyAirtime> {
                   controller: widget.payController.airtimeAmount,
                   heading: 'Enter Amount',
                   hintText: 'Enter Amount',
+                  maxLength: 12,
                   keyboardType: TextInputType.number,
                   borderRadius: BorderRadius.circular(5),
                   validator: (value) =>

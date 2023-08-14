@@ -68,6 +68,7 @@ class _AgtTransferToBank2State extends ConsumerState<AgtTransferToBank2> {
                   controller: widget.transferController.agtTransferAmount,
                   heading: 'Enter Amount',
                   hintText: 'Enter Amount',
+                  maxLength: 12,
                   keyboardType: TextInputType.number,
                   borderRadius: BorderRadius.circular(5),
                   validator: (value) =>

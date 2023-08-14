@@ -4,3 +4,5 @@ final GlobalKey<ScaffoldMessengerState> snackBarKey =
     GlobalKey<ScaffoldMessengerState>();
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+GlobalKey captureAndShareKey = GlobalKey();

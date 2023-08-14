@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AgtPaymentController {
   // Airtime
   final airtimePhoneNumber = TextEditingController();
-  final airtimeAmount = TextEditingController();
+  late TextEditingController airtimeAmount = TextEditingController();
   final airtimePasscode = TextEditingController();
 
 // Data

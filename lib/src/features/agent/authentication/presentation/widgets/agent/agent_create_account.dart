@@ -84,16 +84,16 @@ class AgentCreateAccount extends ConsumerWidget {
                     controller: agentController.signupAggID,
                   ),
                   const SizedBox(height: 15),
-                  AbilityTextField(
-                    heading: 'Account Number',
-                    hintText: 'Enter Account Number',
-                    maxLength: 10,
-                    keyboardType: TextInputType.number,
-                    controller: agentController.signupAccNumber,
-                    validator: (value) =>
-                        validationHelper.validatePhoneNumber(value!),
-                  ),
-                  const SizedBox(height: 15),
+                  // AbilityTextField(
+                  //   heading: 'Account Number',
+                  //   hintText: 'Enter Account Number',
+                  //   maxLength: 10,
+                  //   keyboardType: TextInputType.number,
+                  //   controller: agentController.signupAccNumber,
+                  //   validator: (value) =>
+                  //       validationHelper.validatePhoneNumber(value!),
+                  // ),
+                  // const SizedBox(height: 15),
                   AbilityTextField(
                     heading: 'Bvn',
                     maxLength: 11,
@@ -138,7 +138,7 @@ class AgentCreateAccount extends ConsumerWidget {
                               pin: agentController.signupCreatePin.text,
                               bvn: agentController.signupBVN.text.trim(),
                               aggId: agentController.signupAggID.text.trim(),
-                              accNumber: agentController.signupAccNumber.text,
+                              // accNumber: agentController.signupAccNumber.text,
                             );
                       }
                       await AgentPreference.setEmail(
