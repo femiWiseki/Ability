@@ -93,7 +93,7 @@ class AgtHomeScreen extends ConsumerWidget {
                                         transNumber: info.transactionId,
                                         transOperator: info.recipientBank,
                                         phoneNumber: info.transactionRecipient,
-                                        paidWith: 'Bank Balance',
+                                        paidWith: 'Wallet Balance',
                                       ));
                                     },
                                   );

@@ -20,7 +20,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final agtProfile = ref.watch(getAgtProfileProvider);
     return Container(
-      height: 340,
+      height: 330,
       width: double.maxFinite,
       color: kPrimary,
       child: Padding(
@@ -107,40 +107,10 @@ class AgtHomeScreenBar extends ConsumerWidget {
                 },
                 error: ((error, stackTrace) => const Text('')),
                 loading: () => const Text('......')),
-            const SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Virtual Account Name :',
-                  style: AppStyleGilroy.kFontW7
-                      .copyWith(fontSize: 12, color: kWhite),
-                ),
-                agtProfile.when(
-                    data: (data) {
-                      var virAccName = data.data.data.viritualAccountName;
-                      return SizedBox(
-                        width: 200,
-                        child: Text(
-                          virAccName,
-                          style: AppStyleGilroy.kFontW5
-                              .copyWith(fontSize: 12, color: kWhite),
-                        ),
-                      );
-                    },
-                    error: (e, s) => const Text(''),
-                    loading: () => const Text('.....')),
-              ],
-            ),
             const SizedBox(height: 5),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'Virtual Account Number :',
-                  style: AppStyleGilroy.kFontW7
-                      .copyWith(fontSize: 13, color: kWhite),
-                ),
                 agtProfile.when(
                     data: (data) {
                       var virAccBank = data.data.data.virtualAccountNumber;
@@ -148,8 +118,8 @@ class AgtHomeScreenBar extends ConsumerWidget {
                         width: 180,
                         child: Text(
                           virAccBank,
-                          style: AppStyleGilroy.kFontW5
-                              .copyWith(fontSize: 12, color: kWhite),
+                          style: AppStyleGilroy.kFontW6
+                              .copyWith(fontSize: 16, color: kWhite),
                         ),
                       );
                     },
@@ -159,13 +129,8 @@ class AgtHomeScreenBar extends ConsumerWidget {
             ),
             const SizedBox(height: 5),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'Virtual Bank Name :',
-                  style: AppStyleGilroy.kFontW7
-                      .copyWith(fontSize: 13, color: kWhite),
-                ),
                 agtProfile.when(
                     data: (data) {
                       var virBankName = data.data.data.virtualBankName;
@@ -174,7 +139,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                         child: Text(
                           virBankName,
                           style: AppStyleGilroy.kFontW5
-                              .copyWith(fontSize: 12, color: kWhite),
+                              .copyWith(fontSize: 15, color: kWhite),
                         ),
                       );
                     },

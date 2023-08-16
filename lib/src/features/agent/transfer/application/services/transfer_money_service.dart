@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
+import 'package:ability/src/constants/gen_random_string.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/application/services/trans_history_service.dart';
@@ -49,7 +50,10 @@ class AgtTransferMoneyService extends StateNotifier<bool> {
         "narration": description,
         "bankName": bankName,
         "passcode": passcode,
-        "account_name": accountName
+        "account_name": accountName,
+        "source": "Pos",
+        "type": "Mobile",
+        "ref": generateRandomString(20)
       });
 
       final response = await http.post(Uri.parse(serviceUrl),

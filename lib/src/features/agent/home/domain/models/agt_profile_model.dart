@@ -59,7 +59,7 @@ class DataData {
   String email;
   bool isBiometricRegistered;
   String walletId;
-  int walletBalance;
+  double walletBalance;
   bool isVerified;
   String phoneNumber;
   String deviceId;
