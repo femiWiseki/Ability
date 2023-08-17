@@ -23,12 +23,16 @@ class AgtProfileService {
 
       final response =
           await http.get(Uri.parse(serviceUrl), headers: serviceHeader);
-      print(response.statusCode);
-      print(response.body);
+      // print(response.statusCode);
+      // print(response.body);
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
         print(result);
+
+        final isAgentVerified = result['data']['data']['isVerified'];
+
+        await AgentPreference.setIsAgentVerified(isAgentVerified);
 
         return AgtProfileModel.fromJson(result);
       } else if (response.statusCode == 401) {
@@ -53,6 +57,10 @@ class AgtProfileService {
         if (refreshedResponse.statusCode == 200) {
           final result = jsonDecode(refreshedResponse.body);
           print(result);
+
+          final isAgentVerified = result['data']['data']['isVerified'];
+
+          await AgentPreference.setIsAgentVerified(isAgentVerified);
 
           return AgtProfileModel.fromJson(result);
         } else {

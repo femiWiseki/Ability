@@ -4,9 +4,11 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/providers/payment_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -62,13 +64,21 @@ class BuyDataPasscode extends ConsumerWidget {
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
                         if (_formKey.currentState!.validate()) {
-                          await ref.watch(loadingBuyData.notifier).dataService(
+                          if (AgentPreference.getIsAgentVerified() == true) {
+                            await ref
+                                .watch(loadingBuyData.notifier)
+                                .dataService(
+                                  context: context,
+                                  customerNum: customerNum,
+                                  amount: amount,
+                                  dataPlan: dataPlan,
+                                  passcode: paymentController.dataPasscode.text,
+                                );
+                          } else {
+                            errorMessage(
                                 context: context,
-                                customerNum: customerNum,
-                                amount: amount,
-                                dataPlan: dataPlan,
-                                passcode: paymentController.dataPasscode.text,
-                              );
+                                message: 'This account is not verified');
+                          }
                         }
                       },
                     ),

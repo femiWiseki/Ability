@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
+import 'package:ability/src/constants/gen_random_string.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
@@ -42,7 +43,10 @@ class BuyAirtimeService extends StateNotifier<bool> {
         "amount": amount,
         "paymentType": networkProvider,
         "biller_name": networkProvider,
-        "passcode": passcode
+        "passcode": passcode,
+        "source": "Pos",
+        "type": "Mobile",
+        "ref": generateRandomString(20)
       });
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);

@@ -27,6 +27,7 @@ class AgentPreference {
   static const _keyAccEndDate = 'accEndDate';
   static const _keyAccStatemtFmt = 'accStatemtFmt';
   static const _keyFingerBiometrics = 'fingerBiometrics';
+  static const _keyIsAgentVerified = 'isAgentVerified';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -102,6 +103,9 @@ class AgentPreference {
   static Future<void> setFingerBiometrics(bool value) async =>
       await _preferences.setBool(_keyFingerBiometrics, value);
 
+  static Future<void> setIsAgentVerified(bool isAgentVerified) async =>
+      await _preferences.setBool(_keyIsAgentVerified, isAgentVerified);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -156,6 +160,9 @@ class AgentPreference {
 
   static bool getFingerBiometrics() =>
       _preferences.getBool(_keyFingerBiometrics) ?? false;
+
+  static bool getIsAgentVerified() =>
+      _preferences.getBool(_keyIsAgentVerified) ?? false;
 
   /// Clear Agent Token when logged out..
   static Future logoutUser() async {

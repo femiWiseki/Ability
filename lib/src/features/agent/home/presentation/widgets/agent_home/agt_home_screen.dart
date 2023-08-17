@@ -8,7 +8,9 @@ import 'package:ability/src/features/agent/home/presentation/providers/home_prov
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_airtime_details.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_home_screen_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_trans_history_screen.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_transfer_details.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -83,18 +85,43 @@ class AgtHomeScreen extends ConsumerWidget {
                                     status: convertToUppercase(
                                         info.transactionStatus),
                                     onTap: () {
-                                      PageNavigator(ctx: context).nextPage(
-                                          page: AgtAirtimeDetails(
-                                        transType: info.transactionType,
-                                        transAmount: info.transactionAmount,
-                                        transDateTime: formattedDate,
-                                        transStatus: convertToUppercase(
-                                            info.transactionStatus),
-                                        transNumber: info.transactionId,
-                                        transOperator: info.recipientBank,
-                                        phoneNumber: info.transactionRecipient,
-                                        paidWith: 'Wallet Balance',
-                                      ));
+                                      if (info.transactionType != 'transfer') {
+                                        PageNavigator(ctx: context).nextPage(
+                                            page: AgtAirtimeDetails(
+                                          transType: info.transactionType,
+                                          transAmount: info.transactionAmount,
+                                          transDateTime: formattedDate,
+                                          transStatus: convertToUppercase(
+                                              info.transactionStatus),
+                                          transNumber: info.transactionId,
+                                          transOperator: info.recipientBank,
+                                          phoneNumber:
+                                              info.transactionRecipient,
+                                          paidWith: 'Wallet Balance',
+                                        ));
+                                      }
+                                      {
+                                        PageNavigator(ctx: context).nextPage(
+                                            page: AgtTransferDetails(
+                                          transType: info.transactionType,
+                                          transAmount: info.transactionAmount,
+                                          transDateTime: formattedDate,
+                                          transStatus: convertToUppercase(
+                                              info.transactionStatus),
+                                          sender:
+                                              AgentPreference.getUsername() ??
+                                                  '',
+                                          bankName: info.recipientBank,
+                                          accNumber:
+                                              info.recipientAccountNumber,
+                                          accName: info.recipientAccountName,
+                                          description:
+                                              info.transactionDescription ?? '',
+                                          transNumber: info.transactionId,
+                                          sessionID:
+                                              info.transactionReference ?? '',
+                                        ));
+                                      }
                                     },
                                   );
                                 },

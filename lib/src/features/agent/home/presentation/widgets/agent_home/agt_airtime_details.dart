@@ -170,6 +170,15 @@ class AgtAirtimeDetails extends ConsumerWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 40),
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  'Raise Dispute',
+                  style: AppStyleGilroy.kFontW8
+                      .copyWith(color: kGreen, fontSize: 18),
+                ),
+              ),
               const Spacer(),
               AbilityButton(
                   title: 'Share Receipt',
