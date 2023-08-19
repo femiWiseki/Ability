@@ -8,6 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final hideCurrentBalance = StateProvider<bool>((ref) => false);
 final walletAmountProvider = StateProvider((ref) => '');
+final disputeProvider = StateProvider<String>((ref) => '');
 
 /// This provider is used to get all agent transaction history
 final agtTransHistoryPovider =

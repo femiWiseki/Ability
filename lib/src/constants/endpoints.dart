@@ -34,6 +34,9 @@ const kAgtVerifyResetPasscodeUrl =
 const kAgtSaveBeneficiaryUrl = "$baseUrl/api/v1/agents/save/beneficiary";
 const kAgtGetSavedBeneficiaryUrl = "$baseUrl/api/v1/agents/beneficiaries";
 
+// Agent Home Urls
+const kRaiseDisputeUrl = "$baseUrl/api/v1/agents/raise/dispute";
+
 // Agent Payment Urls
 const kSendBillDetailsUrl = "$baseUrl/api/v1/agents/bill";
 var kGetDataUrl =

@@ -37,8 +37,8 @@ class RecentTransactionTile extends ConsumerWidget {
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: kPrimary.withOpacity(0.1)),
                   child: const Icon(
-                    Icons.arrow_downward_rounded,
-                    color: kPrimary,
+                    Icons.arrow_upward_rounded,
+                    color: kRed,
                     size: 18,
                   ),
                 ),

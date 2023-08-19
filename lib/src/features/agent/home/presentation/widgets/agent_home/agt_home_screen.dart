@@ -85,7 +85,7 @@ class AgtHomeScreen extends ConsumerWidget {
                                     status: convertToUppercase(
                                         info.transactionStatus),
                                     onTap: () {
-                                      if (info.transactionType != 'transfer') {
+                                      if (info.transactionType == 'AIRTIME') {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtAirtimeDetails(
                                           transType: info.transactionType,
@@ -99,8 +99,7 @@ class AgtHomeScreen extends ConsumerWidget {
                                               info.transactionRecipient,
                                           paidWith: 'Wallet Balance',
                                         ));
-                                      }
-                                      {
+                                      } else {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtTransferDetails(
                                           transType: info.transactionType,
