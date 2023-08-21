@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
+// ignore_for_file: must_be_immutable, use_build_context_synchronously, avoid_print
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/ability_text_field.dart';

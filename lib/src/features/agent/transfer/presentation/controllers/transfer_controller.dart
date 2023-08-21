@@ -8,4 +8,7 @@ class TransferController {
   final agtBeneAmount = TextEditingController();
   final agtBeneDescription = TextEditingController();
   final agtBeneTransferCode = TextEditingController();
+  final agtSupplySmartAmount = TextEditingController();
+  final agtSupplySmartAccNum = TextEditingController();
+  final agtSupplySmartCode = TextEditingController();
 }

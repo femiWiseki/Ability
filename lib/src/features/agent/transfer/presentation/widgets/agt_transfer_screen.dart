@@ -3,6 +3,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_beneficiary/agt_transfer_tobene1.dart';
+import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_supply_smart/agt_supply_smart.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_transfer_tobank.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/refactored_widgets/transfer_item_tile.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class AgtTransferScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 76.89),
               Container(
-                height: 166,
+                height: 250,
                 width: double.maxFinite,
                 padding: const EdgeInsets.fromLTRB(31, 12, 31, 0),
                 decoration: BoxDecoration(
@@ -37,6 +38,18 @@ class AgtTransferScreen extends ConsumerWidget {
                       onTap: () async {
                         PageNavigator(ctx: context).nextPage(
                             page: AgtTransferToBank(TransferController()));
+                      },
+                    ),
+                    const Divider(
+                      color: kGrey3,
+                      thickness: 1,
+                    ),
+                    TransferItemTile(
+                      title: 'Transfer to Supply Smart',
+                      onTap: () async {
+                        PageNavigator(ctx: context).nextPage(
+                            page:
+                                AgtTransferToSupplySmart(TransferController()));
                       },
                     ),
                     const Divider(

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, depend_on_referenced_packages
+// ignore_for_file: must_be_immutable, depend_on_referenced_packages, avoid_print
 
 import 'dart:io';
 import 'dart:typed_data';
@@ -14,6 +14,7 @@ import 'package:ability/src/features/agent/home/presentation/controllers/home_co
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/acc_statemt_tile.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/raise_dispute_dialog.dart';
+import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -71,7 +72,7 @@ class AgtAirtimeDetails extends ConsumerWidget {
                 Screenshot(
                   controller: screenshotController,
                   child: Container(
-                    height: 430,
+                    height: 420,
                     width: 380,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25), color: kWhite),
@@ -182,13 +183,15 @@ class AgtAirtimeDetails extends ConsumerWidget {
                         context: context,
                         builder: (context) {
                           return RaiseDisputeDialog(
+                            ValidationHelper(),
                             disputeController:
                                 HomeControllers().airtimeDisputeController,
                             sendDispute: () {
                               ResolveDisputeService().disputeService(
-                                  context: context,
-                                  disputeReason: ref.watch(disputeProvider),
-                                  transactionId: transNumber);
+                                context: context,
+                                disputeReason: ref.watch(disputeProvider),
+                                transactionId: transNumber,
+                              );
                             },
                           );
                         });

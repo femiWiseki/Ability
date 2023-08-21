@@ -4,8 +4,6 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/fingerprint_auth.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_login_screen.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/agent/profile/application/services/agt_enroll_fingerprint_service.dart';
@@ -16,7 +14,6 @@ import 'package:ability/src/features/agent/profile/presentation/widgets/agent_pr
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_profile_card.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/signout_alert_dialog.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/unenroll_fingerprint_dialog.dart';
-import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, unrelated_type_equality_checks
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
@@ -15,14 +15,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class BuyDataService extends StateNotifier<bool> {
-  BuyDataService() : super(false);
+class BuyAirtimeService extends StateNotifier<bool> {
+  BuyAirtimeService() : super(false);
 
-  dataService({
+  airtimeService({
     required BuildContext context,
     required String customerNum,
     required int amount,
-    required String dataPlan,
+    required String paymentType,
+    required String networkProvider,
     required String passcode,
   }) async {
     try {
@@ -40,8 +41,8 @@ class BuyDataService extends StateNotifier<bool> {
       final String requestBody = jsonEncode({
         "customer": "+234$customerNum",
         "amount": amount,
-        "paymentType": dataPlan,
-        "biller_name": dataPlan,
+        "paymentType": networkProvider,
+        "biller_name": networkProvider,
         "passcode": passcode,
         "source": "Pos",
         "type": "Mobile",
@@ -51,7 +52,7 @@ class BuyDataService extends StateNotifier<bool> {
           body: requestBody, headers: serviceHeader);
       print(response.statusCode);
       print(response.body);
-      print(requestBody);
+      // print(requestBody);
       // print(token);
       Navigator.pop(context);
 

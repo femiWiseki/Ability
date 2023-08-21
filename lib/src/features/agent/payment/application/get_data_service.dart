@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
@@ -21,9 +21,9 @@ class GetDataService {
 
       final response =
           await http.get(Uri.parse(serviceUrl), headers: serviceHeader);
-      print(response.statusCode);
-      print(response.body);
-      print(serviceUrl);
+      // print(response.statusCode);
+      // print(response.body);
+      // print(serviceUrl);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final result = jsonDecode(response.body);
@@ -49,9 +49,9 @@ class GetDataService {
         final refreshedResponse =
             await http.get(Uri.parse(serviceUrl), headers: refreshedHeader);
 
-        print(refreshedResponse.statusCode);
-        print(refreshedResponse.body);
-        print(refreshedToken);
+        // print(refreshedResponse.statusCode);
+        // print(refreshedResponse.body);
+        // print(refreshedToken);
 
         if (refreshedResponse.statusCode == 200 || response.statusCode == 201) {
           final result = jsonDecode(refreshedResponse.body);

@@ -1,9 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages
 
 // import 'package:ability/splash_screen.dart'
+import 'package:ability/firebase_options.dart';
 import 'package:ability/splash_screen.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:fl_country_code_picker/fl_country_code_picker.dart' as flc;
@@ -13,8 +14,9 @@ import 'package:responsive_framework/utils/scroll_behavior.dart';
 
 import 'globals.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AgentPreference.init();
   await AggregatorPreference.init();
   runApp(const ProviderScope(child: MyApp()));

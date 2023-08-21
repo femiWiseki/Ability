@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unused_result
 
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
@@ -20,7 +20,7 @@ class AgtHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final transHistory = ref.watch(getAgtTransHistoryProvider);
-    final agtProfile = ref.watch(getAgtProfileProvider);
+    // final agtProfile = ref.watch(getAgtProfileProvider);
     return Scaffold(
       backgroundColor: kAsh1,
       body: RefreshIndicator(
@@ -93,7 +93,7 @@ class AgtHomeScreen extends ConsumerWidget {
                                           transDateTime: formattedDate,
                                           transStatus: convertToUppercase(
                                               info.transactionStatus),
-                                          transNumber: info.transactionId,
+                                          transNumber: info.id,
                                           transOperator: info.recipientBank,
                                           phoneNumber:
                                               info.transactionRecipient,
@@ -116,9 +116,8 @@ class AgtHomeScreen extends ConsumerWidget {
                                           accName: info.recipientAccountName,
                                           description:
                                               info.transactionDescription ?? '',
-                                          transNumber: info.transactionId,
-                                          sessionID:
-                                              info.transactionReference ?? '',
+                                          transNumber: info.id,
+                                          sessionID: info.sessionId ?? '',
                                         ));
                                       }
                                     },

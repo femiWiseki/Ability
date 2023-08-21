@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "834892818523",
+    "project_id": "supply-smart-c6f3c",
+    "storage_bucket": "supply-smart-c6f3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834892818523:android:5ca39ccec48d8d4da4b77e",
+        "android_client_info": {
+          "package_name": "com.example.ability"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834892818523-gbskchmljib36nni4jcc15h49sh8km1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4KuGyTm0INFp4MpqfPP56ZyCPhXiKeFM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834892818523-gbskchmljib36nni4jcc15h49sh8km1r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "834892818523-a4t5pad6g58cvl348naqvrcdjs425lkb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ability"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

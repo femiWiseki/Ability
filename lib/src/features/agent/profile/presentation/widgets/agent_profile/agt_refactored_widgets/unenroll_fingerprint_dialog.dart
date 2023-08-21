@@ -1,8 +1,6 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/features/agent/profile/application/services/agt_enroll_fingerprint_service.dart';
 import 'package:flutter/material.dart';
 
 unenrollFingerPTDialog(

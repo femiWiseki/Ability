@@ -7,20 +7,20 @@ import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/fingerprint_auth.dart';
 import 'package:ability/src/constants/snack_messages.dart';
-import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/agent/transfer/application/services/agt_save_bene_service.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class AgtEnterTransferCode extends ConsumerWidget {
+class AgtSupplySmartCode extends ConsumerWidget {
   ValidationHelper validationHelper;
   TransferController transferController;
-  AgtEnterTransferCode(this.validationHelper, this.transferController,
+  AgtSupplySmartCode(this.validationHelper, this.transferController,
       {super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -57,13 +57,12 @@ class AgtEnterTransferCode extends ConsumerWidget {
                     child: GeneralPinCode(
                       pinLenght: 4,
                       boxPinShape: PinCodeFieldShape.box,
-                      controller: transferController.agtEnterTransferCode,
+                      controller: transferController.agtSupplySmartCode,
                       validator: (value) =>
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
                         if (_formKey.currentState!.validate()) {
-                          if (ref.watch(isVerifiedProvider) == true &&
-                              ref.watch(isDisabledProvider) == false) {
+                          if (AgentPreference.getIsAgentVerified() == true) {
                             await ref
                                 .read(loadingAgtBankDetail2.notifier)
                                 .transferMoneyService(
@@ -78,8 +77,7 @@ class AgtEnterTransferCode extends ConsumerWidget {
                           } else {
                             errorMessage(
                                 context: context,
-                                message:
-                                    'This account is not valid. Please, contact support.');
+                                message: 'This account is not verified');
                           }
                         }
                       },
@@ -96,8 +94,7 @@ class AgtEnterTransferCode extends ConsumerWidget {
                                   .read(fingerBiometricsProvider.notifier)
                                   .state ==
                               true) {
-                            if (ref.watch(isVerifiedProvider) == true &&
-                                ref.watch(isDisabledProvider) == false) {
+                            if (AgentPreference.getIsAgentVerified() == true) {
                               await ref
                                   .read(loadingAgtBankDetail2.notifier)
                                   .transferMoneyService(
@@ -112,8 +109,7 @@ class AgtEnterTransferCode extends ConsumerWidget {
                             } else {
                               errorMessage(
                                   context: context,
-                                  message:
-                                      'This account is not valid. Please, contact support.');
+                                  message: 'This account is not verified');
                             }
                           } else {
                             errorMessage(

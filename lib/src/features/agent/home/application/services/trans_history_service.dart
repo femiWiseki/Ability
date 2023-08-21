@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
@@ -57,12 +57,12 @@ class AgtTransHistoryService {
 
           return AgtTransHIstoryModel.fromJson(result);
         } else {
-          final result = jsonDecode(response.body);
+          // final result = jsonDecode(response.body);
           // errorMessage(context: context, message: result['message']);
           // print(result);
         }
       } else {
-        final result = jsonDecode(response.body);
+        // final result = jsonDecode(response.body);
         // errorMessage(context: context, message: result['message']);
         // print(result);
       }

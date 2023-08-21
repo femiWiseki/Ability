@@ -40,7 +40,7 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
 
   @override
   Widget build(BuildContext context) {
-    // final bankDetails = ref.watch(getBankDetailsProvider);
+    final bankDetails = ref.watch(getBanksDetailsProvider);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -56,80 +56,6 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                     },
                     child: const AppHeader(heading: 'Transfer to Bank')),
                 const SizedBox(height: 68.89),
-                TextFieldContainer(
-                  height: 50,
-                  header: 'Choose Bank',
-                  borderRadius: 5,
-                  onTap: () {},
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton2(
-                      hint: Text(
-                        'Choose Bank',
-                        style: AppStyleGilroy.kFontW5
-                            .copyWith(fontSize: 14, color: kGrey),
-                      ),
-                      items: bankListRepo.bankDetails
-                          .map((item) => DropdownMenuItem<String>(
-                                value: item['name'].toString(),
-                                child: Text(
-                                  item['name'].toString(),
-                                  style: AppStyleRoboto.kFontW4
-                                      .copyWith(fontSize: 14, color: kBlack),
-                                ),
-                              ))
-                          .toList(),
-                      value: selectedBankName,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedBankName = value as String;
-                        });
-                      },
-                      dropdownSearchData: DropdownSearchData(
-                        searchController: textEditingController,
-                        searchInnerWidgetHeight: 50,
-                        searchInnerWidget: Container(
-                          height: 50,
-                          padding: const EdgeInsets.only(
-                            top: 8,
-                            bottom: 4,
-                            right: 8,
-                            left: 8,
-                          ),
-                          child: TextFormField(
-                            expands: true,
-                            maxLines: null,
-                            controller: textEditingController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 8,
-                              ),
-                              hintText: 'Search bank...',
-                              hintStyle: const TextStyle(fontSize: 12),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
-                        searchMatchFn: (item, searchValue) {
-                          return item.value
-                              .toString()
-                              .toLowerCase()
-                              .contains(searchValue.toLowerCase());
-                        },
-                      ),
-                      //This to clear the search value when you close the menu
-                      onMenuStateChange: (isOpen) {
-                        if (!isOpen) {
-                          textEditingController.clear();
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 27),
                 AbilityTextField(
                   controller: widget.transferController.agtTrasferAccountNumber,
                   heading: 'Enter Account number',
@@ -150,6 +76,102 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                     }
                   },
                 ),
+                const SizedBox(height: 27),
+                TextFieldContainer(
+                    height: 50,
+                    header: 'Choose Bank',
+                    borderRadius: 5,
+                    color: kPrimary.withOpacity(0.3),
+                    onTap: () {},
+                    child: bankDetails.when(
+                        data: (data) {
+                          return DropdownButtonHideUnderline(
+                            child: DropdownButton2(
+                              hint: Text(
+                                'Choose Bank',
+                                style: AppStyleGilroy.kFontW5
+                                    .copyWith(fontSize: 14, color: kGrey),
+                              ),
+                              items: data.banks
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item.name,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                                height: 25,
+                                                width: 30,
+                                                child: Image.network(
+                                                  item.logo,
+                                                  fit: BoxFit.fill,
+                                                )),
+                                            const SizedBox(width: 12),
+                                            Text(
+                                              item.name,
+                                              style: AppStyleRoboto.kFontW4
+                                                  .copyWith(
+                                                      fontSize: 10,
+                                                      color: kBlack),
+                                            ),
+                                          ],
+                                        ),
+                                      ))
+                                  .toList(),
+                              value: selectedBankName,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedBankName = value as String;
+                                });
+                              },
+                              dropdownSearchData: DropdownSearchData(
+                                searchController: textEditingController,
+                                searchInnerWidgetHeight: 50,
+                                searchInnerWidget: Container(
+                                  height: 50,
+                                  padding: const EdgeInsets.only(
+                                    top: 8,
+                                    bottom: 4,
+                                    right: 8,
+                                    left: 8,
+                                  ),
+                                  child: TextFormField(
+                                    expands: true,
+                                    maxLines: null,
+                                    controller: textEditingController,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 8,
+                                      ),
+                                      hintText: 'Search bank...',
+                                      hintStyle: const TextStyle(fontSize: 12),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                searchMatchFn: (item, searchValue) {
+                                  return item.value
+                                      .toString()
+                                      .toLowerCase()
+                                      .contains(searchValue.toLowerCase());
+                                },
+                              ),
+                              //This to clear the search value when you close the menu
+                              onMenuStateChange: (isOpen) {
+                                if (!isOpen) {
+                                  textEditingController.clear();
+                                }
+                              },
+                            ),
+                          );
+                        },
+                        error: (e, s) => const Text(''),
+                        loading: () => const Text(''))),
 
                 // ),
                 const SizedBox(height: 96),

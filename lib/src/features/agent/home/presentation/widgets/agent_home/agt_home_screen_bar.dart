@@ -41,9 +41,16 @@ class AgtHomeScreenBar extends ConsumerWidget {
                     const SizedBox(height: 6),
                     agtProfile.when(
                         data: (data) {
-                          var agtName = data.data.data.name;
-                          var agtPhoneNumber = data.data.data.phoneNumber;
-                          print(agtPhoneNumber);
+                          var agtInfo = data.data.data;
+                          var agtName = agtInfo.name;
+                          var agtPhoneNumber = agtInfo.phoneNumber;
+                          Future.delayed(Duration.zero, () {
+                            ref.read(isVerifiedProvider.notifier).state =
+                                agtInfo.isVerified;
+                            ref.read(isDisabledProvider.notifier).state =
+                                agtInfo.isDisabled.disabled;
+                          });
+
                           AgentPreference.setPhoneNumber(agtPhoneNumber);
                           AgentPreference.setUsername(agtName);
                           return Text(

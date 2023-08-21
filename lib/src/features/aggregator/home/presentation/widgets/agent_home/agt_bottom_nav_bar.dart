@@ -1,7 +1,6 @@
 import 'package:ability/src/constants/colors.dart';
-import 'package:ability/src/features/agent/payment/presentation/widgets/payment_screen.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_profile_screen.dart';
-import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_transfer_screen.dart';
+import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer_screen.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/agent_home/agt_home_screen.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
 import 'package:flutter/material.dart';

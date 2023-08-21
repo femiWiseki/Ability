@@ -1,10 +1,8 @@
 import 'package:ability/src/common_widgets/app_header.dart';
-import 'package:ability/src/constants/app_text_style/inter.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -74,7 +72,7 @@ class AgtWithdrawalHistory extends ConsumerWidget {
 void showMenu() {
   PopupMenuButton(
     itemBuilder: (BuildContext context) => [
-      PopupMenuItem(
+      const PopupMenuItem(
         child: Column(
           children: [
             Text('First Text'),

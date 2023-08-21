@@ -78,14 +78,18 @@ class TransactionHistory {
   String recipientBank;
   String recipientAccountName;
   String recipientAccountNumber;
+  String ref;
+  String type;
+  String source;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
-  String? transactionReference;
   String? transactionDescription;
   dynamic transactionFailureReason;
-  String? transactionTransferCode;
+  String? transactionReference;
   dynamic transactionSourceDetails;
+  String? transactionTransferCode;
+  String? sessionId;
 
   TransactionHistory({
     required this.id,
@@ -99,14 +103,18 @@ class TransactionHistory {
     required this.recipientBank,
     required this.recipientAccountName,
     required this.recipientAccountNumber,
+    required this.ref,
+    required this.type,
+    required this.source,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    this.transactionReference,
     this.transactionDescription,
     this.transactionFailureReason,
-    this.transactionTransferCode,
+    this.transactionReference,
     this.transactionSourceDetails,
+    this.transactionTransferCode,
+    this.sessionId,
   });
 
   factory TransactionHistory.fromJson(Map<String, dynamic> json) =>
@@ -122,14 +130,18 @@ class TransactionHistory {
         recipientBank: json["recipientBank"],
         recipientAccountName: json["recipientAccountName"],
         recipientAccountNumber: json["recipientAccountNumber"],
+        ref: json["ref"],
+        type: json["type"],
+        source: json["source"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        transactionReference: json["transactionReference"],
         transactionDescription: json["transactionDescription"],
         transactionFailureReason: json["transactionFailureReason"],
-        transactionTransferCode: json["transactionTransferCode"],
+        transactionReference: json["transactionReference"],
         transactionSourceDetails: json["transactionSourceDetails"],
+        transactionTransferCode: json["transactionTransferCode"],
+        sessionId: json["sessionId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -144,13 +156,17 @@ class TransactionHistory {
         "recipientBank": recipientBank,
         "recipientAccountName": recipientAccountName,
         "recipientAccountNumber": recipientAccountNumber,
+        "ref": ref,
+        "type": type,
+        "source": source,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-        "transactionReference": transactionReference,
         "transactionDescription": transactionDescription,
         "transactionFailureReason": transactionFailureReason,
-        "transactionTransferCode": transactionTransferCode,
+        "transactionReference": transactionReference,
         "transactionSourceDetails": transactionSourceDetails,
+        "transactionTransferCode": transactionTransferCode,
+        "sessionId": sessionId,
       };
 }

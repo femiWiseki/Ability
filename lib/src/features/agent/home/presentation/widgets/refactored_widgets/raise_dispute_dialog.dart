@@ -3,14 +3,16 @@
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
+import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RaiseDisputeDialog extends ConsumerStatefulWidget {
+  ValidationHelper valHelper;
   final VoidCallback sendDispute;
   final TextEditingController disputeController;
 
-  const RaiseDisputeDialog(
+  RaiseDisputeDialog(this.valHelper,
       {required this.disputeController, required this.sendDispute, super.key});
 
   @override
@@ -18,6 +20,7 @@ class RaiseDisputeDialog extends ConsumerStatefulWidget {
 }
 
 class _RaiseDisputeDialogState extends ConsumerState<RaiseDisputeDialog> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -30,29 +33,34 @@ class _RaiseDisputeDialogState extends ConsumerState<RaiseDisputeDialog> {
       ),
       content: SizedBox(
         height: 150,
-        child: TextField(
-          controller: widget.disputeController,
-          keyboardType: TextInputType.multiline,
-          maxLines: null,
-          onChanged: (value) {
-            ref.read(disputeProvider.notifier).state =
-                widget.disputeController.text;
-          },
-          decoration: InputDecoration(
-            // fillColor: kAsh1,
-            // filled: true,
-            hintText: 'Enter dispute...',
-            hintStyle:
-                AppStyleGilroy.kFontW7.copyWith(fontSize: 14, color: kGrey2),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(width: 0.5, color: Colors.transparent),
+        child: Form(
+          key: formKey,
+          child: TextFormField(
+            controller: widget.disputeController,
+            keyboardType: TextInputType.multiline,
+            maxLines: 3,
+            onChanged: (value) {
+              ref.read(disputeProvider.notifier).state =
+                  widget.disputeController.text;
+            },
+            decoration: InputDecoration(
+              fillColor: kAsh1,
+              filled: true,
+              hintText: 'Enter dispute...',
+              hintStyle:
+                  AppStyleGilroy.kFontW7.copyWith(fontSize: 14, color: kGrey2),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(width: 0.5, color: Colors.transparent),
+              ),
+              enabledBorder: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 0.5, color: Colors.transparent)),
+              errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: kRed, width: 0.5)),
+              focusedErrorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: kRed, width: 0.5)),
             ),
-            enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(width: 0.5, color: Colors.transparent)),
-            errorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: kRed, width: 0.5)),
-            focusedErrorBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: kRed, width: 0.5)),
+            validator: (value) => ValidationHelper().validateTextField(value!),
           ),
         ),
       ),
@@ -69,8 +77,10 @@ class _RaiseDisputeDialogState extends ConsumerState<RaiseDisputeDialog> {
         ),
         TextButton(
           onPressed: () {
-            widget.sendDispute.call();
-            Navigator.of(context).pop(); // Close the dialog
+            if (formKey.currentState!.validate()) {
+              widget.sendDispute.call();
+              Navigator.of(context).pop(); // Close the dialog
+            }
           },
           child: Text(
             'Send',

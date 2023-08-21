@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/common_widgets/app_header.dart';
-import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/poppins.dart';
@@ -18,7 +17,6 @@ import 'package:ability/src/features/agent/profile/presentation/widgets/agent_pr
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 class AgtVerifyResetPasscode extends ConsumerStatefulWidget {
   ValidationHelper validationHelper;

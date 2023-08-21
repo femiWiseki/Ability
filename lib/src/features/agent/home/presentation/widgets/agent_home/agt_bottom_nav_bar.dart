@@ -3,7 +3,7 @@ import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/payment_screen.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_profile_screen.dart';
-import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_transfer_screen.dart';
+import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

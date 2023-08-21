@@ -4,9 +4,10 @@ import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/common_widgets/general_pin_code.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/snack_messages.dart';
+import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/providers/payment_providers.dart';
-import 'package:ability/src/features/agent/payment/presentation/widgets/refactored_widgets/isloading_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -65,16 +66,25 @@ class BuyAirtimePasscode extends ConsumerWidget {
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
                         if (_formKey.currentState!.validate()) {
-                          await ref
-                              .watch(loadingBuyAirtime.notifier)
-                              .airtimeService(
+                          if (ref.watch(isVerifiedProvider) == true &&
+                              ref.watch(isDisabledProvider) == false) {
+                            await ref
+                                .watch(loadingBuyAirtime.notifier)
+                                .airtimeService(
+                                  context: context,
+                                  customerNum: customerNum,
+                                  amount: amount,
+                                  paymentType: paymentType,
+                                  networkProvider: networkProvider,
+                                  passcode:
+                                      paymentController.airtimeAmount.text,
+                                );
+                          } else {
+                            errorMessage(
                                 context: context,
-                                customerNum: customerNum,
-                                amount: amount,
-                                paymentType: paymentType,
-                                networkProvider: networkProvider,
-                                passcode: paymentController.airtimeAmount.text,
-                              );
+                                message:
+                                    'This account is not valid. Please, contact support.');
+                          }
                         }
                       },
                     ),
