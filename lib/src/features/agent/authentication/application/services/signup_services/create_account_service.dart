@@ -24,7 +24,7 @@ class AgentCreateAccountService extends StateNotifier<bool> {
       required String phoneNumber,
       required String pin,
       required String aggId,
-      // required String accNumber,
+      required String fcmToken,
       required String bvn}) async {
     try {
       state = true;
@@ -38,8 +38,8 @@ class AgentCreateAccountService extends StateNotifier<bool> {
         "phoneNumber": phoneNumber,
         "pin": pin,
         "bvn": bvn,
-        // "account_number": accNumber,
-        "aggregatorId": aggId
+        "aggregatorId": aggId,
+        "fcmToken": fcmToken
       });
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);

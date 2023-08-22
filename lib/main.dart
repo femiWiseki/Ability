@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 // import 'package:ability/splash_screen.dart'
+import 'package:ability/firebase_api.dart';
 import 'package:ability/firebase_options.dart';
 import 'package:ability/splash_screen.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
@@ -11,7 +12,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
-
 import 'globals.dart';
 
 Future<void> main() async {
@@ -19,6 +19,8 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AgentPreference.init();
   await AggregatorPreference.init();
+  await FirebaseApi().initNotifications();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 

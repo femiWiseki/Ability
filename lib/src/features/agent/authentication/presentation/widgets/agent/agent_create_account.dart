@@ -138,7 +138,7 @@ class AgentCreateAccount extends ConsumerWidget {
                               pin: agentController.signupCreatePin.text,
                               bvn: agentController.signupBVN.text.trim(),
                               aggId: agentController.signupAggID.text.trim(),
-                              // accNumber: agentController.signupAccNumber.text,
+                              fcmToken: AgentPreference.getFCMToken() ?? '',
                             );
                       }
                       await AgentPreference.setEmail(
