@@ -1,7 +1,11 @@
 import 'dart:convert';
 
+import 'package:ability/globals.dart';
+import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_notifications.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -14,7 +18,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 @pragma('vm:entry-point')
 void notificationTapBackground(NotificationResponse notificationResponse) {
-  // handle action
+  // navigate to the Notification screen
+  navigatorKey.currentState!
+      .push(CupertinoPageRoute(builder: (context) => const AgtNotifications()));
 }
 
 class FirebaseApi {
@@ -32,6 +38,8 @@ class FirebaseApi {
     if (message == null) return;
 
     // navigate to the Notification screen
+    navigatorKey.currentState!.push(
+        CupertinoPageRoute(builder: (context) => const AgtNotifications()));
   }
 
   Future initLocalNotifications() async {
@@ -43,7 +51,9 @@ class FirebaseApi {
       settings,
       onDidReceiveNotificationResponse:
           (NotificationResponse notificationResponse) async {
-        // ...
+        // navigate to the Notification screen
+        navigatorKey.currentState!.push(
+            CupertinoPageRoute(builder: (context) => const AgtNotifications()));
       },
       onDidReceiveBackgroundNotificationResponse: notificationTapBackground,
     );

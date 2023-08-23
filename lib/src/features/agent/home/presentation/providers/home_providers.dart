@@ -1,6 +1,8 @@
+import 'package:ability/src/features/agent/home/application/services/agt_notifications_service.dart';
 import 'package:ability/src/features/agent/home/application/services/agt_profile_service.dart';
 import 'package:ability/src/features/agent/home/application/services/trans_history_service.dart';
 import 'package:ability/src/features/agent/home/application/services/withdrawal_history_service.dart';
+import 'package:ability/src/features/agent/home/domain/models/agt_notifications_model.dart';
 import 'package:ability/src/features/agent/home/domain/models/agt_profile_model.dart';
 import 'package:ability/src/features/agent/home/domain/models/agt_trans_history_model.dart';
 import 'package:ability/src/features/agent/home/domain/models/withdrawal_history_model.dart';
@@ -11,6 +13,7 @@ final walletAmountProvider = StateProvider((ref) => '');
 final disputeProvider = StateProvider<String>((ref) => '');
 final isVerifiedProvider = StateProvider<bool>((ref) => false);
 final isDisabledProvider = StateProvider<bool>((ref) => false);
+final notificationIdProvider = StateProvider<String>((ref) => '');
 
 /// This provider is used to get all agent transaction history
 final agtTransHistoryPovider =
@@ -44,4 +47,15 @@ final getAgtProfileProvider =
   final agtProfile = ref.watch(agtProfilePovider);
 
   return agtProfile.agtProfileService();
+});
+
+// Agent Notifications
+final agtNotificationsPovider =
+    StateProvider<AgtNotificationsService>((ref) => AgtNotificationsService());
+
+final getAgtNotificationsProvider =
+    FutureProvider.autoDispose<AgtNotificationsModel>((ref) {
+  final notifications = ref.watch(agtNotificationsPovider);
+
+  return notifications.agtNotifications();
 });

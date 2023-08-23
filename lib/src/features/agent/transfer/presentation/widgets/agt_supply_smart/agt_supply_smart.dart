@@ -8,6 +8,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/currency_editing_controller.dart';
 import 'package:ability/src/features/agent/transfer/application/repositories/bank_list.dart';
 import 'package:ability/src/features/agent/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
@@ -30,6 +31,17 @@ class _AgtTransferToSupplySmartState
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   BankListRepo bankListRepo = BankListRepo();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.transferController.agtSupplySmartAmount = CurrencyEditingController(
+      initialValue: 0.00,
+      onValueChange: (newValue) {
+        setState(() {});
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

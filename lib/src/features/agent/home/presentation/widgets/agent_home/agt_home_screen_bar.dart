@@ -5,6 +5,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_notifications.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -30,46 +31,61 @@ class AgtHomeScreenBar extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'My Account',
-                      style: AppStyleGilroy.kFontW6.copyWith(
-                          fontSize: 18.36, color: kWhite.withOpacity(0.9)),
-                    ),
-                    const SizedBox(height: 6),
-                    agtProfile.when(
-                        data: (data) {
-                          var agtInfo = data.data.data;
-                          var agtName = agtInfo.name;
-                          var agtPhoneNumber = agtInfo.phoneNumber;
-                          Future.delayed(Duration.zero, () {
-                            ref.read(isVerifiedProvider.notifier).state =
-                                agtInfo.isVerified;
-                            ref.read(isDisabledProvider.notifier).state =
-                                agtInfo.isDisabled.disabled;
-                          });
-
-                          AgentPreference.setPhoneNumber(agtPhoneNumber);
-                          AgentPreference.setUsername(agtName);
-                          return Text(
-                            agtName,
-                            style: AppStyleGilroy.kFontW5.copyWith(
-                                fontSize: 11.02,
+                SizedBox(
+                  width: 200,
+                  child: Row(
+                    children: [
+                      ClipOval(
+                        child: CircleAvatar(
+                          radius: 22,
+                          child: Image.asset('assets/images/profilePics.png'),
+                        ),
+                      ),
+                      const SizedBox(width: 5),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'My Account',
+                            style: AppStyleGilroy.kFontW6.copyWith(
+                                fontSize: 18.36,
                                 color: kWhite.withOpacity(0.9)),
-                          );
-                        },
-                        error: (e, s) => const Text(''),
-                        loading: () => const Text('.....')),
-                  ],
-                ),
-                ClipOval(
-                  child: CircleAvatar(
-                    radius: 22,
-                    child: Image.asset('assets/images/profilePics.png'),
+                          ),
+                          // const SizedBox(height: 6),
+                          agtProfile.when(
+                              data: (data) {
+                                var agtInfo = data.data.data;
+                                var agtName = agtInfo.name;
+                                var agtPhoneNumber = agtInfo.phoneNumber;
+                                Future.delayed(Duration.zero, () {
+                                  ref.read(isVerifiedProvider.notifier).state =
+                                      agtInfo.isVerified;
+                                  ref.read(isDisabledProvider.notifier).state =
+                                      agtInfo.isDisabled.disabled;
+                                });
+
+                                AgentPreference.setPhoneNumber(agtPhoneNumber);
+                                AgentPreference.setUsername(agtName);
+                                return Text(
+                                  agtName,
+                                  style: AppStyleGilroy.kFontW5.copyWith(
+                                      fontSize: 11.02,
+                                      color: kWhite.withOpacity(0.9)),
+                                );
+                              },
+                              error: (e, s) => const Text(''),
+                              loading: () => const Text('.....')),
+                        ],
+                      ),
+                    ],
                   ),
-                )
+                ),
+                InkWell(
+                    onTap: () {
+                      PageNavigator(ctx: context)
+                          .nextPage(page: const AgtNotifications());
+                    },
+                    child: const Icon(Icons.notifications, color: kWhite))
               ],
             ),
             const SizedBox(height: 20),

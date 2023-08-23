@@ -40,6 +40,9 @@ const kBanksDetailsUrls = "$baseUrl/bank";
 
 // Agent Home Urls
 const kRaiseDisputeUrl = "$baseUrl/api/v1/agents/raise/dispute";
+const kNotificationsUrl = "$baseUrl/api/v1/agents/my-notification";
+const kDeleteSingleNotiUrl = "$baseUrl/api/v1/agents/notification";
+const kDeleteAllNotiUrl = "$baseUrl/api/v1/agents/notifications";
 
 // Agent Payment Urls
 const kSendBillDetailsUrl = "$baseUrl/api/v1/agents/bill";
