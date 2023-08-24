@@ -63,17 +63,6 @@ class _AgtTransferToSupplySmartState
                         const AppHeader(heading: 'Transfer to Supply Smart')),
                 const SizedBox(height: 68.89),
                 AbilityTextField(
-                  controller: widget.transferController.agtSupplySmartAmount,
-                  heading: 'Enter Amount',
-                  hintText: 'Enter Amount',
-                  maxLength: 12,
-                  keyboardType: TextInputType.number,
-                  borderRadius: BorderRadius.circular(5),
-                  validator: (value) =>
-                      ValidationHelper().validateAmount(value!),
-                ),
-                const SizedBox(height: 27),
-                AbilityTextField(
                   controller: widget.transferController.agtSupplySmartAccNum,
                   heading: 'Enter Phone number',
                   hintText: 'Enter Phone number',
@@ -92,6 +81,17 @@ class _AgtTransferToSupplySmartState
                       ref.watch(isEditingProvider.notifier).state = false;
                     }
                   },
+                ),
+                const SizedBox(height: 27),
+                AbilityTextField(
+                  controller: widget.transferController.agtSupplySmartAmount,
+                  heading: 'Enter Amount',
+                  hintText: 'Enter Amount',
+                  maxLength: 12,
+                  keyboardType: TextInputType.number,
+                  borderRadius: BorderRadius.circular(5),
+                  validator: (value) =>
+                      ValidationHelper().validateAmount(value!),
                 ),
                 const SizedBox(height: 96),
                 AbilityButton(

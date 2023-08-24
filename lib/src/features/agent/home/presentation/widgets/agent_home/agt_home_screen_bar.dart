@@ -35,10 +35,30 @@ class AgtHomeScreenBar extends ConsumerWidget {
                   width: 200,
                   child: Row(
                     children: [
-                      ClipOval(
-                        child: CircleAvatar(
-                          radius: 22,
-                          child: Image.asset('assets/images/profilePics.png'),
+                      InkWell(
+                        onTap: () {
+                          final indexNumber = StateProvider((ref) => 3);
+
+                          PageNavigator(ctx: context).nextPage(
+                              page:
+                                  AgtBottomNavBar(indexProvider: indexNumber));
+                        },
+                        child: ClipOval(
+                          child: CircleAvatar(
+                            radius: 22,
+                            backgroundImage: agtProfile.when(
+                              data: (data) {
+                                var profilePhoto =
+                                    data.data.data.profilePicture;
+                                print(profilePhoto);
+                                return NetworkImage(
+                                  profilePhoto,
+                                );
+                              },
+                              error: (e, s) => const NetworkImage(''),
+                              loading: () => null,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 5),
@@ -51,7 +71,6 @@ class AgtHomeScreenBar extends ConsumerWidget {
                                 fontSize: 18.36,
                                 color: kWhite.withOpacity(0.9)),
                           ),
-                          // const SizedBox(height: 6),
                           agtProfile.when(
                               data: (data) {
                                 var agtInfo = data.data.data;
@@ -74,7 +93,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                                 );
                               },
                               error: (e, s) => const Text(''),
-                              loading: () => const Text('.....')),
+                              loading: () => const Text('')),
                         ],
                       ),
                     ],
@@ -129,7 +148,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                   );
                 },
                 error: ((error, stackTrace) => const Text('')),
-                loading: () => const Text('......')),
+                loading: () => const Text('')),
             const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -147,7 +166,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                       );
                     },
                     error: (e, s) => const Text(''),
-                    loading: () => const Text('.....')),
+                    loading: () => const Text('')),
               ],
             ),
             const SizedBox(height: 5),
@@ -167,7 +186,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                       );
                     },
                     error: (e, s) => const Text(''),
-                    loading: () => const Text('.....')),
+                    loading: () => const Text('')),
               ],
             ),
             const SizedBox(height: 20),

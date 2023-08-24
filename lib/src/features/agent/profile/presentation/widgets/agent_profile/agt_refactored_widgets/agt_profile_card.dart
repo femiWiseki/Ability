@@ -2,8 +2,10 @@ import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/upload_photo_bsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:iconsax/iconsax.dart';
 
 class AgtProfileCard extends ConsumerWidget {
   const AgtProfileCard({
@@ -24,10 +26,42 @@ class AgtProfileCard extends ConsumerWidget {
       child: Column(
         children: [
           const SizedBox(height: 32.67),
-          const ClipOval(
-            child: CircleAvatar(
-              radius: 44,
-            ),
+          Stack(
+            children: [
+              ClipOval(
+                child: InkWell(
+                  onTap: () {
+                    uploadPhotoBottomSheet(context, ref);
+                  },
+                  child: CircleAvatar(
+                    radius: 44,
+                    backgroundImage: agtProfile.when(
+                      data: (data) {
+                        var profilePhoto = data.data.data.profilePicture;
+                        return NetworkImage(
+                          profilePhoto,
+                        );
+                      },
+                      error: (e, s) => const NetworkImage(''),
+                      loading: () => null,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: InkWell(
+                  onTap: () {
+                    uploadPhotoBottomSheet(context, ref);
+                  },
+                  child: const Icon(
+                    Iconsax.camera4,
+                    color: kWhite,
+                  ),
+                ),
+              )
+            ],
           ),
           const SizedBox(height: 15.48),
           agtProfile.when(

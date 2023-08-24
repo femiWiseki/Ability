@@ -80,6 +80,9 @@ class DataData {
   bool rememberMe;
   DateTime createdAt;
   DateTime updatedAt;
+  String fcmToken;
+  String cloudinaryPublicId;
+  String profilePicture;
 
   DataData({
     required this.isDisabled,
@@ -109,6 +112,9 @@ class DataData {
     required this.rememberMe,
     required this.createdAt,
     required this.updatedAt,
+    required this.fcmToken,
+    required this.cloudinaryPublicId,
+    required this.profilePicture,
   });
 
   factory DataData.fromJson(Map<String, dynamic> json) => DataData(
@@ -118,7 +124,7 @@ class DataData {
         email: json["email"],
         isBiometricRegistered: json["isBiometricRegistered"],
         walletId: json["walletId"],
-        walletBalance: json["walletBalance"],
+        walletBalance: json["walletBalance"]?.toDouble(),
         isVerified: json["isVerified"],
         phoneNumber: json["phoneNumber"],
         deviceId: json["deviceId"],
@@ -140,6 +146,9 @@ class DataData {
         rememberMe: json["rememberMe"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
+        fcmToken: json["fcmToken"],
+        cloudinaryPublicId: json["cloudinaryPublicId"],
+        profilePicture: json["profilePicture"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -170,6 +179,9 @@ class DataData {
         "rememberMe": rememberMe,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
+        "fcmToken": fcmToken,
+        "cloudinaryPublicId": cloudinaryPublicId,
+        "profilePicture": profilePicture,
       };
 }
 

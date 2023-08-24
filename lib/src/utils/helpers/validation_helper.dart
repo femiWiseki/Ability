@@ -1,4 +1,3 @@
-
 class ValidationHelper {
   String? validateUserName(String value) {
     if (value.length < 4) {
@@ -77,12 +76,11 @@ class ValidationHelper {
   String? validateAmount(String value) {
     if (value.isEmpty) {
       return "Amount can not be Empty.";
-    } else if (int.parse(value) < 10) {
+    } else if (double.parse(value) < 10.00) {
       return "Amount can't be less than 10 Naira.";
+      // } else if (double.parse(value) == 0.00) {
+      //   return "Please, enter amount";
     }
-    // else if (!value.isNumber) {
-    //   return "Input only numbers";
-    // }
     return null;
   }
 
