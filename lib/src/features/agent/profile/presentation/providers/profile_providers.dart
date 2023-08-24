@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ability/src/features/agent/profile/application/services/agt_acc_statement_service.dart';
+import 'package:ability/src/features/agent/profile/application/services/agt_acc_verification_service.dart';
 import 'package:ability/src/features/agent/profile/application/services/passcode_services/agt_resetnew_service.dart';
 import 'package:ability/src/features/agent/profile/application/services/passcode_services/agt_resetpc_service.dart';
 import 'package:ability/src/features/agent/profile/application/services/passcode_services/agt_verifypc_service.dart';
@@ -34,5 +35,10 @@ final loadingAgtAccStatemt =
     StateNotifierProvider<AgtAccStatementService, bool>(
         (ref) => AgtAccStatementService());
 
-final imageProvider = StateNotifierProvider<AgtProfileController, File>(
-    (ref) => AgtProfileController());
+final loadingAgtAccVerification =
+    StateNotifierProvider<AgtAccVerificationService, bool>(
+        (ref) => AgtAccVerificationService());
+
+final imageProvider =
+    StateNotifierProvider.autoDispose<AgtProfileController, File>(
+        (ref) => AgtProfileController());

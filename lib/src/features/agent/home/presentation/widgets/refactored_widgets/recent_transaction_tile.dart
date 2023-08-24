@@ -10,12 +10,18 @@ class RecentTransactionTile extends ConsumerWidget {
   final String dateTime;
   final String amount;
   final String status;
+  final IconData icon;
+  final Color iconColor;
+  final Color statusColor;
   final void Function()? onTap;
   const RecentTransactionTile({
     required this.title,
     required this.dateTime,
     required this.amount,
     required this.status,
+    required this.icon,
+    required this.iconColor,
+    required this.statusColor,
     this.onTap,
     super.key,
   });
@@ -36,9 +42,9 @@ class RecentTransactionTile extends ConsumerWidget {
                   width: 23.61,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle, color: kPrimary.withOpacity(0.1)),
-                  child: const Icon(
-                    Icons.arrow_upward_rounded,
-                    color: kRed,
+                  child: Icon(
+                    icon,
+                    color: iconColor,
                     size: 18,
                   ),
                 ),
@@ -78,7 +84,7 @@ class RecentTransactionTile extends ConsumerWidget {
                           Text(
                             status,
                             style: AppStyleGilroy.kFontW6
-                                .copyWith(fontSize: 10.89, color: kGreen),
+                                .copyWith(fontSize: 10.89, color: statusColor),
                           ),
                         ],
                       )

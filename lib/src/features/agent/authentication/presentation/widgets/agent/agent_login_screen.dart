@@ -19,6 +19,7 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AgentLoginScreen extends ConsumerStatefulWidget {
@@ -52,25 +53,25 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
   void initState() {
     // final preferredCountries = ['NG'];
     // countryPicker = FlCountryCodePicker(filteredCountries: preferredCountries);
-    _loadSavedCredentials();
+    // _loadSavedCredentials();
     userFingerPrintAuth(context: context, proceedAuth: onAuthenticationSuccess);
     super.initState();
   }
 
-  void _loadSavedCredentials() async {
-    await Future.delayed(const Duration(seconds: 2), () {
-      var phoneNumber = AgentPreference.getSavedPhoneNumber();
-      var password = AgentPreference.getSavedPassword();
+  // void _loadSavedCredentials() async {
+  //   await Future.delayed(const Duration(seconds: 2), () {
+  //     var phoneNumber = AgentPreference.getSavedPhoneNumber();
+  //     var password = AgentPreference.getSavedPassword();
 
-      if (phoneNumber != null && password != null) {
-        widget.agentController.loginPhoneNumber.text = phoneNumber;
-        widget.agentController.loginPassword.text = password;
-        ref.watch(savePasswordProvider.notifier).state = true;
-      } else {
-        '';
-      }
-    });
-  }
+  //     if (phoneNumber != null && password != null) {
+  //       widget.agentController.loginPhoneNumber.text = phoneNumber;
+  //       widget.agentController.loginPassword.text = password;
+  //       ref.watch(savePasswordProvider.notifier).state = true;
+  //     } else {
+  //       '';
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +97,7 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                   const SizedBox(height: 61),
                   AbilityPhoneNumber(
                     phoneController: widget.agentController.loginPhoneNumber,
+                    autoFillHints: const [AutofillHints.username],
                     maxLength: 10,
                     validator: (value) =>
                         widget.validationHelper.validatePhoneNumber(value!),
@@ -154,6 +156,7 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                     heading: 'Pin',
                     hintText: 'Enter 6-digit pin',
                     maxLength: 6,
+                    autoFillHints: const [AutofillHints.password],
                     keyboardType: TextInputType.number,
                     iconName: Icons.lock_rounded,
                     validator: (value) =>
@@ -184,6 +187,9 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                                   ),
                                   value: ref.watch(savePasswordProvider),
                                   onChanged: (value) {
+                                    if (value == true) {
+                                      TextInput.finishAutofillContext();
+                                    }
                                     ref
                                             .read(savePasswordProvider.notifier)
                                             .state =
@@ -191,11 +197,11 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                                             .read(savePasswordProvider.notifier)
                                             .state;
 
-                                    if (value == true) {
-                                      print("Beneficiary is saved");
-                                    } else {
-                                      print("Beneficiary is not saved");
-                                    }
+                                    // if (value == true) {
+                                    //   print("Beneficiary is saved");
+                                    // } else {
+                                    //   print("Beneficiary is not saved");
+                                    // }
                                   },
                                 ),
                               ),

@@ -1,6 +1,7 @@
 import 'package:ability/src/common_widgets/app_header.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/constants/upcase_letter.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_withdrawal_history.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
@@ -95,15 +96,28 @@ class _AgtTransactionHistoryState extends ConsumerState<AgtTransactionHistory> {
                                 String formattedDate =
                                     DateFormat('MMM dd, hh:mm')
                                         .format(historyTime);
-
+                                final info = historyInfo[index];
                                 return RecentTransactionTile(
-                                    title: historyInfo[index].transactionType,
-                                    dateTime: formattedDate,
-                                    amount:
-                                        historyInfo[index].transactionAmount,
-                                    status: historyInfo[index]
-                                        .transactionStatus
-                                        .toUpperCase());
+                                  title:
+                                      convertToUppercase(info.transactionType),
+                                  dateTime: formattedDate,
+                                  amount: info.transactionAmount,
+                                  icon: info.transactionType == 'transfer' ||
+                                          info.transactionType == 'airtime'
+                                      ? Icons.arrow_upward_rounded
+                                      : Icons.arrow_downward_rounded,
+                                  iconColor:
+                                      info.transactionType == 'transfer' ||
+                                              info.transactionType == 'airtime'
+                                          ? kRed
+                                          : kPrimary,
+                                  status: convertToUppercase(
+                                      info.transactionStatus),
+                                  statusColor:
+                                      info.transactionStatus == 'success'
+                                          ? kGreen
+                                          : kRed,
+                                );
                               },
                             ),
                           ),

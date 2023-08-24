@@ -54,13 +54,7 @@ class _AgtTransferToSupplySmartState
             child: Form(
               key: _formKey,
               child: Column(children: [
-                InkWell(
-                    onTap: () {
-                      // refreshTokenService();
-                      print(AgentPreference.getRefreshedToken());
-                    },
-                    child:
-                        const AppHeader(heading: 'Transfer to Supply Smart')),
+                const AppHeader(heading: 'Transfer to Supply Smart'),
                 const SizedBox(height: 68.89),
                 AbilityTextField(
                   controller: widget.transferController.agtSupplySmartAccNum,

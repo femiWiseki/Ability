@@ -11,12 +11,14 @@ class AbilityPhoneNumber extends StatefulWidget {
     required this.prefixWidget,
     this.validator,
     this.maxLength,
+    this.autoFillHints,
   }) : _phoneController = phoneController;
 
   final TextEditingController _phoneController;
   final Widget prefixWidget;
   final String? Function(String?)? validator;
   final int? maxLength;
+  final Iterable<String>? autoFillHints;
 
   @override
   State<AbilityPhoneNumber> createState() => _AbilityPhoneNumberState();
@@ -40,6 +42,7 @@ class _AbilityPhoneNumberState extends State<AbilityPhoneNumber> {
               keyboardType: TextInputType.phone,
               validator: widget.validator,
               maxLength: widget.maxLength,
+              autofillHints: widget.autoFillHints,
               // autovalidateMode: AutovalidateMode.onUserInteraction,
 
               textInputAction:

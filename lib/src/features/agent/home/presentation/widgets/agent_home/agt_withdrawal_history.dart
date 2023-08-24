@@ -40,14 +40,18 @@ class AgtWithdrawalHistory extends ConsumerWidget {
                           DateTime historyTime = historyInfo[index].createdAt;
                           String formattedDate =
                               DateFormat('MMM dd, hh:mm').format(historyTime);
-
+                          final info = historyInfo[index];
                           return RecentTransactionTile(
-                              title: historyInfo[index].description.toString(),
-                              dateTime: formattedDate,
-                              amount: historyInfo[index].amount,
-                              status: historyInfo[index]
-                                  .responseDescription
-                                  .toString());
+                            title: info.description.toString(),
+                            dateTime: formattedDate,
+                            amount: info.amount,
+                            icon: Icons.arrow_upward_rounded,
+                            iconColor: kRed,
+                            status: info.responseDescription.toString(),
+                            statusColor: info.responseDescription == 'Approved'
+                                ? kGreen
+                                : kRed,
+                          );
                         },
                       ),
                     ),

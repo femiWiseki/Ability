@@ -69,7 +69,7 @@ class AgtHomeScreen extends ConsumerWidget {
                             data.data.transactionHistory.map((e) => e).toList();
                         return historyInfo.isNotEmpty
                             ? ListView.builder(
-                                itemCount: historyInfo.length,
+                                itemCount: 10,
                                 itemBuilder: (context, index) {
                                   DateTime historyTime =
                                       historyInfo[index].createdAt;
@@ -77,6 +77,7 @@ class AgtHomeScreen extends ConsumerWidget {
                                       DateFormat('MMM dd, hh:mm')
                                           .format(historyTime);
                                   final info = historyInfo[index];
+                                  // if(info.transactionType == )
                                   return RecentTransactionTile(
                                     title: convertToUppercase(
                                         info.transactionType),
@@ -84,6 +85,19 @@ class AgtHomeScreen extends ConsumerWidget {
                                     amount: info.transactionAmount,
                                     status: convertToUppercase(
                                         info.transactionStatus),
+                                    statusColor:
+                                        info.transactionStatus == 'success'
+                                            ? kGreen
+                                            : kRed,
+                                    icon: info.transactionType == 'transfer' ||
+                                            info.transactionType == 'airtime'
+                                        ? Icons.arrow_upward_rounded
+                                        : Icons.arrow_downward_rounded,
+                                    iconColor: info.transactionType ==
+                                                'transfer' ||
+                                            info.transactionType == 'airtime'
+                                        ? kRed
+                                        : kPrimary,
                                     onTap: () {
                                       if (info.transactionType == 'AIRTIME') {
                                         PageNavigator(ctx: context).nextPage(

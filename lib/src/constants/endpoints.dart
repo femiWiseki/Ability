@@ -56,6 +56,7 @@ var kAgtAccStatementUrl =
     "$baseUrl/api/v1/agents/download/transactions?startDate=$accStartDate&endDate=$accEndDate";
 var kEnrollFingerPrintUrl = "$baseUrl/api/v1/agents/biometric";
 const kUploadPhotoUrl = "$baseUrl/api/v1/agents/profile/picture";
+const kAgtAccVerificationUrl = "$baseUrl/api/v1/agents/upload/documents";
 
 // Aggregator
 const kCreateAccountAggregatorUrl = "$baseUrl/api/v1/aggregators/signup";

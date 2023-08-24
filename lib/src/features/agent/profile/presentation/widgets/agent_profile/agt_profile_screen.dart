@@ -7,7 +7,9 @@ import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/agent/profile/application/services/agt_enroll_fingerprint_service.dart';
+import 'package:ability/src/features/agent/profile/presentation/controllers/profile_controllers.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_acc_verification.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_account_statement.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_passcode/agt_passcode_screen.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_contactus_tile.dart';
@@ -79,7 +81,11 @@ class AgtProfileScreen extends ConsumerWidget {
                           GeneralTile(
                             prefixIconPath: 'assets/icons/verification.svg',
                             title: 'Verification',
-                            onTap: () {},
+                            onTap: () {
+                              PageNavigator(ctx: context).nextPage(
+                                  page: AgtAccVerification(
+                                      AgtProfileController()));
+                            },
                           ),
                           GeneralTile(
                             prefixIconPath: 'assets/icons/account_limits.svg',

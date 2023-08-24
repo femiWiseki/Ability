@@ -19,6 +19,7 @@ class AbilityPasswordField extends ConsumerWidget {
     this.borderRadius,
     this.maxLength,
     this.keyboardType,
+    this.autoFillHints,
   }) : super(key: key);
 
   final String? hintText;
@@ -33,6 +34,7 @@ class AbilityPasswordField extends ConsumerWidget {
   final BorderRadius? borderRadius;
   final int? maxLength;
   final TextInputType? keyboardType;
+  final Iterable<String>? autoFillHints;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,6 +55,7 @@ class AbilityPasswordField extends ConsumerWidget {
             controller: controller,
             maxLength: maxLength,
             keyboardType: keyboardType,
+            autofillHints: autoFillHints,
             textInputAction:
                 TextInputAction.done, // set the text input action to done
             onTap: () {
