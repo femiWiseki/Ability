@@ -6,6 +6,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/upcase_letter.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_airtime_details.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_deposit_details.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_home_screen_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_trans_history_screen.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_transfer_details.dart';
@@ -56,20 +57,21 @@ class AgtHomeScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5.05),
+                  const SizedBox(height: 10),
                   Container(
                     width: double.maxFinite,
-                    height: 348,
+                    height: 360,
                     color: kWhite,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: transHistory.when(
                       data: (data) {
                         final historyInfo =
                             data.data.transactionHistory.map((e) => e).toList();
                         return historyInfo.isNotEmpty
                             ? ListView.builder(
-                                itemCount: 10,
+                                itemCount: historyInfo.length < 10
+                                    ? historyInfo.length
+                                    : 10,
                                 itemBuilder: (context, index) {
                                   DateTime historyTime =
                                       historyInfo[index].createdAt;
@@ -77,7 +79,6 @@ class AgtHomeScreen extends ConsumerWidget {
                                       DateFormat('MMM dd, hh:mm')
                                           .format(historyTime);
                                   final info = historyInfo[index];
-                                  // if(info.transactionType == )
                                   return RecentTransactionTile(
                                     title: convertToUppercase(
                                         info.transactionType),
@@ -85,21 +86,25 @@ class AgtHomeScreen extends ConsumerWidget {
                                     amount: info.transactionAmount,
                                     status: convertToUppercase(
                                         info.transactionStatus),
-                                    statusColor:
-                                        info.transactionStatus == 'success'
-                                            ? kGreen
-                                            : kRed,
-                                    icon: info.transactionType == 'transfer' ||
-                                            info.transactionType == 'airtime'
+                                    statusColor: info.transactionStatus
+                                            .contains('success')
+                                        ? kGreen
+                                        : kRed,
+                                    icon: info.transactionGroup
+                                                .contains("trasfer") ||
+                                            info.transactionGroup
+                                                .contains('pay_bills')
                                         ? Icons.arrow_upward_rounded
                                         : Icons.arrow_downward_rounded,
-                                    iconColor: info.transactionType ==
-                                                'transfer' ||
-                                            info.transactionType == 'airtime'
+                                    iconColor: info.transactionGroup
+                                                .contains('transfer') ||
+                                            info.transactionGroup
+                                                .contains('pay_bills')
                                         ? kRed
                                         : kPrimary,
                                     onTap: () {
-                                      if (info.transactionType == 'AIRTIME') {
+                                      if (info.transactionGroup
+                                          .contains('pay_bills')) {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtAirtimeDetails(
                                           transType: info.transactionType,
@@ -108,12 +113,14 @@ class AgtHomeScreen extends ConsumerWidget {
                                           transStatus: convertToUppercase(
                                               info.transactionStatus),
                                           transNumber: info.id,
-                                          transOperator: info.recipientBank,
+                                          transOperator:
+                                              info.recipientBank ?? '',
                                           phoneNumber:
-                                              info.transactionRecipient,
+                                              info.transactionRecipient ?? '',
                                           paidWith: 'Wallet Balance',
                                         ));
-                                      } else {
+                                      } else if (info.transactionGroup
+                                          .contains('transfer')) {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtTransferDetails(
                                           transType: info.transactionType,
@@ -124,16 +131,30 @@ class AgtHomeScreen extends ConsumerWidget {
                                           sender:
                                               AgentPreference.getUsername() ??
                                                   '',
-                                          bankName: info.recipientBank,
+                                          bankName: info.recipientBank ?? '',
                                           accNumber:
-                                              info.recipientAccountNumber,
+                                              info.recipientAccountNumber ?? '',
                                           accName: info.recipientAccountName,
-                                          description:
-                                              info.transactionDescription ?? '',
+                                          description: 'Transaction',
                                           transNumber: info.id,
-                                          sessionID: info.sessionId ?? '',
+                                          sessionID: info.sessionId,
                                         ));
-                                      }
+                                      } else if (info.transactionGroup
+                                          .contains('deposit')) {
+                                        PageNavigator(ctx: context).nextPage(
+                                            page: AgtDepositDetails(
+                                          transType: info.transactionType,
+                                          transAmount: info.transactionAmount,
+                                          transDateTime: formattedDate,
+                                          transStatus: info.transactionStatus,
+                                          sender: info.recipientAccountName,
+                                          bankName: '',
+                                          bankAccount: '',
+                                          depositType: 'Bank transfer',
+                                          sessionId: info.sessionId,
+                                          transactionNum: info.id,
+                                        ));
+                                      } else {}
                                     },
                                   );
                                 },
@@ -154,15 +175,6 @@ class AgtHomeScreen extends ConsumerWidget {
                 ],
               ),
             ),
-            // AbilityButton(
-            //     title: 'Logout',
-            //     onPressed: () {
-            //       AgentPreference.clearAccessToken().then((value) {
-            //         PageNavigator(ctx: context).nextPageOnly(
-            //             page: AgentLoginScreen(
-            //                 ValidationHelper(), AgentController()));
-            //       });
-            //     }),
           ],
         ),
       ),

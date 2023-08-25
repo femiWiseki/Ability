@@ -93,11 +93,9 @@ class AgtAirtimeDetails extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 97.6,
+                                width: 150,
                                 height: 34.2,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       height: 34.1,
@@ -111,6 +109,7 @@ class AgtAirtimeDetails extends ConsumerWidget {
                                         size: 18,
                                       ),
                                     ),
+                                    const SizedBox(width: 10),
                                     Text(
                                       convertToUppercase(transType),
                                       style: AppStyleGilroy.kFontW5
@@ -150,7 +149,8 @@ class AgtAirtimeDetails extends ConsumerWidget {
                           AccStatementTile(
                             prefixText: 'Status',
                             suffixText: transStatus,
-                            suffixTextColor: kGreen,
+                            suffixTextColor:
+                                transStatus.contains('Success') ? kGreen : kRed,
                             suffixTextFontSize: 16,
                           ),
                           AccStatementTile(

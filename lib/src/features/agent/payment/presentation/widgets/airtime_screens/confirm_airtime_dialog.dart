@@ -79,6 +79,10 @@ confirmAirtimeDialog({
                         suffixText: networkProvider,
                       ),
                       ConfirmDetailsTile(
+                        prefixText: "Recipient's Number",
+                        suffixText: '0$customerNum',
+                      ),
+                      ConfirmDetailsTile(
                         prefixText: 'Amount',
                         suffixText: NumberFormat.currency(
                                 locale: 'en_NG', decimalDigits: 2, symbol: '₦')

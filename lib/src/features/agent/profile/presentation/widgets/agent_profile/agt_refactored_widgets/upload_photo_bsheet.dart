@@ -56,10 +56,10 @@ void uploadPhotoBottomSheet(BuildContext context, WidgetRef ref) {
                       borderRadius: 30,
                       onPressed: () async {
                         await ref
-                            .read(imageProvider.notifier)
+                            .read(uploadPhotoProvider.notifier)
                             .pickImage(ImageSource.camera);
 
-                        File? pickedImage = ref.watch(imageProvider);
+                        File? pickedImage = ref.watch(uploadPhotoProvider);
                         await uploadPhoto(context, pickedImage);
                       },
                       child: Row(
@@ -86,10 +86,10 @@ void uploadPhotoBottomSheet(BuildContext context, WidgetRef ref) {
                       buttonColor: kTransparent,
                       onPressed: () async {
                         ref
-                            .read(imageProvider.notifier)
+                            .read(uploadPhotoProvider.notifier)
                             .pickImage(ImageSource.gallery);
 
-                        File? pickedImage = ref.watch(imageProvider);
+                        File? pickedImage = ref.watch(uploadPhotoProvider);
                         await uploadPhoto(context, pickedImage);
                       },
                       child: Row(

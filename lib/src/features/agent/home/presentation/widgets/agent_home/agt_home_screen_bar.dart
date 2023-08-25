@@ -3,10 +3,12 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_bottom_nav_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_notifications.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
@@ -158,10 +160,28 @@ class AgtHomeScreenBar extends ConsumerWidget {
                       var virAccBank = data.data.data.virtualAccountNumber;
                       return SizedBox(
                         width: 180,
-                        child: Text(
-                          virAccBank,
-                          style: AppStyleGilroy.kFontW6
-                              .copyWith(fontSize: 16, color: kWhite),
+                        child: Row(
+                          children: [
+                            Text(
+                              virAccBank,
+                              style: AppStyleGilroy.kFontW6
+                                  .copyWith(fontSize: 16, color: kWhite),
+                            ),
+                            const SizedBox(width: 10),
+                            InkWell(
+                              onTap: () {
+                                FlutterClipboard.copy(virAccBank).then((value) {
+                                  successMessage(
+                                      context: context, message: 'Copied');
+                                });
+                              },
+                              child: const Icon(
+                                Iconsax.copy,
+                                size: 20,
+                                color: kAsh1,
+                              ),
+                            )
+                          ],
                         ),
                       );
                     },

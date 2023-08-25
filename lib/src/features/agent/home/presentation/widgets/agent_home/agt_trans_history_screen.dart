@@ -128,7 +128,7 @@ class _AgtTransactionHistoryState extends ConsumerState<AgtTransactionHistory> {
                           children: [Text('No transaction yet')],
                         );
                 },
-                error: (e, s) => Text(e.toString()),
+                error: (e, s) => const Text(''),
                 loading: () => const Center(
                   child: CircularProgressIndicator(
                     strokeWidth: 6,

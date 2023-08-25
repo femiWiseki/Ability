@@ -106,17 +106,16 @@ class AgtTransferDetails extends ConsumerWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                      height: 34.1,
-                                      width: 32.8,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: kPrimary.withOpacity(0.1)),
-                                      child: const Icon(
-                                        Icons.arrow_upward_rounded,
-                                        color: customColor2,
-                                        size: 18,
-                                      ),
-                                    ),
+                                        height: 34.1,
+                                        width: 32.8,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: kPrimary.withOpacity(0.1)),
+                                        child: const Icon(
+                                          Icons.arrow_upward_rounded,
+                                          color: customColor2,
+                                          size: 18,
+                                        )),
                                     Text(
                                       convertToUppercase(transType),
                                       style: AppStyleGilroy.kFontW5
@@ -155,8 +154,9 @@ class AgtTransferDetails extends ConsumerWidget {
                           const SizedBox(height: 17.96),
                           AccStatementTile(
                             prefixText: 'Status',
-                            suffixText: transStatus,
-                            suffixTextColor: kGreen,
+                            suffixText: convertToUppercase(transStatus),
+                            suffixTextColor:
+                                transStatus.contains('success') ? kGreen : kRed,
                             suffixTextFontSize: 16,
                           ),
                           AccStatementTile(

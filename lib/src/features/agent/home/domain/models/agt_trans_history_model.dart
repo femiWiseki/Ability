@@ -73,23 +73,21 @@ class TransactionHistory {
   String transactionType;
   String transactionAmount;
   dynamic transactionDate;
-  String transactionId;
-  String transactionRecipient;
-  String recipientBank;
+  String? transactionId;
+  String? transactionRecipient;
+  String? recipientBank;
   String recipientAccountName;
-  String recipientAccountNumber;
-  String ref;
-  String type;
-  String source;
+  String? recipientAccountNumber;
+  String? ref;
+  String? type;
+  String? source;
+  String transactionGroup;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
-  String? transactionDescription;
-  dynamic transactionFailureReason;
+  String sessionId;
+  String? transactionCurrency;
   String? transactionReference;
-  dynamic transactionSourceDetails;
-  String? transactionTransferCode;
-  String? sessionId;
 
   TransactionHistory({
     required this.id,
@@ -98,23 +96,21 @@ class TransactionHistory {
     required this.transactionType,
     required this.transactionAmount,
     required this.transactionDate,
-    required this.transactionId,
-    required this.transactionRecipient,
-    required this.recipientBank,
+    this.transactionId,
+    this.transactionRecipient,
+    this.recipientBank,
     required this.recipientAccountName,
-    required this.recipientAccountNumber,
-    required this.ref,
-    required this.type,
-    required this.source,
+    this.recipientAccountNumber,
+    this.ref,
+    this.type,
+    this.source,
+    required this.transactionGroup,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
-    this.transactionDescription,
-    this.transactionFailureReason,
+    required this.sessionId,
+    this.transactionCurrency,
     this.transactionReference,
-    this.transactionSourceDetails,
-    this.transactionTransferCode,
-    this.sessionId,
   });
 
   factory TransactionHistory.fromJson(Map<String, dynamic> json) =>
@@ -133,15 +129,13 @@ class TransactionHistory {
         ref: json["ref"],
         type: json["type"],
         source: json["source"],
+        transactionGroup: json["transactionGroup"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        transactionDescription: json["transactionDescription"],
-        transactionFailureReason: json["transactionFailureReason"],
-        transactionReference: json["transactionReference"],
-        transactionSourceDetails: json["transactionSourceDetails"],
-        transactionTransferCode: json["transactionTransferCode"],
         sessionId: json["sessionId"],
+        transactionCurrency: json["transactionCurrency"],
+        transactionReference: json["transactionReference"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -159,14 +153,12 @@ class TransactionHistory {
         "ref": ref,
         "type": type,
         "source": source,
+        "transactionGroup": transactionGroup,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-        "transactionDescription": transactionDescription,
-        "transactionFailureReason": transactionFailureReason,
-        "transactionReference": transactionReference,
-        "transactionSourceDetails": transactionSourceDetails,
-        "transactionTransferCode": transactionTransferCode,
         "sessionId": sessionId,
+        "transactionCurrency": transactionCurrency,
+        "transactionReference": transactionReference,
       };
 }

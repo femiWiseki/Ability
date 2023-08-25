@@ -42,3 +42,6 @@ final loadingAgtAccVerification =
 final imageProvider =
     StateNotifierProvider.autoDispose<AgtProfileController, File>(
         (ref) => AgtProfileController());
+
+final uploadPhotoProvider = StateNotifierProvider<AgtProfileController, File>(
+    (ref) => AgtProfileController());

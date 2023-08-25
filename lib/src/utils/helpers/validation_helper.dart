@@ -76,8 +76,8 @@ class ValidationHelper {
   String? validateAmount(String value) {
     if (value.isEmpty) {
       return "Amount can not be Empty.";
-    } else if (double.parse(value) < 10.00) {
-      return "Amount can't be less than 10 Naira.";
+    } else if (double.parse(value) < 50.00) {
+      return "Amount can't be less than 50 Naira.";
       // } else if (double.parse(value) == 0.00) {
       //   return "Please, enter amount";
     }
