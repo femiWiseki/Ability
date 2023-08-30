@@ -202,7 +202,7 @@ class AgtDepositDetails extends ConsumerWidget {
                       .copyWith(color: kGreen, fontSize: 18),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 50),
               AbilityButton(
                 title: 'Share Receipt',
                 onPressed: () async {
@@ -212,7 +212,6 @@ class AgtDepositDetails extends ConsumerWidget {
                   }
                 },
               ),
-              const SizedBox(height: 20),
             ],
           ),
         ),
