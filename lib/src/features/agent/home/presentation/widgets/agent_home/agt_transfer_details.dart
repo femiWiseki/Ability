@@ -99,11 +99,9 @@ class AgtTransferDetails extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 97.6,
+                                width: 150,
                                 height: 34.2,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       height: 34.1,
@@ -117,6 +115,7 @@ class AgtTransferDetails extends ConsumerWidget {
                                         size: 18,
                                       ),
                                     ),
+                                    const SizedBox(width: 10),
                                     Text(
                                       convertToUppercase(transType),
                                       style: AppStyleGilroy.kFontW5
@@ -126,7 +125,7 @@ class AgtTransferDetails extends ConsumerWidget {
                                 ),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
                                     NumberFormat.currency(
@@ -135,7 +134,7 @@ class AgtTransferDetails extends ConsumerWidget {
                                             symbol: '₦')
                                         .format(double.parse(transAmount)),
                                     style: AppStyleRoboto.kFontW6
-                                        .copyWith(fontSize: 18.25),
+                                        .copyWith(fontSize: 16),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(

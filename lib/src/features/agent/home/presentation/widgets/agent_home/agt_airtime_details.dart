@@ -128,7 +128,7 @@ class AgtAirtimeDetails extends ConsumerWidget {
                                             symbol: '₦')
                                         .format(double.parse(transAmount)),
                                     style: AppStyleRoboto.kFontW6
-                                        .copyWith(fontSize: 18.25),
+                                        .copyWith(fontSize: 16),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
@@ -156,9 +156,12 @@ class AgtAirtimeDetails extends ConsumerWidget {
                               prefixText: 'Paid with', suffixText: paidWith),
                           AccStatementTile(
                               prefixText: 'Operator',
-                              suffixText: convertToUppercase(transOperator)),
+                              suffixText:
+                                  convertToUppercase(transOperator).isEmpty
+                                      ? convertToUppercase(transType)
+                                      : convertToUppercase(transOperator)),
                           AccStatementTile(
-                              prefixText: 'Phone Number',
+                              prefixText: 'Recipient Number',
                               suffixText: phoneNumber),
                           const SizedBox(height: 18),
                           const Divider(
