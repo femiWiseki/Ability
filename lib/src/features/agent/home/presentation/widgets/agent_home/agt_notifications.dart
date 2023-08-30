@@ -43,6 +43,9 @@ class _AgtNotificationsState extends ConsumerState<AgtNotifications> {
                             .agtNotifications(context: context);
                         ref.refresh(getAgtNotificationsProvider);
                       });
+                  Future.delayed(const Duration(seconds: 2), () {
+                    Navigator.pop(context);
+                  });
                 },
                 height: 40,
                 buttonColor: kRed,
@@ -106,7 +109,7 @@ class _AgtNotificationsState extends ConsumerState<AgtNotifications> {
                         : const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [Text('No notification yet')],
+                            children: [Text('Notification list is empty')],
                           ),
                   );
                 },

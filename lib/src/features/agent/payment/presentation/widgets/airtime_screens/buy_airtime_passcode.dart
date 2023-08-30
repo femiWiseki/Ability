@@ -68,10 +68,10 @@ class BuyAirtimePasscode extends ConsumerWidget {
                         if (_formKey.currentState!.validate()) {
                           if (AgentPreference.getIsAgentVerified() == true) {
                             await ref
-                                .watch(loadingBuyAirtime.notifier)
-                                .airtimeService(
+                                .watch(loadingPayAllBills.notifier)
+                                .payBillsService(
                                   context: context,
-                                  customerNum: customerNum,
+                                  customerNum: '+234$customerNum',
                                   amount: amount,
                                   paymentType: paymentType,
                                   networkProvider: networkProvider,

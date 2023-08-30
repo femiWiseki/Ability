@@ -50,6 +50,9 @@ var kGetDataUrl =
     "$baseUrl/api/v1/agents/billcategories/$dataNtw?data_bundle=1";
 var kGetCableUrl =
     "$baseUrl/api/v1/agents/billcategories/$dataNtw?data_bundle=1";
+const kElectricityListUrl =
+    "$baseUrl/api/v1/agents/bill/major/categories?power=1";
+const kResolveElectricityUrl = "$baseUrl/api/v1/agents/bill/validation";
 
 // Agent Profile Urls
 var kAgtAccStatementUrl =

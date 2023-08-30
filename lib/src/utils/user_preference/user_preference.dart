@@ -29,6 +29,7 @@ class AgentPreference {
   static const _keyFingerBiometrics = 'fingerBiometrics';
   static const _keyIsAgentVerified = 'isAgentVerified';
   static const _keyFCMToken = 'fcmToken';
+  static const _keyElectAccountName = 'electAccountName';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -110,6 +111,9 @@ class AgentPreference {
   static Future setFCMToken(String fcmToken) async =>
       await _preferences.setString(_keyFCMToken, fcmToken);
 
+  static Future setElectAccountName(String electAccountName) async =>
+      await _preferences.setString(_keyElectAccountName, electAccountName);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -169,6 +173,9 @@ class AgentPreference {
       _preferences.getBool(_keyIsAgentVerified) ?? false;
 
   static String? getFCMToken() => _preferences.getString(_keyFCMToken);
+
+  static String? getElectAccountName() =>
+      _preferences.getString(_keyElectAccountName);
 
   /// Clear Agent Token when logged out..
   static Future logoutUser() async {

@@ -69,7 +69,9 @@ class AgtHomeScreen extends ConsumerWidget {
                             data.data.transactionHistory.map((e) => e).toList();
                         return historyInfo.isNotEmpty
                             ? ListView.builder(
-                                itemCount: 10,
+                                itemCount: historyInfo.length < 10
+                                    ? historyInfo.length
+                                    : 10,
                                 itemBuilder: (context, index) {
                                   DateTime historyTime =
                                       historyInfo[index].createdAt;
@@ -90,12 +92,12 @@ class AgtHomeScreen extends ConsumerWidget {
                                             ? kGreen
                                             : kRed,
                                     icon: info.transactionType == 'transfer' ||
-                                            info.transactionType == 'airtime'
+                                            info.transactionType == 'AIRTIME'
                                         ? Icons.arrow_upward_rounded
                                         : Icons.arrow_downward_rounded,
                                     iconColor: info.transactionType ==
                                                 'transfer' ||
-                                            info.transactionType == 'airtime'
+                                            info.transactionType == 'AIRTIME'
                                         ? kRed
                                         : kPrimary,
                                     onTap: () {
@@ -108,9 +110,10 @@ class AgtHomeScreen extends ConsumerWidget {
                                           transStatus: convertToUppercase(
                                               info.transactionStatus),
                                           transNumber: info.id,
-                                          transOperator: info.recipientBank,
+                                          transOperator:
+                                              info.recipientBank ?? '',
                                           phoneNumber:
-                                              info.transactionRecipient,
+                                              info.transactionRecipient ?? '',
                                           paidWith: 'Wallet Balance',
                                         ));
                                       } else {
@@ -124,14 +127,14 @@ class AgtHomeScreen extends ConsumerWidget {
                                           sender:
                                               AgentPreference.getUsername() ??
                                                   '',
-                                          bankName: info.recipientBank,
+                                          bankName: info.recipientBank ?? '',
                                           accNumber:
-                                              info.recipientAccountNumber,
+                                              info.recipientAccountNumber ?? '',
                                           accName: info.recipientAccountName,
                                           description:
                                               info.transactionDescription ?? '',
                                           transNumber: info.id,
-                                          sessionID: info.sessionId ?? '',
+                                          sessionID: info.sessionId,
                                         ));
                                       }
                                     },

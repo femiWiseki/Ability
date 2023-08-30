@@ -4,7 +4,7 @@ import 'package:ability/src/features/agent/payment/presentation/providers/paymen
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-void dataServiceBottomSheet({required BuildContext context}) {
+void electServiceBottomSheet({required BuildContext context}) {
   showModalBottomSheet(
     context: context,
     shape: const RoundedRectangleBorder(
@@ -15,22 +15,18 @@ void dataServiceBottomSheet({required BuildContext context}) {
         padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
         child: Consumer(
           builder: (context, ref, child) {
-            final dataValue = ref.watch(getDataProvider);
+            final electListVal = ref.watch(getElectricityListProvider);
             return Column(
               children: [
                 Text(
-                  'Select Data Plan',
+                  'Select Service Provider',
                   style: AppStyleRoboto.kFontW6.copyWith(fontSize: 20),
                 ),
                 const SizedBox(height: 30),
                 Expanded(
-                  child: dataValue.when(
+                  child: electListVal.when(
                     data: (data) {
-                      List<String> names =
-                          data.data.values.map((datum) => datum.name).toList();
-                      List<int> amounts = data.data.values
-                          .map((datum) => datum.amount)
-                          .toList();
+                      final names = data.data.data;
 
                       return ListView.builder(
                           itemCount: names.length,
@@ -42,14 +38,9 @@ void dataServiceBottomSheet({required BuildContext context}) {
                                 ref.read(selectedRowProvider.notifier).state =
                                     index;
 
-                                ref.read(selectedDataAmount.notifier).state =
-                                    '${amounts[index]}';
+                                ref.read(selectedElectProvider.notifier).state =
+                                    names[index].name.toString();
 
-                                ref.read(selectedDataPlanName.notifier).state =
-                                    names[index].toString();
-
-                                ref.read(selectedDataPlan.notifier).state =
-                                    "${names[index]} - ₦${amounts[index]}";
                                 Navigator.pop(context);
                               },
                               child: Padding(
@@ -60,7 +51,7 @@ void dataServiceBottomSheet({required BuildContext context}) {
                                   children: [
                                     SizedBox(
                                         child: Text(
-                                      "${names[index]} - ₦${amounts[index]}",
+                                      names[index].name,
                                       style: AppStyleRoboto.kFontW6.copyWith(
                                           fontSize: 14, color: kGrey1),
                                     )),

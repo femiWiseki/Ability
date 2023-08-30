@@ -15,10 +15,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class BuyAirtimeService extends StateNotifier<bool> {
-  BuyAirtimeService() : super(false);
+class PayAllBillsService extends StateNotifier<bool> {
+  PayAllBillsService() : super(false);
 
-  airtimeService({
+  payBillsService({
     required BuildContext context,
     required String customerNum,
     required int amount,
@@ -39,7 +39,7 @@ class BuyAirtimeService extends StateNotifier<bool> {
       };
 
       final String requestBody = jsonEncode({
-        "customer": "+234$customerNum",
+        "customer": customerNum,
         "amount": amount,
         "paymentType": networkProvider,
         "biller_name": networkProvider,
@@ -52,8 +52,8 @@ class BuyAirtimeService extends StateNotifier<bool> {
           body: requestBody, headers: serviceHeader);
       print(response.statusCode);
       print(response.body);
-      // print(requestBody);
-      // print(token);
+      print(requestBody);
+      print(token);
       Navigator.pop(context);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -91,9 +91,9 @@ class BuyAirtimeService extends StateNotifier<bool> {
         final refreshedResponse = await http.post(Uri.parse(serviceUrl),
             body: requestBody, headers: refreshedHeader);
 
-        // print('Statuscode: ${refreshedResponse.statusCode}');
-        // print(refreshedResponse.body);
-        // print(requestBody);
+        print('Statuscode: ${refreshedResponse.statusCode}');
+        print(refreshedResponse.body);
+        print(requestBody);
 
         if (refreshedResponse.statusCode == 200 ||
             refreshedResponse.statusCode == 201) {
