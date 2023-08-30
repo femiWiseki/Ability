@@ -6,6 +6,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/upcase_letter.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_airtime_details.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_deposit_details.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_home_screen_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_trans_history_screen.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_transfer_details.dart';
@@ -91,17 +92,18 @@ class AgtHomeScreen extends ConsumerWidget {
                                         info.transactionStatus == 'success'
                                             ? kGreen
                                             : kRed,
-                                    icon: info.transactionType == 'transfer' ||
-                                            info.transactionType == 'AIRTIME'
+                                    icon: info.transactionGroup == 'transfer' ||
+                                            info.transactionGroup == 'pay_bills'
                                         ? Icons.arrow_upward_rounded
                                         : Icons.arrow_downward_rounded,
-                                    iconColor: info.transactionType ==
+                                    iconColor: info.transactionGroup ==
                                                 'transfer' ||
-                                            info.transactionType == 'AIRTIME'
+                                            info.transactionGroup == 'pay_bills'
                                         ? kRed
                                         : kPrimary,
                                     onTap: () {
-                                      if (info.transactionType == 'AIRTIME') {
+                                      if (info.transactionGroup ==
+                                          'pay_bills') {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtAirtimeDetails(
                                           transType: info.transactionType,
@@ -116,7 +118,8 @@ class AgtHomeScreen extends ConsumerWidget {
                                               info.transactionRecipient ?? '',
                                           paidWith: 'Wallet Balance',
                                         ));
-                                      } else {
+                                      } else if (info.transactionGroup ==
+                                          'transfer') {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtTransferDetails(
                                           transType: info.transactionType,
@@ -135,6 +138,21 @@ class AgtHomeScreen extends ConsumerWidget {
                                               info.transactionDescription ?? '',
                                           transNumber: info.id,
                                           sessionID: info.sessionId,
+                                        ));
+                                      } else {
+                                        PageNavigator(ctx: context).nextPage(
+                                            page: AgtDepositDetails(
+                                          transType: info.transactionType,
+                                          transAmount: info.transactionAmount,
+                                          transDateTime: formattedDate,
+                                          transStatus: convertToUppercase(
+                                              info.transactionStatus),
+                                          sender: '',
+                                          bankName: '',
+                                          bankAccount: '',
+                                          depositType: '',
+                                          transNumber: info.id,
+                                          sessionId: info.sessionId,
                                         ));
                                       }
                                     },

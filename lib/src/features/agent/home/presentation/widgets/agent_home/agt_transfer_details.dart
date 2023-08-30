@@ -171,7 +171,7 @@ class AgtTransferDetails extends ConsumerWidget {
                               prefixText: 'Account Name', suffixText: accName),
                           AccStatementTile(
                               prefixText: 'Description',
-                              suffixText: description),
+                              suffixText: convertToUppercase(description)),
                           const SizedBox(height: 18),
                           const Divider(
                             thickness: 1,

@@ -93,11 +93,9 @@ class AgtAirtimeDetails extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 97.6,
+                                width: 150,
                                 height: 34.2,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       height: 34.1,
@@ -111,16 +109,17 @@ class AgtAirtimeDetails extends ConsumerWidget {
                                         size: 18,
                                       ),
                                     ),
+                                    const SizedBox(width: 10),
                                     Text(
                                       convertToUppercase(transType),
                                       style: AppStyleGilroy.kFontW5
-                                          .copyWith(fontSize: 15.86),
+                                          .copyWith(fontSize: 13),
                                     ),
                                   ],
                                 ),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
                                     NumberFormat.currency(
