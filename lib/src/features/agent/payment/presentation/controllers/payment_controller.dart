@@ -15,4 +15,9 @@ class AgtPaymentController {
   final electricityMeterNumber = TextEditingController();
   final electricityPasscode = TextEditingController();
   late TextEditingController electricityAmount = TextEditingController();
+
+  // Cable
+  final cableNumber = TextEditingController();
+  final cablePasscode = TextEditingController();
+  late TextEditingController cableAmount = TextEditingController();
 }

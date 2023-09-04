@@ -16,19 +16,17 @@ import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class ElectricityNameScreen extends ConsumerStatefulWidget {
+class CableNameScreen extends ConsumerStatefulWidget {
   AgtPaymentController payController;
-  final String meterNumber;
+  final String cableNumber;
 
-  ElectricityNameScreen(this.payController,
-      {required this.meterNumber, super.key});
+  CableNameScreen(this.payController, {required this.cableNumber, super.key});
 
   @override
-  ConsumerState<ElectricityNameScreen> createState() =>
-      _ElectricityNameScreenState();
+  ConsumerState<CableNameScreen> createState() => _CableNameScreenState();
 }
 
-class _ElectricityNameScreenState extends ConsumerState<ElectricityNameScreen> {
+class _CableNameScreenState extends ConsumerState<CableNameScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -52,44 +50,30 @@ class _ElectricityNameScreenState extends ConsumerState<ElectricityNameScreen> {
             child: Form(
               key: _formKey,
               child: Column(children: [
-                const AppHeader(heading: 'Electricity'),
+                const AppHeader(heading: 'Cable'),
                 const SizedBox(height: 94.89),
                 AbilityTextField(
                   controller: widget.payController.airtimeAmount,
                   heading: 'Account Name',
-                  hintText: '${AgentPreference.getElectAccountName()}',
+                  hintText: '${AgentPreference.getCableAccountName()}',
                   readOnly: true,
                   borderRadius: BorderRadius.circular(5),
-                ),
-                const SizedBox(height: 27),
-                AbilityTextField(
-                  controller: widget.payController.electricityAmount,
-                  heading: 'Enter Amount',
-                  hintText: 'Enter Amount',
-                  maxLength: 12,
-                  keyboardType: TextInputType.number,
-                  borderRadius: BorderRadius.circular(5),
-                  validator: (value) =>
-                      ValidationHelper().validateAmount(value!),
                 ),
                 const SizedBox(height: 150),
                 AbilityButton(
                   height: 60,
                   borderRadius: 10,
-                  borderColor:
-                      ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
-                  buttonColor:
-                      ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                  borderColor: kPrimary,
+                  buttonColor: kPrimary,
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       confirmElectricityDialog(
                         context: context,
-                        serviceProvider: ref.watch(selectedElectProvider),
-                        amount: int.parse(
-                            widget.payController.electricityAmount.text),
-                        meterNumber: widget.meterNumber,
+                        serviceProvider: ref.watch(selectedCableProvider),
+                        amount: ref.watch(selectedCableAmount),
+                        cableNumber: widget.cableNumber,
                         accountName:
-                            AgentPreference.getElectAccountName() ?? '',
+                            AgentPreference.getCableAccountName() ?? '',
                       );
                     }
                   },

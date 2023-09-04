@@ -13,15 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ElectricityPasscode extends ConsumerWidget {
+class CablePasscode extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgtPaymentController paymentController;
-  final String meterNumber;
+  final String cableNumber;
   final int amount;
   final String paymentType;
   final String serviceProvider;
-  ElectricityPasscode(this.validationHelper, this.paymentController,
-      {required this.meterNumber,
+  CablePasscode(this.validationHelper, this.paymentController,
+      {required this.cableNumber,
       required this.amount,
       required this.serviceProvider,
       required this.paymentType,
@@ -41,7 +41,7 @@ class ElectricityPasscode extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const AppHeader(heading: 'Electricity'),
+                  const AppHeader(heading: 'Cable'),
                   const SizedBox(height: 55.11),
                   Container(
                     width: 121,
@@ -61,7 +61,7 @@ class ElectricityPasscode extends ConsumerWidget {
                     child: GeneralPinCode(
                       pinLenght: 4,
                       boxPinShape: PinCodeFieldShape.box,
-                      controller: paymentController.electricityPasscode,
+                      controller: paymentController.cablePasscode,
                       validator: (value) =>
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
@@ -72,12 +72,12 @@ class ElectricityPasscode extends ConsumerWidget {
                                 .watch(loadingPayAllBills.notifier)
                                 .payBillsService(
                                   context: context,
-                                  customerNum: meterNumber,
+                                  customerNum: cableNumber,
                                   amount: amount,
                                   paymentType: paymentType,
                                   networkProvider: serviceProvider,
-                                  passcode: paymentController
-                                      .electricityPasscode.text,
+                                  passcode:
+                                      paymentController.cablePasscode.text,
                                 );
                           } else {
                             errorMessage(

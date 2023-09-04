@@ -42,7 +42,7 @@ class _ElectricityScreenState extends ConsumerState<ElectricityScreen> {
                   controller: widget.payController.electricityMeterNumber,
                   heading: 'Meter Number',
                   hintText: 'Enter Meter Number',
-                  maxLength: 11,
+                  // maxLength: 11,
                   keyboardType: TextInputType.phone,
                   borderRadius: BorderRadius.circular(5),
                   validator: (value) =>

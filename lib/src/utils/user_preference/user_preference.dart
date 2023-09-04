@@ -30,6 +30,7 @@ class AgentPreference {
   static const _keyIsAgentVerified = 'isAgentVerified';
   static const _keyFCMToken = 'fcmToken';
   static const _keyElectAccountName = 'electAccountName';
+  static const _keyCableAccountName = 'cableAccountName';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -114,6 +115,9 @@ class AgentPreference {
   static Future setElectAccountName(String electAccountName) async =>
       await _preferences.setString(_keyElectAccountName, electAccountName);
 
+  static Future setCableAccountName(String cableAccountName) async =>
+      await _preferences.setString(_keyCableAccountName, cableAccountName);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -177,6 +181,9 @@ class AgentPreference {
   static String? getElectAccountName() =>
       _preferences.getString(_keyElectAccountName);
 
+  static String? getCableAccountName() =>
+      _preferences.getString(_keyCableAccountName);
+
   /// Clear Agent Token when logged out..
   static Future logoutUser() async {
     await _preferences.remove(_keyPhoneToken);
@@ -196,6 +203,11 @@ class AgentPreference {
   // Clear fingerBiometrics
   static Future clearFingerBiometrics() async {
     await _preferences.remove(_keyFingerBiometrics);
+  }
+
+  /// Clear Cable Account Name..
+  static Future clearCableAccountName() async {
+    await _preferences.remove(_keyCableAccountName);
   }
 }
 

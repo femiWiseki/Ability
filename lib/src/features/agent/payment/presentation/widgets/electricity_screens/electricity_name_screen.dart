@@ -87,7 +87,7 @@ class _ElectricityNameScreenState extends ConsumerState<ElectricityNameScreen> {
                         serviceProvider: ref.watch(selectedElectProvider),
                         amount: int.parse(
                             widget.payController.electricityAmount.text),
-                        meterNumber: widget.meterNumber,
+                        cableNumber: widget.meterNumber,
                         accountName:
                             AgentPreference.getElectAccountName() ?? '',
                       );

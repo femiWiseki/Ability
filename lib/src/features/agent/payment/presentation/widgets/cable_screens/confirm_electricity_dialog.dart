@@ -3,7 +3,6 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
-import 'package:ability/src/features/agent/payment/presentation/widgets/data_screens/buy_data_passcode.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/electricity_screens/electricity_passcode.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/refactored_widgets/confirm_details_tile.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
@@ -11,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-confirmElectricityDialog({
+confirmCableDialog({
   required BuildContext context,
   required String serviceProvider,
   required int amount,
@@ -73,7 +72,7 @@ confirmElectricityDialog({
                     children: [
                       const ConfirmDetailsTile(
                         prefixText: 'Bills payment',
-                        suffixText: 'Electricity Subscription',
+                        suffixText: 'Cable Subscription',
                       ),
                       ConfirmDetailsTile(
                         prefixText: 'Account Name',

@@ -3,6 +3,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/airtime_screens/buy_airtime.dart';
+import 'package:ability/src/features/agent/payment/presentation/widgets/cable_screens/cable_screen.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/data_screens/buy_data.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/electricity_screens/electricity_screen.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/refactored_widgets/transfer_item_tile.dart';
@@ -74,10 +75,10 @@ class AgtPaymentScreen extends ConsumerWidget {
                       thickness: 1,
                     ),
                     TransferItemTile(
-                      title: 'Cable TV',
+                      title: 'Cable',
                       onTap: () {
-                        // PageNavigator(ctx: context)
-                        //     .nextPage(page: AgtTransferToBeneficiary1());
+                        PageNavigator(ctx: context).nextPage(
+                            page: CableScreen(AgtPaymentController()));
                       },
                     ),
                     // const Divider(
