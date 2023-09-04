@@ -106,23 +106,23 @@ class _AgtTransactionHistoryState extends ConsumerState<AgtTransactionHistory> {
                                       convertToUppercase(info.transactionType),
                                   dateTime: formattedDate,
                                   amount: info.transactionAmount,
-                                  icon: info.transactionType == 'transfer' ||
-                                          info.transactionType == 'airtime'
-                                      ? Icons.arrow_upward_rounded
-                                      : Icons.arrow_downward_rounded,
+                                  icon:
+                                      info.transactionGroup.contains('deposit')
+                                          ? Icons.arrow_downward_rounded
+                                          : Icons.arrow_upward_rounded,
                                   iconColor:
-                                      info.transactionType == 'transfer' ||
-                                              info.transactionType == 'airtime'
-                                          ? kRed
-                                          : kPrimary,
+                                      info.transactionGroup.contains('deposit')
+                                          ? kPrimary
+                                          : kRed,
                                   status: convertToUppercase(
                                       info.transactionStatus),
                                   statusColor:
-                                      info.transactionStatus == 'success'
+                                      info.transactionStatus.contains('success')
                                           ? kGreen
                                           : kRed,
                                   onTap: () {
-                                    if (info.transactionGroup == 'pay_bills') {
+                                    if (info.transactionGroup
+                                        .contains('pay_bills')) {
                                       PageNavigator(ctx: context).nextPage(
                                           page: AgtAirtimeDetails(
                                         transType: info.transactionType,
@@ -156,22 +156,22 @@ class _AgtTransactionHistoryState extends ConsumerState<AgtTransactionHistory> {
                                         transNumber: info.id,
                                         sessionID: info.sessionId,
                                       ));
-                                    } else {
+                                    } else if (info.transactionGroup
+                                        .contains('deposit')) {
                                       PageNavigator(ctx: context).nextPage(
                                           page: AgtDepositDetails(
                                         transType: info.transactionType,
                                         transAmount: info.transactionAmount,
                                         transDateTime: formattedDate,
-                                        transStatus: convertToUppercase(
-                                            info.transactionStatus),
-                                        sender: '',
+                                        transStatus: info.transactionStatus,
+                                        sender: info.recipientAccountName,
                                         bankName: '',
                                         bankAccount: '',
-                                        depositType: '',
-                                        transNumber: info.id,
+                                        depositType: 'Bank transfer',
                                         sessionId: info.sessionId,
+                                        transNumber: info.id,
                                       ));
-                                    }
+                                    } else {}
                                   },
                                 );
                               },
