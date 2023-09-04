@@ -156,7 +156,7 @@ class AgtTransferDetails extends ConsumerWidget {
                             prefixText: 'Status',
                             suffixText: convertToUppercase(transStatus),
                             suffixTextColor:
-                                transStatus.contains('success') ? kGreen : kRed,
+                                transStatus.contains('Success') ? kGreen : kRed,
                             suffixTextFontSize: 16,
                           ),
                           AccStatementTile(

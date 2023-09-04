@@ -94,11 +94,10 @@ class AgtHomeScreen extends ConsumerWidget {
                                             info.transactionGroup == 'pay_bills'
                                         ? Icons.arrow_upward_rounded
                                         : Icons.arrow_downward_rounded,
-                                    iconColor: info.transactionGroup ==
-                                                'transfer' ||
-                                            info.transactionGroup == 'pay_bills'
-                                        ? kRed
-                                        : kPrimary,
+                                    iconColor: info.transactionGroup
+                                            .contains('deposit')
+                                        ? kPrimary
+                                        : kRed,
                                     onTap: () {
                                       if (info.transactionGroup ==
                                           'pay_bills') {

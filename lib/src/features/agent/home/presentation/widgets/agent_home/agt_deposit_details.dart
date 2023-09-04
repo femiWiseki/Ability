@@ -166,7 +166,7 @@ class AgtDepositDetails extends ConsumerWidget {
                         const SizedBox(height: 17.96),
                         AccStatementTile(
                           prefixText: 'Status',
-                          suffixText: transStatus,
+                          suffixText: convertToUppercase(transStatus),
                           suffixTextColor: kGreen,
                           suffixTextFontSize: 16,
                         ),
@@ -186,10 +186,15 @@ class AgtDepositDetails extends ConsumerWidget {
                           color: kGrey3,
                         ),
                         AccStatementTile(
-                            prefixText: 'Session ID', suffixText: sessionId),
+                          prefixText: 'Session ID',
+                          suffixText: sessionId,
+                          suffixTextFontSize: 10,
+                        ),
                         AccStatementTile(
-                            prefixText: 'Transaction number',
-                            suffixText: transNumber),
+                          prefixText: 'Transaction number',
+                          suffixText: transNumber,
+                          suffixTextFontSize: 10,
+                        ),
                       ],
                     ),
                   ),
