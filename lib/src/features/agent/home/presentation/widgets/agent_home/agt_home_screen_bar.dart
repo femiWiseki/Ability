@@ -127,7 +127,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                       Text(
                         " ${ref.watch(hideCurrentBalance) ? currentBalance : '*******'} ",
                         style: AppStyleRoboto.kFontW7
-                            .copyWith(fontSize: 27.55, color: kWhite),
+                            .copyWith(fontSize: 23, color: kWhite),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -138,12 +138,12 @@ class AgtHomeScreenBar extends ConsumerWidget {
                             ? const Icon(
                                 Icons.visibility_outlined,
                                 color: kWhite,
-                                size: 30,
+                                size: 25,
                               )
                             : const Icon(
                                 Icons.visibility_off_outlined,
                                 color: kWhite,
-                                size: 30,
+                                size: 25,
                               ),
                       ),
                     ],
@@ -151,7 +151,7 @@ class AgtHomeScreenBar extends ConsumerWidget {
                 },
                 error: ((error, stackTrace) => const Text('')),
                 loading: () => const Text('')),
-            const SizedBox(height: 5),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
