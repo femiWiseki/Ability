@@ -71,10 +71,6 @@ class TransactionHistory {
   String agentId;
   String transactionStatus;
   String transactionType;
-  String transactionAmount;
-  dynamic transactionDate;
-  String? transactionId;
-  String? transactionRecipient;
   String? recipientBank;
   String recipientAccountName;
   String? recipientAccountNumber;
@@ -85,19 +81,23 @@ class TransactionHistory {
   DateTime createdAt;
   DateTime updatedAt;
   int v;
+  String transactionAmount;
+  dynamic transactionDate;
+  String? transactionDescription;
+  dynamic transactionFailureReason;
+  String? transactionId;
+  String? transactionRecipient;
+  String? transactionReference;
+  dynamic transactionSourceDetails;
+  String? transactionTransferCode;
   String sessionId;
   String? transactionCurrency;
-  String? transactionReference;
 
   TransactionHistory({
     required this.id,
     required this.agentId,
     required this.transactionStatus,
     required this.transactionType,
-    required this.transactionAmount,
-    required this.transactionDate,
-    this.transactionId,
-    this.transactionRecipient,
     this.recipientBank,
     required this.recipientAccountName,
     this.recipientAccountNumber,
@@ -108,9 +108,17 @@ class TransactionHistory {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.transactionAmount,
+    required this.transactionDate,
+    this.transactionDescription,
+    this.transactionFailureReason,
+    this.transactionId,
+    this.transactionRecipient,
+    this.transactionReference,
+    this.transactionSourceDetails,
+    this.transactionTransferCode,
     required this.sessionId,
     this.transactionCurrency,
-    this.transactionReference,
   });
 
   factory TransactionHistory.fromJson(Map<String, dynamic> json) =>
@@ -119,10 +127,6 @@ class TransactionHistory {
         agentId: json["agentId"],
         transactionStatus: json["transactionStatus"],
         transactionType: json["transactionType"],
-        transactionAmount: json["transactionAmount"],
-        transactionDate: json["transactionDate"],
-        transactionId: json["transactionId"],
-        transactionRecipient: json["transactionRecipient"],
         recipientBank: json["recipientBank"],
         recipientAccountName: json["recipientAccountName"],
         recipientAccountNumber: json["recipientAccountNumber"],
@@ -133,9 +137,17 @@ class TransactionHistory {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        transactionAmount: json["transactionAmount"],
+        transactionDate: json["transactionDate"],
+        transactionDescription: json["transactionDescription"],
+        transactionFailureReason: json["transactionFailureReason"],
+        transactionId: json["transactionId"],
+        transactionRecipient: json["transactionRecipient"],
+        transactionReference: json["transactionReference"],
+        transactionSourceDetails: json["transactionSourceDetails"],
+        transactionTransferCode: json["transactionTransferCode"],
         sessionId: json["sessionId"],
         transactionCurrency: json["transactionCurrency"],
-        transactionReference: json["transactionReference"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -143,10 +155,6 @@ class TransactionHistory {
         "agentId": agentId,
         "transactionStatus": transactionStatus,
         "transactionType": transactionType,
-        "transactionAmount": transactionAmount,
-        "transactionDate": transactionDate,
-        "transactionId": transactionId,
-        "transactionRecipient": transactionRecipient,
         "recipientBank": recipientBank,
         "recipientAccountName": recipientAccountName,
         "recipientAccountNumber": recipientAccountNumber,
@@ -157,8 +165,16 @@ class TransactionHistory {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
+        "transactionAmount": transactionAmount,
+        "transactionDate": transactionDate,
+        "transactionDescription": transactionDescription,
+        "transactionFailureReason": transactionFailureReason,
+        "transactionId": transactionId,
+        "transactionRecipient": transactionRecipient,
+        "transactionReference": transactionReference,
+        "transactionSourceDetails": transactionSourceDetails,
+        "transactionTransferCode": transactionTransferCode,
         "sessionId": sessionId,
         "transactionCurrency": transactionCurrency,
-        "transactionReference": transactionReference,
       };
 }

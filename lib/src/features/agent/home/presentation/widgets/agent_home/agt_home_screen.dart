@@ -86,25 +86,22 @@ class AgtHomeScreen extends ConsumerWidget {
                                     amount: info.transactionAmount,
                                     status: convertToUppercase(
                                         info.transactionStatus),
-                                    statusColor: info.transactionStatus
-                                            .contains('success')
-                                        ? kGreen
-                                        : kRed,
-                                    icon: info.transactionGroup
-                                                .contains("trasfer") ||
-                                            info.transactionGroup
-                                                .contains('pay_bills')
+                                    statusColor:
+                                        info.transactionStatus == 'success'
+                                            ? kGreen
+                                            : kRed,
+                                    icon: info.transactionGroup == 'transfer' ||
+                                            info.transactionGroup == 'pay_bills'
                                         ? Icons.arrow_upward_rounded
                                         : Icons.arrow_downward_rounded,
-                                    iconColor: info.transactionGroup
-                                                .contains('transfer') ||
-                                            info.transactionGroup
-                                                .contains('pay_bills')
+                                    iconColor: info.transactionGroup ==
+                                                'transfer' ||
+                                            info.transactionGroup == 'pay_bills'
                                         ? kRed
                                         : kPrimary,
                                     onTap: () {
-                                      if (info.transactionGroup
-                                          .contains('pay_bills')) {
+                                      if (info.transactionGroup ==
+                                          'pay_bills') {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtAirtimeDetails(
                                           transType: info.transactionType,
@@ -119,8 +116,8 @@ class AgtHomeScreen extends ConsumerWidget {
                                               info.transactionRecipient ?? '',
                                           paidWith: 'Wallet Balance',
                                         ));
-                                      } else if (info.transactionGroup
-                                          .contains('transfer')) {
+                                      } else if (info.transactionGroup ==
+                                          'transfer') {
                                         PageNavigator(ctx: context).nextPage(
                                             page: AgtTransferDetails(
                                           transType: info.transactionType,
@@ -152,7 +149,7 @@ class AgtHomeScreen extends ConsumerWidget {
                                           bankAccount: '',
                                           depositType: 'Bank transfer',
                                           sessionId: info.sessionId,
-                                          transactionNum: info.id,
+                                          transNumber: info.id,
                                         ));
                                       } else {}
                                     },

@@ -3,19 +3,19 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
-import 'package:ability/src/features/agent/payment/presentation/widgets/airtime_screens/buy_airtime_passcode.dart';
+import 'package:ability/src/features/agent/payment/presentation/widgets/electricity_screens/electricity_passcode.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/refactored_widgets/confirm_details_tile.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-confirmAirtimeDialog({
+confirmCableDialog({
   required BuildContext context,
-  required String billsPayment,
-  required String networkProvider,
+  required String serviceProvider,
   required int amount,
-  required String customerNum,
+  required String meterNumber,
+  required String accountName,
 }) {
   showDialog(
     context: context,
@@ -70,17 +70,21 @@ confirmAirtimeDialog({
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     children: [
-                      ConfirmDetailsTile(
+                      const ConfirmDetailsTile(
                         prefixText: 'Bills payment',
-                        suffixText: billsPayment,
+                        suffixText: 'Cable Subscription',
                       ),
                       ConfirmDetailsTile(
-                        prefixText: 'Network Provider',
-                        suffixText: networkProvider,
+                        prefixText: 'Account Name',
+                        suffixText: accountName,
                       ),
                       ConfirmDetailsTile(
-                        prefixText: 'Recepient Number',
-                        suffixText: '0$customerNum',
+                        prefixText: 'Meter Number',
+                        suffixText: meterNumber,
+                      ),
+                      ConfirmDetailsTile(
+                        prefixText: 'Service Provider',
+                        suffixText: serviceProvider,
                       ),
                       ConfirmDetailsTile(
                         prefixText: 'Amount',
@@ -102,13 +106,13 @@ confirmAirtimeDialog({
                       buttonColor: kPrimary,
                       onPressed: () {
                         PageNavigator(ctx: context).nextPage(
-                          page: BuyAirtimePasscode(
+                          page: ElectricityPasscode(
                             ValidationHelper(),
                             AgtPaymentController(),
-                            customerNum: customerNum,
+                            meterNumber: meterNumber,
                             amount: amount,
-                            paymentType: billsPayment,
-                            networkProvider: billsPayment,
+                            paymentType: serviceProvider,
+                            serviceProvider: serviceProvider,
                           ),
                         );
                       },

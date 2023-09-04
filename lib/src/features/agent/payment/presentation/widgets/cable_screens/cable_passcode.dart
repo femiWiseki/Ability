@@ -13,16 +13,18 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class BuyCablePasscode extends ConsumerWidget {
+class CablePasscode extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgtPaymentController paymentController;
-  final String customerNum;
+  final String cableNumber;
   final int amount;
-  final String dataPlan;
-  BuyCablePasscode(this.validationHelper, this.paymentController,
-      {required this.customerNum,
+  final String paymentType;
+  final String serviceProvider;
+  CablePasscode(this.validationHelper, this.paymentController,
+      {required this.cableNumber,
       required this.amount,
-      required this.dataPlan,
+      required this.serviceProvider,
+      required this.paymentType,
       super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -39,7 +41,7 @@ class BuyCablePasscode extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const AppHeader(heading: 'Buy Data'),
+                  const AppHeader(heading: 'Cable'),
                   const SizedBox(height: 55.11),
                   Container(
                     width: 121,
@@ -59,7 +61,7 @@ class BuyCablePasscode extends ConsumerWidget {
                     child: GeneralPinCode(
                       pinLenght: 4,
                       boxPinShape: PinCodeFieldShape.box,
-                      controller: paymentController.dataPasscode,
+                      controller: paymentController.cablePasscode,
                       validator: (value) =>
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
@@ -67,13 +69,15 @@ class BuyCablePasscode extends ConsumerWidget {
                           if (ref.watch(isVerifiedProvider) == true &&
                               ref.watch(isDisabledProvider) == false) {
                             await ref
-                                .watch(loadingBuyData.notifier)
-                                .dataService(
+                                .watch(loadingPayAllBills.notifier)
+                                .payBillsService(
                                   context: context,
-                                  customerNum: customerNum,
+                                  customerNum: cableNumber,
                                   amount: amount,
-                                  dataPlan: dataPlan,
-                                  passcode: paymentController.dataPasscode.text,
+                                  paymentType: paymentType,
+                                  networkProvider: serviceProvider,
+                                  passcode:
+                                      paymentController.cablePasscode.text,
                                 );
                           } else {
                             errorMessage(

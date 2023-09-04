@@ -3,19 +3,21 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/payment/presentation/controllers/payment_controller.dart';
+import 'package:ability/src/features/agent/payment/presentation/widgets/cable_screens/cable_passcode.dart';
 import 'package:ability/src/features/agent/payment/presentation/widgets/data_screens/buy_data_passcode.dart';
+import 'package:ability/src/features/agent/payment/presentation/widgets/electricity_screens/electricity_passcode.dart';
 import 'package:ability/src/features/agent/transfer/presentation/widgets/refactored_widgets/confirm_details_tile.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-confirmDataDialog({
+confirmElectricityDialog({
   required BuildContext context,
-  required String networkProvider,
+  required String serviceProvider,
   required int amount,
-  required String customerNum,
-  required String dataPlan,
+  required String cableNumber,
+  required String accountName,
 }) {
   showDialog(
     context: context,
@@ -72,15 +74,19 @@ confirmDataDialog({
                     children: [
                       const ConfirmDetailsTile(
                         prefixText: 'Bills payment',
-                        suffixText: 'Data Bundle',
+                        suffixText: 'Electricity Subscription',
                       ),
                       ConfirmDetailsTile(
-                        prefixText: 'Data Plan',
-                        suffixText: dataPlan,
+                        prefixText: 'Account Name',
+                        suffixText: accountName,
                       ),
                       ConfirmDetailsTile(
-                        prefixText: 'Recipient',
-                        suffixText: '0$customerNum',
+                        prefixText: 'Cable Number',
+                        suffixText: cableNumber,
+                      ),
+                      ConfirmDetailsTile(
+                        prefixText: 'Service Provider',
+                        suffixText: serviceProvider,
                       ),
                       ConfirmDetailsTile(
                         prefixText: 'Amount',
@@ -102,12 +108,13 @@ confirmDataDialog({
                       buttonColor: kPrimary,
                       onPressed: () {
                         PageNavigator(ctx: context).nextPage(
-                          page: BuyDataPasscode(
+                          page: CablePasscode(
                             ValidationHelper(),
                             AgtPaymentController(),
-                            customerNum: customerNum,
+                            cableNumber: cableNumber,
                             amount: amount,
-                            dataPlan: dataPlan,
+                            paymentType: serviceProvider,
+                            serviceProvider: serviceProvider,
                           ),
                         );
                       },

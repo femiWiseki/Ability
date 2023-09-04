@@ -13,17 +13,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class BuyAirtimePasscode extends ConsumerWidget {
+class ElectricityPasscode extends ConsumerWidget {
   ValidationHelper validationHelper;
   AgtPaymentController paymentController;
-  final String customerNum;
+  final String meterNumber;
   final int amount;
   final String paymentType;
-  final String networkProvider;
-  BuyAirtimePasscode(this.validationHelper, this.paymentController,
-      {required this.customerNum,
+  final String serviceProvider;
+  ElectricityPasscode(this.validationHelper, this.paymentController,
+      {required this.meterNumber,
       required this.amount,
-      required this.networkProvider,
+      required this.serviceProvider,
       required this.paymentType,
       super.key});
 
@@ -41,7 +41,7 @@ class BuyAirtimePasscode extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const AppHeader(heading: 'Buy Airtime'),
+                  const AppHeader(heading: 'Electricity'),
                   const SizedBox(height: 55.11),
                   Container(
                     width: 121,
@@ -61,7 +61,7 @@ class BuyAirtimePasscode extends ConsumerWidget {
                     child: GeneralPinCode(
                       pinLenght: 4,
                       boxPinShape: PinCodeFieldShape.box,
-                      controller: paymentController.airtimePasscode,
+                      controller: paymentController.electricityPasscode,
                       validator: (value) =>
                           validationHelper.validatePinCode2(value!),
                       pinIsComplete: () async {
@@ -69,15 +69,15 @@ class BuyAirtimePasscode extends ConsumerWidget {
                           if (ref.watch(isVerifiedProvider) == true &&
                               ref.watch(isDisabledProvider) == false) {
                             await ref
-                                .watch(loadingBuyAirtime.notifier)
-                                .airtimeService(
+                                .watch(loadingPayAllBills.notifier)
+                                .payBillsService(
                                   context: context,
-                                  customerNum: customerNum,
+                                  customerNum: meterNumber,
                                   amount: amount,
                                   paymentType: paymentType,
-                                  networkProvider: networkProvider,
-                                  passcode:
-                                      paymentController.airtimeAmount.text,
+                                  networkProvider: serviceProvider,
+                                  passcode: paymentController
+                                      .electricityPasscode.text,
                                 );
                           } else {
                             errorMessage(

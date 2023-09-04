@@ -30,10 +30,10 @@ class AgtDepositDetails extends ConsumerWidget {
   final String sender;
   final String bankName;
   final String bankAccount;
+  final String transNumber;
   final String depositType;
   final String sessionId;
-  final String transactionNum;
-  const AgtDepositDetails(
+  AgtDepositDetails(
       {required this.transType,
       required this.transAmount,
       required this.transDateTime,
@@ -41,10 +41,26 @@ class AgtDepositDetails extends ConsumerWidget {
       required this.sender,
       required this.bankName,
       required this.bankAccount,
+      required this.transNumber,
       required this.depositType,
       required this.sessionId,
-      required this.transactionNum,
       super.key});
+
+  ScreenshotController screenshotController = ScreenshotController();
+
+  Future<void> captureAndShareScreenshot(Uint8List bytes) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final imageFile = File('${directory.path}/screenshot.png');
+      await imageFile.writeAsBytes(bytes);
+
+      final xFile = XFile(imageFile.path); // Convert to XFile
+      await Share.shareXFiles([xFile]);
+    } catch (e) {
+      print("Error sharing: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ScreenshotController _screenshotController = ScreenshotController();
@@ -70,9 +86,9 @@ class AgtDepositDetails extends ConsumerWidget {
           child: Column(
             children: [
               const AppHeader(heading: 'Transaction History'),
-              const SizedBox(height: 50),
+              const SizedBox(height: 37.11),
               Screenshot(
-                controller: _screenshotController,
+                controller: screenshotController,
                 child: Container(
                   height: 480,
                   width: 380,
@@ -90,16 +106,14 @@ class AgtDepositDetails extends ConsumerWidget {
                             filterQuality: FilterQuality.high,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: 97.6,
+                              width: 150,
                               height: 34.2,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     height: 34.1,
@@ -109,10 +123,11 @@ class AgtDepositDetails extends ConsumerWidget {
                                         color: kPrimary.withOpacity(0.1)),
                                     child: const Icon(
                                       Icons.arrow_downward_rounded,
-                                      color: kGreen,
+                                      color: kPrimary,
                                       size: 18,
                                     ),
                                   ),
+                                  const SizedBox(width: 10),
                                   Text(
                                     convertToUppercase(transType),
                                     style: AppStyleGilroy.kFontW5
@@ -122,7 +137,7 @@ class AgtDepositDetails extends ConsumerWidget {
                               ),
                             ),
                             Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   NumberFormat.currency(
@@ -131,7 +146,7 @@ class AgtDepositDetails extends ConsumerWidget {
                                           symbol: '₦')
                                       .format(double.parse(transAmount)),
                                   style: AppStyleRoboto.kFontW6
-                                      .copyWith(fontSize: 18.25),
+                                      .copyWith(fontSize: 16),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
@@ -151,9 +166,8 @@ class AgtDepositDetails extends ConsumerWidget {
                         const SizedBox(height: 17.96),
                         AccStatementTile(
                           prefixText: 'Status',
-                          suffixText: convertToUppercase(transStatus),
-                          suffixTextColor:
-                              transStatus.contains('success') ? kGreen : kRed,
+                          suffixText: transStatus,
+                          suffixTextColor: kGreen,
                           suffixTextFontSize: 16,
                         ),
                         AccStatementTile(
@@ -172,38 +186,35 @@ class AgtDepositDetails extends ConsumerWidget {
                           color: kGrey3,
                         ),
                         AccStatementTile(
-                          prefixText: 'Session ID',
-                          suffixText: sessionId,
-                          suffixTextFontSize: 10,
-                        ),
+                            prefixText: 'Session ID', suffixText: sessionId),
                         AccStatementTile(
-                          prefixText: 'Transaction number',
-                          suffixText: transactionNum,
-                          suffixTextFontSize: 10,
-                        ),
+                            prefixText: 'Transaction number',
+                            suffixText: transNumber),
                       ],
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
               InkWell(
                 onTap: () {
                   showDialog(
-                      context: context,
-                      builder: (context) {
-                        return RaiseDisputeDialog(
-                          ValidationHelper(),
-                          disputeController:
-                              HomeControllers().depositDisputeController,
-                          sendDispute: () {
-                            ResolveDisputeService().disputeService(
-                                context: context,
-                                disputeReason: ref.watch(disputeProvider),
-                                transactionId: transactionNum);
-                          },
-                        );
-                      });
+                    context: context,
+                    builder: (context) {
+                      return RaiseDisputeDialog(
+                        ValidationHelper(),
+                        disputeController:
+                            HomeControllers().airtimeDisputeController,
+                        sendDispute: () {
+                          ResolveDisputeService().disputeService(
+                            context: context,
+                            disputeReason: ref.watch(disputeProvider),
+                            transactionId: transNumber,
+                          );
+                        },
+                      );
+                    },
+                  );
                 },
                 child: Text(
                   'Raise Dispute',
@@ -211,16 +222,16 @@ class AgtDepositDetails extends ConsumerWidget {
                       .copyWith(color: kGreen, fontSize: 18),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(height: 50),
               AbilityButton(
-                  title: 'Share Receipt',
-                  onPressed: () async {
-                    final imageBytes = await _screenshotController.capture();
-                    if (imageBytes != null) {
-                      await captureAndShareScreenshot(imageBytes);
-                    }
-                  }),
-              const SizedBox(height: 20),
+                title: 'Share Receipt',
+                onPressed: () async {
+                  final imageBytes = await screenshotController.capture();
+                  if (imageBytes != null) {
+                    await captureAndShareScreenshot(imageBytes);
+                  }
+                },
+              ),
             ],
           ),
         ),

@@ -99,23 +99,23 @@ class AgtTransferDetails extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 97.6,
+                                width: 150,
                                 height: 34.2,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
-                                        height: 34.1,
-                                        width: 32.8,
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: kPrimary.withOpacity(0.1)),
-                                        child: const Icon(
-                                          Icons.arrow_upward_rounded,
-                                          color: customColor2,
-                                          size: 18,
-                                        )),
+                                      height: 34.1,
+                                      width: 32.8,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: kPrimary.withOpacity(0.1)),
+                                      child: const Icon(
+                                        Icons.arrow_upward_rounded,
+                                        color: customColor2,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
                                     Text(
                                       convertToUppercase(transType),
                                       style: AppStyleGilroy.kFontW5
@@ -125,7 +125,7 @@ class AgtTransferDetails extends ConsumerWidget {
                                 ),
                               ),
                               Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
                                     NumberFormat.currency(
@@ -134,7 +134,7 @@ class AgtTransferDetails extends ConsumerWidget {
                                             symbol: '₦')
                                         .format(double.parse(transAmount)),
                                     style: AppStyleRoboto.kFontW6
-                                        .copyWith(fontSize: 18.25),
+                                        .copyWith(fontSize: 16),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
@@ -171,7 +171,7 @@ class AgtTransferDetails extends ConsumerWidget {
                               prefixText: 'Account Name', suffixText: accName),
                           AccStatementTile(
                               prefixText: 'Description',
-                              suffixText: description),
+                              suffixText: convertToUppercase(description)),
                           const SizedBox(height: 18),
                           const Divider(
                             thickness: 1,

@@ -3,9 +3,13 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/upcase_letter.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_airtime_details.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_deposit_details.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_transfer_details.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_withdrawal_history.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/transaction_box.dart';
+import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -117,6 +121,58 @@ class _AgtTransactionHistoryState extends ConsumerState<AgtTransactionHistory> {
                                       info.transactionStatus == 'success'
                                           ? kGreen
                                           : kRed,
+                                  onTap: () {
+                                    if (info.transactionGroup == 'pay_bills') {
+                                      PageNavigator(ctx: context).nextPage(
+                                          page: AgtAirtimeDetails(
+                                        transType: info.transactionType,
+                                        transAmount: info.transactionAmount,
+                                        transDateTime: formattedDate,
+                                        transStatus: convertToUppercase(
+                                            info.transactionStatus),
+                                        transNumber: info.id,
+                                        transOperator: info.recipientBank ?? '',
+                                        phoneNumber:
+                                            info.transactionRecipient ?? '',
+                                        paidWith: 'Wallet Balance',
+                                      ));
+                                    } else if (info.transactionGroup ==
+                                        'transfer') {
+                                      PageNavigator(ctx: context).nextPage(
+                                          page: AgtTransferDetails(
+                                        transType: info.transactionType,
+                                        transAmount: info.transactionAmount,
+                                        transDateTime: formattedDate,
+                                        transStatus: convertToUppercase(
+                                            info.transactionStatus),
+                                        sender:
+                                            AgentPreference.getUsername() ?? '',
+                                        bankName: info.recipientBank ?? '',
+                                        accNumber:
+                                            info.recipientAccountNumber ?? '',
+                                        accName: info.recipientAccountName,
+                                        description:
+                                            info.transactionDescription ?? '',
+                                        transNumber: info.id,
+                                        sessionID: info.sessionId,
+                                      ));
+                                    } else {
+                                      PageNavigator(ctx: context).nextPage(
+                                          page: AgtDepositDetails(
+                                        transType: info.transactionType,
+                                        transAmount: info.transactionAmount,
+                                        transDateTime: formattedDate,
+                                        transStatus: convertToUppercase(
+                                            info.transactionStatus),
+                                        sender: '',
+                                        bankName: '',
+                                        bankAccount: '',
+                                        depositType: '',
+                                        transNumber: info.id,
+                                        sessionId: info.sessionId,
+                                      ));
+                                    }
+                                  },
                                 );
                               },
                             ),
