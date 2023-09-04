@@ -60,7 +60,7 @@ class AgtHomeScreen extends ConsumerWidget {
                   const SizedBox(height: 10),
                   Container(
                     width: double.maxFinite,
-                    height: 360,
+                    height: 340,
                     color: kWhite,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: transHistory.when(
