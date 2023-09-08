@@ -1,6 +1,6 @@
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 
-const baseUrl = "https://abitly.herokuapp.com";
+const baseUrl = "https://api.supplysmart.co";
 final dataNtw = AgentPreference.getDataNetwork();
 final accStartDate = AgentPreference.getAccStartDate();
 final accEndDate = AgentPreference.getAccEndDate();
