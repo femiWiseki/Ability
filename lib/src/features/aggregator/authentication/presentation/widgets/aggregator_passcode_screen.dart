@@ -37,7 +37,7 @@ class AggregatorPasscodeScreen extends ConsumerWidget {
                   Text('Passcode',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 54.11),
-                  Text('Please set your passcode',
+                  Text('Please, set your passcode as aggregator',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 35),
                   Center(
@@ -46,7 +46,7 @@ class AggregatorPasscodeScreen extends ConsumerWidget {
                         boxPinShape: PinCodeFieldShape.box,
                         controller: aggregatorController.signupPasscode,
                         validator: (value) =>
-                            validationHelper.validatePinCode2(value!)),
+                            validationHelper.validatePinCode2(value ?? '')),
                   ),
                   const SizedBox(height: 153.54),
                   AbilityButton(
@@ -61,9 +61,9 @@ class AggregatorPasscodeScreen extends ConsumerWidget {
                       }
                     },
                     borderColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     buttonColor:
-                        !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     child: !ref.watch(loadingAggregatorPasscode)
                         ? Text(
                             'continue',

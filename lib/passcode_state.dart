@@ -36,11 +36,11 @@ class _PasscodeStateState extends ConsumerState<PasscodeState> {
         AggregatorPreference.getPasscodeStatus() == null) {
       ref.watch(isAgentServiceProvider)
           ? PageNavigator(ctx: context).nextPageOnly(
-              page: AgentPasscodeScreen(ValidationHelper(), AgentController()),
-            )
-          : PageNavigator(ctx: context).nextPageOnly(
               page: AggregatorPasscodeScreen(
                   ValidationHelper(), AggregatorController()),
+            )
+          : PageNavigator(ctx: context).nextPageOnly(
+              page: AgentPasscodeScreen(ValidationHelper(), AgentController()),
             );
     } else {
       PageNavigator(ctx: context).nextPageOnly(page: const LoginState());

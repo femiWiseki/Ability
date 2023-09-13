@@ -30,7 +30,8 @@ class AggregatorPasscodeService extends StateNotifier<bool> {
 
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json',
-        'Authorization': 'Bearer $token'
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDBlM2QyMmZlZjk3MGM5NTczNmRiOSIsInBob25lTnVtYmVyIjoiMDgwMzQ0MzUxMjMiLCJlbWFpbCI6ImRhbW9sYUBzdXBwbHlzbWFydC5jbyIsImlhdCI6MTY5NDU4Njc3MiwiZXhwIjoxNjk0NTg3MDcyfQ.xL4ja4nioyB8bCr24-3dd8gBZ61ap--cb5IYDms5zhE'
       };
       final String requestBody = jsonEncode({"passcode": passcode});
 
