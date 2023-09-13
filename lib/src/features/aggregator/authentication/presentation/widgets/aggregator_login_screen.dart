@@ -3,10 +3,10 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
+import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator/aggregator_pin_reset.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator_pin_reset.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/ability_phone_number.dart';

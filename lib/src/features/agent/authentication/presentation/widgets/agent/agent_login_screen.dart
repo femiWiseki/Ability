@@ -9,7 +9,7 @@ import 'package:ability/src/features/agent/authentication/application/services/l
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_pin_reset.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
+import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 

@@ -1,6 +1,6 @@
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/landing_page.dart';
+import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

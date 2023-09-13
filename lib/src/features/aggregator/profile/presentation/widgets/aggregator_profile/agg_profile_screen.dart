@@ -3,7 +3,7 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator/aggregator_login_screen.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator_login_screen.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/aggregator/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/features/aggregator/profile/presentation/widgets/aggregator_profile/account_statement/agg_account_statement.dart';

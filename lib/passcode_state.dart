@@ -7,7 +7,7 @@ import 'package:ability/src/features/agent/authentication/presentation/controlle
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_passcode_screen.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator/aggregator_passcode_screen.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator_passcode_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
