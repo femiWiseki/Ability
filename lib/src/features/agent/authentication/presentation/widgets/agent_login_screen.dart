@@ -9,7 +9,7 @@ import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/authentication/application/services/login_services/login_service.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/agent_pin_reset.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/agt_forgot_pin/agent_pin_reset.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/widgets/signup_option.dart';
 import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';

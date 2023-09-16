@@ -226,6 +226,8 @@ class AggregatorPreference {
   static const _keySavedPhoneNumber = 'savedPhoneNumber';
   static const _keySavedPassword = 'savedPassword';
   static const _keyPasscodeStatus = 'passcodeStatus';
+  static const _keyIsAggVerified = 'isAggVerified';
+  static const _keyAggRefreshToken = 'aggRefreshToken';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -262,6 +264,12 @@ class AggregatorPreference {
   static Future setPasscodeStatus(String passcodeStatus) async =>
       await _preferences.setString(_keyPasscodeStatus, passcodeStatus);
 
+  static Future<void> setIsAggVerified(bool isAggVerified) async =>
+      await _preferences.setBool(_keyIsAggVerified, isAggVerified);
+
+  static Future setAggRefreshToken(String aggRefreshToken) async =>
+      await _preferences.setString(_keyAggRefreshToken, aggRefreshToken);
+
   // Get Agent Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
@@ -285,6 +293,12 @@ class AggregatorPreference {
 
   static String? getPasscodeStatus() =>
       _preferences.getString(_keyPasscodeStatus);
+
+  static bool getIsAggVerified() =>
+      _preferences.getBool(_keyIsAggVerified) ?? false;
+
+  static String? getAggRefreshToken() =>
+      _preferences.getString(_keyAggRefreshToken);
 
   // Clear Agent Token when logged out..
   static Future clearPhoneToken() async {

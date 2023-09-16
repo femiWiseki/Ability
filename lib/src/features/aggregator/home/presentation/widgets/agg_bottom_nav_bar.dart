@@ -1,6 +1,6 @@
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/features/aggregator/commission/presentation/widgets/commission_screen.dart';
-import 'package:ability/src/features/aggregator/home/presentation/widgets/aggregator_home/agg_home_screen.dart';
+import 'package:ability/src/features/aggregator/home/presentation/widgets/agg_home_screen.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
 import 'package:ability/src/features/aggregator/profile/presentation/widgets/aggregator_profile/agg_profile_screen.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agg_transfer/agg_transfer_screen.dart';

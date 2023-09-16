@@ -64,6 +64,8 @@ const kUploadPhotoUrl = "$baseUrl/api/v1/agents/profile/picture";
 const kAgtAccVerificationUrl = "$baseUrl/api/v1/agents/upload/documents";
 
 // Aggregator
+
+// Agg Auth Urls
 const kCreateAccountAggregatorUrl = "$baseUrl/api/v1/aggregators/signup";
 const kVerifyAggregatorUrl = "$baseUrl/api/v1/aggregators/auth/verify/number";
 const kLoginAggregatorUrl = "$baseUrl/api/v1/aggregators/login";
@@ -72,3 +74,6 @@ const kResendOTPAggregatorUrl = "$baseUrl/api/v1/aggregators/email/resend";
 const kPasscodeAggregatorUrl = "$baseUrl/api/v1/aggregators/set/passcode";
 const kPinResetAggregatorUrl = "$baseUrl/api/v1/aggregators/forgot-password";
 const kInputNewPinAggregatorUrl = "$baseUrl/api/v1/aggregators/reset-password";
+
+// Agg Home Urls
+const kAggProfileUrl = "$baseUrl/api/v1/aggregators/profile";

@@ -7,7 +7,7 @@ import 'package:ability/src/constants/upcase_letter.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_airtime_details.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_deposit_details.dart';
-import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_home_screen_bar.dart';
+import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/agt_home_screen_bar.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_trans_history_screen.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/agent_home/agt_transfer_details.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/recent_transaction_tile.dart';

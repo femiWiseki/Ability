@@ -7,7 +7,7 @@ import 'package:ability/globals.dart';
 import 'package:ability/src/constants/endpoints.dart';
 import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator_input_new_pin.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/widgets/agg_forgot_pin/aggregator_input_new_pin.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -8,7 +8,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/aggregator/home/presentation/controllers/home_controllers.dart';
-import 'package:ability/src/features/aggregator/home/presentation/widgets/aggregator_home/agg_bottom_nav_bar.dart';
+import 'package:ability/src/features/aggregator/home/presentation/widgets/agg_bottom_nav_bar.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/currency_editing_controller.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';

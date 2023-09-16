@@ -12,7 +12,7 @@ class AggProfileCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final agtProfile = ref.watch(getAgtProfileProvider);
+    final aggProfile = ref.watch(getAggProfileProvider);
 
     return Container(
       width: 380,
@@ -31,7 +31,7 @@ class AggProfileCard extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 15.48),
-          agtProfile.when(
+          aggProfile.when(
               data: (data) {
                 print(data.data.data.name);
                 return Text(

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
-import 'package:ability/src/features/aggregator/home/domain/models/agt_trans_history_model.dart';
+import 'package:ability/src/features/aggregator/home/domain/models/agg_trans_history_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:http/http.dart' as http;
 

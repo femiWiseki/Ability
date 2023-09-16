@@ -4,7 +4,7 @@ import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/coming_soonbox.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/aggregator/home/presentation/controllers/home_controllers.dart';
-import 'package:ability/src/features/aggregator/home/presentation/widgets/aggregator_home/agg_enter_amount.dart';
+import 'package:ability/src/features/aggregator/home/presentation/widgets/agg_enter_amount.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

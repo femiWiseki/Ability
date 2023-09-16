@@ -1,31 +1,31 @@
 // To parse this JSON data, do
 //
-//     final agtProfileModel = agtProfileModelFromJson(jsonString);
+//     final aggProfileModel = aggProfileModelFromJson(jsonString);
 
 import 'dart:convert';
 
-AgtProfileModel agtProfileModelFromJson(String str) =>
-    AgtProfileModel.fromJson(json.decode(str));
+AggProfileModel aggProfileModelFromJson(String str) =>
+    AggProfileModel.fromJson(json.decode(str));
 
-String agtProfileModelToJson(AgtProfileModel data) =>
+String aggProfileModelToJson(AggProfileModel data) =>
     json.encode(data.toJson());
 
-class AgtProfileModel {
+class AggProfileModel {
   String status;
   String message;
-  AgtProfileModelData data;
+  AggProfileModelData data;
 
-  AgtProfileModel({
+  AggProfileModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory AgtProfileModel.fromJson(Map<String, dynamic> json) =>
-      AgtProfileModel(
+  factory AggProfileModel.fromJson(Map<String, dynamic> json) =>
+      AggProfileModel(
         status: json["status"],
         message: json["message"],
-        data: AgtProfileModelData.fromJson(json["data"]),
+        data: AggProfileModelData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,15 +35,15 @@ class AgtProfileModel {
       };
 }
 
-class AgtProfileModelData {
+class AggProfileModelData {
   DataData data;
 
-  AgtProfileModelData({
+  AggProfileModelData({
     required this.data,
   });
 
-  factory AgtProfileModelData.fromJson(Map<String, dynamic> json) =>
-      AgtProfileModelData(
+  factory AggProfileModelData.fromJson(Map<String, dynamic> json) =>
+      AggProfileModelData(
         data: DataData.fromJson(json["data"]),
       );
 
@@ -56,18 +56,17 @@ class DataData {
   IsDisabled isDisabled;
   String id;
   String name;
-  String email;
-  String walletId;
-  String walletBalance;
-  bool isVerified;
-  String phoneNumber;
-  String deviceId;
   String pin;
-  String aggregatorId;
   String resetOtp;
-  bool smssettings;
+  String email;
+  String phoneNumber;
+  String walletId;
+  int walletBalance;
+  bool isVerified;
+  String priceSettings;
+  double withdrawalCharges;
   DateTime walletCreatedDate;
-  String terminalId;
+  bool isApprovedByAdmin;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -75,18 +74,17 @@ class DataData {
     required this.isDisabled,
     required this.id,
     required this.name,
+    required this.pin,
+    required this.resetOtp,
     required this.email,
+    required this.phoneNumber,
     required this.walletId,
     required this.walletBalance,
     required this.isVerified,
-    required this.phoneNumber,
-    required this.deviceId,
-    required this.pin,
-    required this.aggregatorId,
-    required this.resetOtp,
-    required this.smssettings,
+    required this.priceSettings,
+    required this.withdrawalCharges,
     required this.walletCreatedDate,
-    required this.terminalId,
+    required this.isApprovedByAdmin,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -95,18 +93,17 @@ class DataData {
         isDisabled: IsDisabled.fromJson(json["isDisabled"]),
         id: json["_id"],
         name: json["name"],
+        pin: json["pin"],
+        resetOtp: json["resetOtp"],
         email: json["email"],
+        phoneNumber: json["phoneNumber"],
         walletId: json["walletId"],
         walletBalance: json["walletBalance"],
         isVerified: json["isVerified"],
-        phoneNumber: json["phoneNumber"],
-        deviceId: json["deviceId"],
-        pin: json["pin"],
-        aggregatorId: json["aggregatorId"],
-        resetOtp: json["resetOtp"],
-        smssettings: json["smssettings"],
+        priceSettings: json["priceSettings"],
+        withdrawalCharges: json["withdrawalCharges"]?.toDouble(),
         walletCreatedDate: DateTime.parse(json["walletCreatedDate"]),
-        terminalId: json["terminalId"],
+        isApprovedByAdmin: json["isApprovedByAdmin"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
       );
@@ -115,18 +112,17 @@ class DataData {
         "isDisabled": isDisabled.toJson(),
         "_id": id,
         "name": name,
+        "pin": pin,
+        "resetOtp": resetOtp,
         "email": email,
+        "phoneNumber": phoneNumber,
         "walletId": walletId,
         "walletBalance": walletBalance,
         "isVerified": isVerified,
-        "phoneNumber": phoneNumber,
-        "deviceId": deviceId,
-        "pin": pin,
-        "aggregatorId": aggregatorId,
-        "resetOtp": resetOtp,
-        "smssettings": smssettings,
+        "priceSettings": priceSettings,
+        "withdrawalCharges": withdrawalCharges,
         "walletCreatedDate": walletCreatedDate.toIso8601String(),
-        "terminalId": terminalId,
+        "isApprovedByAdmin": isApprovedByAdmin,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
       };
