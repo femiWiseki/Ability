@@ -7,7 +7,7 @@ import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_login_screen.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/agent_login_screen.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator_login_screen.dart';

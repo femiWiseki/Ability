@@ -4,6 +4,8 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/fingerprint_auth.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
+import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/agent_login_screen.dart';
 import 'package:ability/src/features/agent/home/presentation/providers/home_providers.dart';
 import 'package:ability/src/features/agent/home/presentation/widgets/refactored_widgets/general_tile.dart';
 import 'package:ability/src/features/agent/profile/application/services/agt_enroll_fingerprint_service.dart';
@@ -16,6 +18,9 @@ import 'package:ability/src/features/agent/profile/presentation/widgets/agent_pr
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/agt_profile_card.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/signout_alert_dialog.dart';
 import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/unenroll_fingerprint_dialog.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator_login_screen.dart';
+import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -93,10 +98,21 @@ class AgtProfileScreen extends ConsumerWidget {
                             onTap: () {},
                           ),
                           GeneralTile(
-                            prefixIconPath: 'assets/icons/agents.svg',
-                            title: 'Agents',
-                            onTap: () {},
-                          ),
+                              prefixIconPath: 'assets/icons/agents.svg',
+                              title: 'Aggregator',
+                              onTap: () {
+                                signoutAlertDialog(
+                                    context: context,
+                                    navigateTo: () {
+                                      AgentPreference.logoutUser()
+                                          .then((value) {
+                                        PageNavigator(ctx: context).nextPage(
+                                            page: AggregatorLoginScreen(
+                                                ValidationHelper(),
+                                                AggregatorController()));
+                                      });
+                                    });
+                              }),
                           GeneralTile(
                             prefixIconPath:
                                 'assets/icons/account_statement.svg',
@@ -186,9 +202,9 @@ class AgtProfileScreen extends ConsumerWidget {
                                 }
                               },
                             ),
-                            onTap: () {
-                              print(AgentPreference.getFingerBiometrics());
-                            },
+                            // onTap: () {
+                            //   print(AgentPreference.getFingerBiometrics());
+                            // },
                           ),
                         ],
                       ),
@@ -273,7 +289,17 @@ class AgtProfileScreen extends ConsumerWidget {
                             textStyle: AppStyleGilroy.kFontW5
                                 .copyWith(fontSize: 15, color: customColor2),
                             onTap: () {
-                              signoutAlertDialog(context);
+                              signoutAlertDialog(
+                                context: context,
+                                navigateTo: () {
+                                  AgentPreference.logoutUser().then((value) {
+                                    PageNavigator(ctx: context).nextPageOnly(
+                                        page: AgentLoginScreen(
+                                            ValidationHelper(),
+                                            AgentController()));
+                                  });
+                                },
+                              );
                             },
                           ),
                         ],

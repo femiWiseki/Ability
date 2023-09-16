@@ -36,7 +36,7 @@ final loadingAggInputNewPin =
         (ref) => AggregatorInputNewPinService());
 
 // Other Providers
-final savePasswordProvider = StateProvider((ref) => false);
+final aggSavePasswordProvider = StateProvider((ref) => false);
 
 final hidePasswordProvider = StateProvider((ref) => true);
 

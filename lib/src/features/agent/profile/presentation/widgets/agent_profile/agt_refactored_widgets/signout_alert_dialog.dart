@@ -3,12 +3,13 @@ import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_login_screen.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/agent_login_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 
-signoutAlertDialog(BuildContext context) {
+signoutAlertDialog(
+    {required BuildContext context, required void Function()? navigateTo}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -38,13 +39,7 @@ signoutAlertDialog(BuildContext context) {
             ),
             const SizedBox(height: 30),
             AbilityButton(
-              onPressed: () {
-                AgentPreference.logoutUser().then((value) {
-                  PageNavigator(ctx: context).nextPageOnly(
-                      page: AgentLoginScreen(
-                          ValidationHelper(), AgentController()));
-                });
-              },
+              onPressed: navigateTo,
               title: 'Sign me Out',
               buttonColor: kRed,
               borderColor: kRed,

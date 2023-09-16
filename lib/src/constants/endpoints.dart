@@ -1,6 +1,6 @@
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 
-const baseUrl = "https://api.supplysmart.co";
+const baseUrl = "http://54.147.182.185";
 final dataNtw = AgentPreference.getDataNetwork();
 final accStartDate = AgentPreference.getAccStartDate();
 final accEndDate = AgentPreference.getAccEndDate();

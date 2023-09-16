@@ -14,6 +14,7 @@ class GeneralPinCode extends StatefulWidget {
   final PinCodeFieldShape? boxPinShape;
   final double? fieldWidth;
   final void Function()? pinIsComplete;
+  final void Function(String)? onCompleted;
   const GeneralPinCode({
     super.key,
     required this.pinLenght,
@@ -22,6 +23,7 @@ class GeneralPinCode extends StatefulWidget {
     this.fieldWidth,
     required this.validator,
     this.pinIsComplete,
+    this.onCompleted,
   });
 
   @override
@@ -65,13 +67,14 @@ class _GeneralPinCodeState extends State<GeneralPinCode> {
           enableActiveFill: true,
           controller: widget.controller,
           keyboardType: TextInputType.number,
-          onCompleted: (v) {
-            debugPrint("Completed");
-            ref.watch(isEditingProvider.notifier).state = true;
-            if (widget.pinLenght == 4) {
-              widget.pinIsComplete!.call();
-            }
-          },
+          onCompleted: widget.onCompleted ??
+              (v) {
+                debugPrint("Completed");
+                ref.watch(isEditingProvider.notifier).state = true;
+                if (widget.pinLenght == 4) {
+                  widget.pinIsComplete!.call();
+                }
+              },
           onSubmitted: (value) {
             ref.watch(isEditingProvider.notifier).state = true;
           },

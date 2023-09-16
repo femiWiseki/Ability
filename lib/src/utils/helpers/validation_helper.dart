@@ -93,7 +93,7 @@ class ValidationHelper {
   }
 
   String? validatePinCode2(String value) {
-    if (value.length < 3) {
+    if (value.length <= 3) {
       return "Pin is not complete.";
     } else if (value.isEmpty) {
       return "Pin can not be empty";

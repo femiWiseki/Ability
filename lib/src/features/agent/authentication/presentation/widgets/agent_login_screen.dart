@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:ability/src/common_widgets/ability_button.dart';
+import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/fingerprint_auth.dart';
 import 'package:ability/src/constants/routers.dart';
@@ -8,7 +9,8 @@ import 'package:ability/src/constants/snack_messages.dart';
 import 'package:ability/src/features/agent/authentication/application/services/login_services/login_service.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_pin_reset.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/agent_pin_reset.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/widgets/signup_option.dart';
 import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
@@ -86,7 +88,12 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // const BackIcon(),
+                  BackIcon(
+                    navigateTo: () {
+                      PageNavigator(ctx: context)
+                          .nextPage(page: const SignupOption());
+                    },
+                  ),
                   const SizedBox(height: 38),
                   Text('Welcome back',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
@@ -188,7 +195,8 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                                   value: ref.watch(savePasswordProvider),
                                   onChanged: (value) {
                                     if (value == true) {
-                                      TextInput.finishAutofillContext();
+                                      TextInput.finishAutofillContext(
+                                          shouldSave: true);
                                     }
                                     ref
                                             .read(savePasswordProvider.notifier)
@@ -240,15 +248,15 @@ class _AgentLoginScreenState extends ConsumerState<AgentLoginScreen> {
                                 '0${widget.agentController.loginPhoneNumber.text}',
                             pin: widget.agentController.loginPassword.text);
                       }
-                      if (ref.watch(savePasswordProvider)) {
-                        await AgentPreference.setSavedPhoneNumber(widget
-                            .agentController.loginPhoneNumber.text
-                            .trim());
-                        await AgentPreference.setSavedPassword(
-                            widget.agentController.loginPassword.text);
-                      } else {
-                        AgentPreference.clearLoginCredentials();
-                      }
+                      // if (ref.watch(savePasswordProvider)) {
+                      //   await AgentPreference.setSavedPhoneNumber(widget
+                      //       .agentController.loginPhoneNumber.text
+                      //       .trim());
+                      //   await AgentPreference.setSavedPassword(
+                      //       widget.agentController.loginPassword.text);
+                      // } else {
+                      //   AgentPreference.clearLoginCredentials();
+                      // }
                       // print(AgentPreference.getPhoneNumber());
                     },
                     borderColor:

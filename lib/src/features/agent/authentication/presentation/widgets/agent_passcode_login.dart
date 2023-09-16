@@ -8,7 +8,7 @@ import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/agent/authentication/presentation/providers/authentication_provider.dart';
-import 'package:ability/src/features/agent/authentication/presentation/widgets/agent/agent_login_screen.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/agent_login_screen.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,7 +38,7 @@ class AgentPasscodeLogin extends ConsumerWidget {
                   Text('Passcode',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
                   const SizedBox(height: 54.11),
-                  Text('Please login with your passcode',
+                  Text('Please login with your agent passcode',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 35),
                   Center(
@@ -46,8 +46,12 @@ class AgentPasscodeLogin extends ConsumerWidget {
                         pinLenght: 4,
                         boxPinShape: PinCodeFieldShape.box,
                         controller: agentController.loginPasscode,
+                        onCompleted: (v) {
+                          debugPrint("Completed");
+                          ref.watch(isEditingProvider.notifier).state = true;
+                        },
                         validator: (value) =>
-                            validationHelper.validatePinCode2(value!)),
+                            validationHelper.validatePasscode(value!)),
                   ),
                   const SizedBox(height: 153.54),
                   AbilityButton(

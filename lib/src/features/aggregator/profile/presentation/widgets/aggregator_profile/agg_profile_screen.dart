@@ -2,6 +2,9 @@ import 'package:ability/src/common_widgets/kflutter_switch.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/agent/authentication/presentation/controllers/auth_controllers.dart';
+import 'package:ability/src/features/agent/authentication/presentation/widgets/agent_login_screen.dart';
+import 'package:ability/src/features/agent/profile/presentation/widgets/agent_profile/agt_refactored_widgets/signout_alert_dialog.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/widgets/aggregator_login_screen.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/general_tile.dart';
@@ -70,8 +73,20 @@ class AggregatorProfileScreen extends ConsumerWidget {
                           ),
                           GeneralTile(
                             prefixIconPath: 'assets/icons/agents.svg',
-                            title: 'Agents',
-                            onTap: () {},
+                            title: 'Agent',
+                            onTap: () {
+                              signoutAlertDialog(
+                                context: context,
+                                navigateTo: () {
+                                  AgentPreference.logoutUser().then((value) {
+                                    PageNavigator(ctx: context).nextPageOnly(
+                                        page: AgentLoginScreen(
+                                            ValidationHelper(),
+                                            AgentController()));
+                                  });
+                                },
+                              );
+                            },
                           ),
                           GeneralTile(
                             prefixIconPath:
@@ -217,13 +232,17 @@ class AggregatorProfileScreen extends ConsumerWidget {
                             textStyle: AppStyleGilroy.kFontW5
                                 .copyWith(fontSize: 15, color: customColor2),
                             onTap: () {
-                              AggregatorPreference.clearPhoneToken()
-                                  .then((value) {
-                                PageNavigator(ctx: context).nextPageOnly(
-                                    page: AggregatorLoginScreen(
-                                        ValidationHelper(),
-                                        AggregatorController()));
-                              });
+                              signoutAlertDialog(
+                                  context: context,
+                                  navigateTo: () {
+                                    AggregatorPreference.clearPhoneToken()
+                                        .then((value) {
+                                      PageNavigator(ctx: context).nextPageOnly(
+                                          page: AggregatorLoginScreen(
+                                              ValidationHelper(),
+                                              AggregatorController()));
+                                    });
+                                  });
                             },
                           ),
                         ],

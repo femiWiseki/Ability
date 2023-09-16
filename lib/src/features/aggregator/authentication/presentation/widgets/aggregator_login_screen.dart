@@ -3,6 +3,7 @@
 import 'package:ability/src/common_widgets/ability_button.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/routers.dart';
+import 'package:ability/src/features/aggregator/authentication/presentation/widgets/signup_option.dart';
 import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/providers/authentication_provider.dart';
@@ -15,6 +16,7 @@ import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AggregatorLoginScreen extends ConsumerStatefulWidget {
@@ -38,22 +40,22 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
   void initState() {
     // final preferredCountries = ['NG'];
     // countryPicker = FlCountryCodePicker(filteredCountries: preferredCountries);
-    _loadSavedCredentials();
+    // _loadSavedCredentials();
     super.initState();
   }
 
-  void _loadSavedCredentials() async {
-    await Future.delayed(const Duration(seconds: 2), () {
-      var phoneNumber = AggregatorPreference.getSavedPhoneNumber();
-      var password = AggregatorPreference.getSavedPassword();
+  // void _loadSavedCredentials() async {
+  //   await Future.delayed(const Duration(seconds: 2), () {
+  //     var phoneNumber = AggregatorPreference.getSavedPhoneNumber();
+  //     var password = AggregatorPreference.getSavedPassword();
 
-      if (phoneNumber != null && password != null) {
-        widget.aggregatorController.loginPhoneNumber.text = phoneNumber;
-        widget.aggregatorController.loginPassword.text = password;
-        ref.watch(savePasswordProvider.notifier).state = true;
-      }
-    });
-  }
+  //     if (phoneNumber != null && password != null) {
+  //       widget.aggregatorController.loginPhoneNumber.text = phoneNumber;
+  //       widget.aggregatorController.loginPassword.text = password;
+  //       ref.watch(savePasswordProvider.notifier).state = true;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +70,12 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const BackIcon(),
+                  BackIcon(
+                    navigateTo: () {
+                      PageNavigator(ctx: context)
+                          .nextPage(page: const SignupOption());
+                    },
+                  ),
                   const SizedBox(height: 38),
                   Text('Welcome back',
                       style: AppStyleGilroy.kFontW6.copyWith(fontSize: 31.62)),
@@ -77,70 +84,81 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                       'Login on smart supply as aggregator to access our suite of service.',
                       style: AppStyleGilroy.kFontW5.copyWith(fontSize: 12)),
                   const SizedBox(height: 61),
-                  AbilityPhoneNumber(
-                    phoneController:
-                        widget.aggregatorController.loginPhoneNumber,
-                    maxLength: 10,
-                    validator: (value) =>
-                        widget.validationHelper.validatePhoneNumber(value!),
-                    prefixWidget: SizedBox(
-                      width: 120,
-                      height: 24,
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 16.0, right: 4.0),
-                            child: SizedBox(
-                              width: 24,
-                              height: 18,
-                              child: Image.asset(
-                                'assets/icons/flag.png',
-                                fit: BoxFit.fill,
-                              ),
+                  AutofillGroup(
+                    child: Column(
+                      children: <Widget>[
+                        AbilityPhoneNumber(
+                          phoneController:
+                              widget.aggregatorController.loginPhoneNumber,
+                          autoFillHints: const [
+                            AutofillHints.telephoneNumberNational
+                          ],
+                          maxLength: 10,
+                          validator: (value) => widget.validationHelper
+                              .validatePhoneNumber(value!),
+                          prefixWidget: SizedBox(
+                            width: 120,
+                            height: 24,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16.0, right: 4.0),
+                                  child: SizedBox(
+                                    width: 24,
+                                    height: 18,
+                                    child: Image.asset(
+                                      'assets/icons/flag.png',
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 5.98, top: 3),
+                                  child: Text(
+                                    '+234',
+                                    style: AppStyleGilroy.kFontW5
+                                        .copyWith(fontSize: 14, color: kBlack2),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    // final code = await countryPicker.showPicker(
+                                    //     context: context);
+                                    // setState(() {
+                                    //   _countryCode = code;
+                                    //   // updateMaxLength();
+                                    // });
+                                  },
+                                  child: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 20,
+                                    color: kBlack10,
+                                  ),
+                                ),
+                                const VerticalDivider(
+                                  indent: 10,
+                                  endIndent: 10,
+                                  color: kGrey10,
+                                )
+                              ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.98, top: 3),
-                            child: Text(
-                              '+234',
-                              style: AppStyleGilroy.kFontW5
-                                  .copyWith(fontSize: 14, color: kBlack2),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              // final code = await countryPicker.showPicker(
-                              //     context: context);
-                              // setState(() {
-                              //   _countryCode = code;
-                              //   // updateMaxLength();
-                              // });
-                            },
-                            child: const Icon(
-                              Icons.keyboard_arrow_down,
-                              size: 20,
-                              color: kBlack10,
-                            ),
-                          ),
-                          const VerticalDivider(
-                            indent: 10,
-                            endIndent: 10,
-                            color: kGrey10,
-                          )
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 20),
+                        AbilityPasswordField(
+                          controller: widget.aggregatorController.loginPassword,
+                          autoFillHints: const [AutofillHints.password],
+                          heading: 'Pin',
+                          hintText: 'Enter 6-digit pin',
+                          maxLength: 6,
+                          iconName: Icons.lock_rounded,
+                          validator: (value) =>
+                              widget.validationHelper.validatePassword(value!),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  AbilityPasswordField(
-                    controller: widget.aggregatorController.loginPassword,
-                    heading: 'Pin',
-                    hintText: 'Enter 6-digit pin',
-                    maxLength: 6,
-                    iconName: Icons.lock_rounded,
-                    validator: (value) =>
-                        widget.validationHelper.validatePassword(value!),
                   ),
                   const SizedBox(height: 15),
                   Row(
@@ -165,13 +183,18 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                                         width: 1.0,
                                         color: kPrimary.withOpacity(0.8)),
                                   ),
-                                  value: ref.watch(savePasswordProvider),
+                                  value: ref.watch(aggSavePasswordProvider),
                                   onChanged: (value) {
+                                    if (value == true) {
+                                      TextInput.finishAutofillContext(
+                                          shouldSave: true);
+                                    }
                                     ref
-                                            .read(savePasswordProvider.notifier)
+                                            .read(aggSavePasswordProvider.notifier)
                                             .state =
                                         !ref
-                                            .read(savePasswordProvider.notifier)
+                                            .read(aggSavePasswordProvider
+                                                .notifier)
                                             .state;
                                   },
                                 ),
@@ -214,13 +237,13 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                                 pin: widget
                                     .aggregatorController.loginPassword.text);
                       }
-                      if (ref.watch(savePasswordProvider)) {
-                        AggregatorPreference.setSavedPhoneNumber(widget
-                            .aggregatorController.loginPhoneNumber.text
-                            .trim());
-                        AggregatorPreference.setSavedPassword(
-                            widget.aggregatorController.loginPassword.text);
-                      }
+                      // if (ref.watch(savePasswordProvider)) {
+                      //   AggregatorPreference.setSavedPhoneNumber(widget
+                      //       .aggregatorController.loginPhoneNumber.text
+                      //       .trim());
+                      //   AggregatorPreference.setSavedPassword(
+                      //       widget.aggregatorController.loginPassword.text);
+                      // }
                     },
                     borderColor: ref.watch(isEditingProvider)
                         ? kPrimary.withOpacity(0.5)
