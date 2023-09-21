@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AggHomeScreen extends ConsumerWidget {
-  AggHomeScreen({super.key});
+  const AggHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,17 +27,19 @@ class AggHomeScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 5.05),
                 Container(
-                    width: double.maxFinite,
-                    height: 348,
-                    color: kWhite,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-                    child: ListView.builder(
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return const Text('data');
-                          // return const RecentTransactionTile();
-                        }))
+                  width: double.maxFinite,
+                  height: 348,
+                  color: kWhite,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                  child: ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return const Text('');
+                      // return const RecentTransactionTile();
+                    },
+                  ),
+                )
               ],
             ),
           ),

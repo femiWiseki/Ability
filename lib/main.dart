@@ -10,8 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // import 'package:fl_country_code_picker/fl_country_code_picker.dart' as flc;
 // import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
-import 'package:responsive_framework/utils/scroll_behavior.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'globals.dart';
 
 Future<void> main() async {
@@ -34,15 +33,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       scaffoldMessengerKey: snackBarKey,
       navigatorKey: navigatorKey,
-      builder: (context, child) => ResponsiveWrapper.builder(
-          BouncingScrollWrapper.builder(context, child!),
-          maxWidth: 852,
-          minWidth: 393,
-          defaultScale: true,
-          breakpoints: [
-            const ResponsiveBreakpoint.resize(393, name: MOBILE),
-          ],
-          background: Container(color: const Color(0xFFF5F5F5))),
+      builder: (context, child) => ResponsiveBreakpoints.builder(
+        child: child!,
+        breakpoints: [
+          const Breakpoint(start: 0, end: 393, name: MOBILE),
+        ],
+      ),
       debugShowCheckedModeBanner: false,
       // supportedLocales: flc.supportedLocales.map((e) => Locale(e)),
       // localizationsDelegates: const [
