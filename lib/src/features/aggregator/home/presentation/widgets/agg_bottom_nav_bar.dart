@@ -3,7 +3,7 @@ import 'package:ability/src/features/aggregator/commission/presentation/widgets/
 import 'package:ability/src/features/aggregator/home/presentation/widgets/agg_home_screen.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/icon_bottom_bar.dart';
 import 'package:ability/src/features/aggregator/profile/presentation/widgets/aggregator_profile/agg_profile_screen.dart';
-import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agg_transfer/agg_transfer_screen.dart';
+import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agt_transfer/agg_transfer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -31,7 +31,7 @@ class _AggBottomNavBarState extends ConsumerState<AggBottomNavBar> {
 
   final orangeColor = const Color(0xffFF8527);
   final screens = [
-    AggHomeScreen(),
+    const AggHomeScreen(),
     const AggTransferScreen(),
     const CommissionScreen(),
     const AggregatorProfileScreen(),

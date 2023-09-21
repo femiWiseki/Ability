@@ -20,18 +20,18 @@ class AgtPaymentScreen extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 36, 24, 0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Payments',
                 style: AppStyleInter.kFontW6.copyWith(fontSize: 20),
               ),
-              const SizedBox(height: 10),
-              Text(
-                'How would you like to pay',
-                style: AppStyleInter.kFontW6.copyWith(fontSize: 12),
-              ),
-              const SizedBox(height: 76.89),
+              // const SizedBox(height: 10),
+              // Text(
+              //   'How would you like to pay',
+              //   style: AppStyleInter.kFontW6.copyWith(fontSize: 12),
+              // ),
+              const SizedBox(height: 50),
               Container(
                 // height: 400,
                 width: double.maxFinite,

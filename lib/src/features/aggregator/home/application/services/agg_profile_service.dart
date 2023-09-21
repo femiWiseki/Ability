@@ -24,8 +24,8 @@ class AggProfileService {
 
       final response =
           await http.get(Uri.parse(serviceUrl), headers: serviceHeader);
-      // print(response.statusCode);
-      // print(response.body);
+      print(response.statusCode);
+      print(response.body);
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);

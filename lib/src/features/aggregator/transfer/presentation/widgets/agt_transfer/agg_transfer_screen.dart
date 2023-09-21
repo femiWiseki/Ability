@@ -2,13 +2,13 @@ import 'package:ability/src/constants/app_text_style/inter.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/controllers/transfer_controller.dart';
-import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agt_transfer/agt_transfer_tobank.dart';
+import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agt_transfer/agg_transfer_tobank.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/widgets/refactored_widgets/transfer_item_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AgtTransferScreen extends ConsumerWidget {
-  const AgtTransferScreen({super.key});
+class AggTransferScreen extends ConsumerWidget {
+  const AggTransferScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -22,7 +22,7 @@ class AgtTransferScreen extends ConsumerWidget {
                 'Transfer',
                 style: AppStyleInter.kFontW6.copyWith(fontSize: 20),
               ),
-              const SizedBox(height: 76.89),
+              const SizedBox(height: 50),
               Container(
                 height: 166,
                 width: double.maxFinite,
@@ -45,7 +45,7 @@ class AgtTransferScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 23),
                     TransferItemTile(
-                      title: 'Transfer to Beneficiary',
+                      title: 'Transfer to Agent',
                       onTap: () {},
                     )
                   ],

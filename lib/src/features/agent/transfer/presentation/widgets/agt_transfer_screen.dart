@@ -24,7 +24,7 @@ class AgtTransferScreen extends ConsumerWidget {
                 'Transfer',
                 style: AppStyleInter.kFontW6.copyWith(fontSize: 20),
               ),
-              const SizedBox(height: 76.89),
+              const SizedBox(height: 50),
               Container(
                 height: 250,
                 width: double.maxFinite,
