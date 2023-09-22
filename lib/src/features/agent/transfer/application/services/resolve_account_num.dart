@@ -11,6 +11,7 @@ import 'package:ability/src/features/agent/transfer/presentation/controllers/tra
 import 'package:ability/src/features/agent/transfer/presentation/widgets/agt_transfer/agt_transfer_tobank2.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
@@ -94,7 +95,9 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);
-        print('initialRequest: $result');
+        if (kDebugMode) {
+          print('initialRequest: $result');
+        }
         state = false;
       }
     } on SocketException {
@@ -102,7 +105,9 @@ class AgtResolveAccNumService extends StateNotifier<bool> {
           context: context, message: 'There is no internet connection.');
       state = false;
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       state = false;
     }
   }

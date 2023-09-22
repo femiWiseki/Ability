@@ -215,10 +215,11 @@ class AgentPreference {
 class AggregatorPreference {
   static late SharedPreferences _preferences;
 
-// Agent preference key
+// Aggregator preference key
   static const _keyEmail = 'email';
   static const _keyFirstName = 'firstName';
   static const _keyLastName = 'lastName';
+  static const _keyUserName = 'userName';
   static const _keyPhoneNumber = 'phoneNumber';
   static const _keyAccessToken = 'accessToken';
   static const _keyId = 'id';
@@ -228,6 +229,7 @@ class AggregatorPreference {
   static const _keyPasscodeStatus = 'passcodeStatus';
   static const _keyIsAggVerified = 'isAggVerified';
   static const _keyAggRefreshToken = 'aggRefreshToken';
+  static const _keyAccountName = 'accountName';
 
 // Initialize SharedPreference
   static Future init() async =>
@@ -270,7 +272,13 @@ class AggregatorPreference {
   static Future setAggRefreshToken(String aggRefreshToken) async =>
       await _preferences.setString(_keyAggRefreshToken, aggRefreshToken);
 
-  // Get Agent Data
+  static Future setAccountName(String accountName) async =>
+      await _preferences.setString(_keyAccountName, accountName);
+
+  static Future setUserName(String userName) async =>
+      await _preferences.setString(_keyUserName, userName);
+
+  // Get Aggregator Data
   static String? getEmail() => _preferences.getString(_keyEmail);
 
   static String? getFirstName() => _preferences.getString(_keyFirstName);
@@ -299,6 +307,10 @@ class AggregatorPreference {
 
   static String? getAggRefreshToken() =>
       _preferences.getString(_keyAggRefreshToken);
+
+  static String? getAccountName() => _preferences.getString(_keyAccountName);
+
+  static String? getUserName() => _preferences.getString(_keyUserName);
 
   // Clear Agent Token when logged out..
   static Future clearPhoneToken() async {

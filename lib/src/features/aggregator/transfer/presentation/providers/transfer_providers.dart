@@ -1,4 +1,4 @@
-import 'package:ability/src/features/aggregator/transfer/application/services/resolve_account_num.dart';
+import 'package:ability/src/features/aggregator/transfer/application/services/agg_resolve_account_num.dart';
 import 'package:ability/src/features/aggregator/transfer/application/services/transfer_money_service.dart';
 import 'package:ability/src/features/aggregator/transfer/domain/models/resolve_acc_num_model.dart';
 import 'package:flutter/material.dart';

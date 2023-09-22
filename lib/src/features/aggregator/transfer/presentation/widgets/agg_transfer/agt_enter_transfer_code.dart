@@ -9,7 +9,6 @@ import 'package:ability/src/features/aggregator/authentication/presentation/prov
 import 'package:ability/src/features/aggregator/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
-import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -17,8 +16,18 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 class AggEnterTransferCode extends ConsumerWidget {
   ValidationHelper validationHelper;
   TransferController transferController;
+  final String bankName;
+  final String accountNum;
+  final String accountName;
+  final String amount;
+  final String description;
   AggEnterTransferCode(this.validationHelper, this.transferController,
-      {super.key});
+      {required this.accountName,
+      required this.accountNum,
+      required this.amount,
+      required this.bankName,
+      required this.description,
+      super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -56,6 +65,9 @@ class AggEnterTransferCode extends ConsumerWidget {
                         pinLenght: 4,
                         boxPinShape: PinCodeFieldShape.box,
                         controller: transferController.aggEnterTransferCode,
+                        onCompleted: (value) {
+                          ref.watch(isEditingProvider.notifier).state = true;
+                        },
                         validator: (value) =>
                             validationHelper.validatePinCode2(value!)),
                   ),
@@ -67,17 +79,15 @@ class AggEnterTransferCode extends ConsumerWidget {
                             .read(loadingAggBankDetail2.notifier)
                             .resolveAccNumService(
                               context: context,
+                              accountName: accountName,
+                              accountNumber: accountNum,
+                              amount: amount,
+                              bankName: bankName,
+                              description: description,
                               passcode:
                                   transferController.aggEnterTransferCode.text,
                             );
-                        print(AgentPreference.getBankName());
-                        // await ref
-                        //     .read(loadingAgentLoginPasscode.notifier)
-                        //     .passcodeLoginService(
-                        //         context: context,
-                        //         passcode: transferController.AggEnterTransferCode.text);
                       }
-                      // print(AgentPreference.getPhoneToken());
                     },
                     borderColor:
                         !ref.watch(isEditingProvider) ? kGrey23 : kPrimary,

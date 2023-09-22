@@ -4,11 +4,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ability/src/constants/endpoints.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/constants/snack_messages.dart';
+import 'package:ability/src/features/aggregator/home/presentation/widgets/agg_bottom_nav_bar.dart';
 import 'package:ability/src/features/aggregator/home/presentation/widgets/refactored_widgets/show_alert_dialog.dart';
 import 'package:ability/src/features/aggregator/transfer/domain/models/resolve_acc_num_model.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
@@ -18,18 +21,18 @@ class AggTransferMoneyService extends StateNotifier<bool> {
   resolveAccNumService({
     required BuildContext context,
     required String passcode,
+    required String bankName,
+    required String accountNumber,
+    required String accountName,
+    required String amount,
+    required String description,
   }) async {
     try {
       state = true;
 
       var token = AgentPreference.getPhoneToken();
-      var bankName = AgentPreference.getBankName().toString();
-      var accountNumber = AgentPreference.getAccountNumber();
-      var accountName = AgentPreference.getAccountName();
-      var description = AgentPreference.getTransDesc();
-      var amount = AgentPreference.getTransferAmount();
-      // final indexNumber = StateProvider<int>((ref) => 1);
-      String serviceUrl = kMakeTransferUrl;
+      final indexNumber = StateProvider<int>((ref) => 1);
+      String serviceUrl = kAggMakeTransferUrl;
 
       final Map<String, String> serviceHeader = {
         'Content-type': 'application/json',
@@ -47,32 +50,72 @@ class AggTransferMoneyService extends StateNotifier<bool> {
 
       final response = await http.post(Uri.parse(serviceUrl),
           body: requestBody, headers: serviceHeader);
-      print(requestBody);
-      print(response.statusCode);
-      print(response.body);
 
       if (response.statusCode == 200) {
         final result = jsonDecode(response.body);
-        print(result);
+        // print(result);
 
         generalSuccessfullDialog(
             context: context,
             description:
                 'Congratulations your transfer was successful completed',
             onTap: () {
-              // PageNavigator(ctx: context).nextPageOnly(
-              //     page: AggBottomNavBar(indexProvider: indexNumber));
+              PageNavigator(ctx: context).nextPageOnly(
+                  page: AggBottomNavBar(indexProvider: indexNumber));
             });
 
-        // Save details
-        await AgentPreference.setAccountName(
-            result['data']['data']['account_name']);
         state = false;
         return ResolveAccNumModel.fromJson(result);
+      } else if (response.statusCode == 401) {
+        // Check if the request is unauthorized
+        String refreshUrl = kAggRefreshTokenUrl;
+
+        var refreshToken = AggregatorPreference.getAggRefreshToken();
+
+        final Map<String, String> refreshHeader = {
+          'Cookie': 'refreshToken=$refreshToken',
+        };
+
+        final refreshResponse =
+            await http.post(Uri.parse(refreshUrl), headers: refreshHeader);
+
+        final String refreshedToken =
+            jsonDecode(refreshResponse.body)['data']['token'];
+
+        final Map<String, String> refreshedHeader = {
+          'Content-type': 'application/json',
+          'Authorization': 'Bearer $refreshedToken'
+        };
+
+        final refreshedResponse = await http.post(Uri.parse(serviceUrl),
+            body: requestBody, headers: refreshedHeader);
+
+        print(refreshedResponse.statusCode);
+        print(refreshedResponse.body);
+
+        if (refreshedResponse.statusCode == 200) {
+          final result = jsonDecode(refreshedResponse.body);
+          print(result);
+
+          // Navigate to the next screen
+          generalSuccessfullDialog(
+              context: context,
+              description:
+                  'Congratulations your transfer was successful completed',
+              onTap: () {
+                PageNavigator(ctx: context).nextPageOnly(
+                    page: AggBottomNavBar(indexProvider: indexNumber));
+              });
+
+          state = false;
+        } else {
+          final result = jsonDecode(refreshedResponse.body);
+          errorMessage(context: context, message: result['message']);
+          state = false;
+        }
       } else {
         final result = jsonDecode(response.body);
         errorMessage(context: context, message: result['message']);
-        print(result);
         state = false;
       }
     } on SocketException {
@@ -80,7 +123,9 @@ class AggTransferMoneyService extends StateNotifier<bool> {
           context: context, message: 'There is no internet connection.');
       state = false;
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       state = false;
     }
   }

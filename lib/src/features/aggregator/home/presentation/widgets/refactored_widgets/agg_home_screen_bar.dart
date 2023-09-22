@@ -77,20 +77,21 @@ class AggHomeScreenBar extends ConsumerWidget {
                           ),
                           agtProfile.when(
                               data: (data) {
-                                var agtInfo = data.data.data;
-                                var agtName = agtInfo.name;
-                                var agtPhoneNumber = agtInfo.phoneNumber;
+                                var aggInfo = data.data.data;
+                                var aggName = aggInfo.name;
+                                var aggPhoneNumber = aggInfo.phoneNumber;
                                 Future.delayed(Duration.zero, () {
                                   ref.read(isVerifiedProvider.notifier).state =
-                                      agtInfo.isVerified;
+                                      aggInfo.isVerified;
                                   ref.read(isDisabledProvider.notifier).state =
-                                      agtInfo.isDisabled.disabled;
+                                      aggInfo.isDisabled.disabled;
                                 });
 
-                                AgentPreference.setPhoneNumber(agtPhoneNumber);
-                                AgentPreference.setUsername(agtName);
+                                AggregatorPreference.setPhoneNumber(
+                                    aggPhoneNumber);
+                                AggregatorPreference.setUserName(aggName);
                                 return Text(
-                                  agtName,
+                                  aggName,
                                   style: AppStyleGilroy.kFontW5.copyWith(
                                       fontSize: 11.02,
                                       color: kWhite.withOpacity(0.9)),
@@ -220,7 +221,7 @@ class AggHomeScreenBar extends ConsumerWidget {
                   onPressed: () {
                     final indexNumber = StateProvider<int>((ref) => 1);
                     PageNavigator(ctx: context).nextPage(
-                        page: AgtBottomNavBar(indexProvider: indexNumber));
+                        page: AggBottomNavBar(indexProvider: indexNumber));
                   },
                   height: 44,
                   width: 167,
@@ -245,7 +246,7 @@ class AggHomeScreenBar extends ConsumerWidget {
                   onPressed: () {
                     final indexNumber = StateProvider<int>((ref) => 2);
                     PageNavigator(ctx: context).nextPage(
-                        page: AgtBottomNavBar(indexProvider: indexNumber));
+                        page: AggBottomNavBar(indexProvider: indexNumber));
                   },
                   height: 44,
                   width: 167,

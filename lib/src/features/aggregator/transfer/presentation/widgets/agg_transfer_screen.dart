@@ -2,7 +2,7 @@ import 'package:ability/src/constants/app_text_style/inter.dart';
 import 'package:ability/src/constants/colors.dart';
 import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/controllers/transfer_controller.dart';
-import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agt_transfer/agg_transfer_tobank.dart';
+import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agg_transfer/agg_transfer_tobank.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/widgets/refactored_widgets/transfer_item_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -35,7 +35,7 @@ class AggTransferScreen extends ConsumerWidget {
                       title: 'Transfer to Bank',
                       onTap: () async {
                         PageNavigator(ctx: context).nextPage(
-                            page: AgtTransferToBank(TransferController()));
+                            page: AggTransferToBank(TransferController()));
                       },
                     ),
                     const SizedBox(height: 23),

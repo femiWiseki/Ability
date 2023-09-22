@@ -7,25 +7,28 @@ import 'package:ability/src/common_widgets/text_field_container.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/app_text_style/roboto.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/constants/routers.dart';
 import 'package:ability/src/features/agent/transfer/presentation/providers/transfer_providers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/aggregator/transfer/application/repositories/bank_list.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/controllers/transfer_controller.dart';
+import 'package:ability/src/features/aggregator/transfer/presentation/providers/transfer_providers.dart';
+import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agg_transfer/agg_transfer_tobank2.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AgtTransferToBank extends ConsumerStatefulWidget {
+class AggTransferToBank extends ConsumerStatefulWidget {
   TransferController transferController;
-  AgtTransferToBank(this.transferController, {super.key});
+  AggTransferToBank(this.transferController, {super.key});
 
   @override
-  ConsumerState<AgtTransferToBank> createState() => _AgtTransferToBankState();
+  ConsumerState<AggTransferToBank> createState() => _AggTransferToBankState();
 }
 
-class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
+class _AggTransferToBankState extends ConsumerState<AggTransferToBank> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? selectedBankName;
   final TextEditingController textEditingController = TextEditingController();
@@ -114,7 +117,10 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                           ),
                         ),
                         searchMatchFn: (item, searchValue) {
-                          return item.value.toString().contains(searchValue);
+                          return item.value
+                              .toString()
+                              .toLowerCase()
+                              .contains(searchValue.toLowerCase());
                         },
                       ),
                       //This to clear the search value when you close the menu
@@ -145,94 +151,8 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                       FocusScope.of(context).unfocus();
                       ref.watch(isEditingProvider.notifier).state = false;
                     }
-                    // if (value.length == 10) {
-                    //   await ref.read(bankDetailsProvider).resolveAccNumService(
-                    //       context: context,
-                    //       bankName: selectedBankName.toString(),
-                    //       accountNumber: widget
-                    //           .transferController.agtTrasferAccountNumber.text);
-                    //   await AgentPreference.setAccountNumber(
-                    //       widget.transferController.agtTrasferAccountNumber.text);
-                    //   await AgentPreference.setBankName(
-                    //       selectedBankName.toString());
-                    // }
                   },
                 ),
-                // Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     const SizedBox(height: 10),
-                //     Container(
-                //       width: 238,
-                //       height: 31,
-                //       padding: const EdgeInsets.only(left: 16, top: 7),
-                //       color: kPrimary.withOpacity(0.2),
-                //       child: Text(
-                //         '${AgentPreference.getAccountName()}',
-                //         style: AppStyleGilroy.kFontW7
-                //             .copyWith(fontSize: 12, color: kPrimary),
-                //         // child: bankDetails.when(
-                //         //     data: (data) {
-                //         //       return Text(
-                //         //         data.data.data.accountName,
-                //         //         style: AppStyleGilroy.kFontW7
-                //         //             .copyWith(fontSize: 12, color: kPrimary),
-                //         //       );
-                //         //     },
-                //         //     loading: () => const Text('Verifying...'),
-                //         //     error: (e, s) => Text(e.toString())),
-                //       ),
-                //     ),
-                //     const SizedBox(height: 7),
-                //     Consumer(
-                //       builder:
-                //           (BuildContext context, WidgetRef ref, Widget? child) {
-                //         return Row(
-                //           children: [
-                //             const SizedBox(width: 5),
-                //             SizedBox(
-                //               width: 11,
-                //               height: 11,
-                //               child: Checkbox(
-                //                 checkColor: kPrimary, // color of tick Mark
-                //                 activeColor: kWhite,
-                //                 shape: RoundedRectangleBorder(
-                //                   borderRadius: BorderRadius.circular(2.0),
-                //                 ),
-                //                 side: MaterialStateBorderSide.resolveWith(
-                //                   (states) => BorderSide(
-                //                       width: 1.0,
-                //                       color: kPrimary.withOpacity(0.8)),
-                //                 ),
-                //                 value: ref.watch(agtSaveBeneficiary),
-                //                 onChanged: (value) {
-                //                   ref.read(agtSaveBeneficiary.notifier).state =
-                //                       !ref
-                //                           .read(agtSaveBeneficiary.notifier)
-                //                           .state;
-                //                 },
-                //               ),
-                //             ),
-                //             const SizedBox(width: 6),
-                //             Text(
-                //               "Save as beneficiary",
-                //               style: AppStyleGilroy.kFontW5
-                //                   .copyWith(color: kPrimary, fontSize: 14),
-                //             ),
-                //           ],
-                //         );
-                //       },
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(height: 27),
-                // AbilityTextField(
-                //   controller: widget.transferController.agtTransferAmount,
-                //   heading: 'Enter Amount',
-                //   hintText: 'Enter Amount',
-                //   keyboardType: TextInputType.number,
-                //   borderRadius: BorderRadius.circular(5),
-                // ),
                 const SizedBox(height: 96),
                 AbilityButton(
                   height: 60,
@@ -244,32 +164,23 @@ class _AgtTransferToBankState extends ConsumerState<AgtTransferToBank> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       await ref
-                          .read(loadingAgtBankDetail1.notifier)
+                          .read(loadingAggBankDetail1.notifier)
                           .resolveAccNumService(
-                              context: context,
-                              bankName: selectedBankName.toString(),
-                              accountNumber: widget.transferController
-                                  .aggTrasferAccountNumber.text);
-                      await AgentPreference.setAccountNumber(widget
-                          .transferController.aggTrasferAccountNumber.text);
-                      await AgentPreference.setBankName(selectedBankName!);
+                            context: context,
+                            bankName: selectedBankName.toString(),
+                            accountNumber: widget.transferController
+                                .aggTrasferAccountNumber.text,
+                            nextScreen: () {
+                              PageNavigator(ctx: context).nextPage(
+                                  page: AggTransferToBank2(
+                                TransferController(),
+                                bankName: selectedBankName ?? '',
+                                accountNum: widget.transferController
+                                    .aggTrasferAccountNumber.text,
+                              ));
+                            },
+                          );
                     }
-
-                    // print(selectedBankName);
-                    // confirmDetailsDialog(
-                    //   context: context,
-                    //   bankName: 'Guaranty trust bank plc',
-                    //   accountNumber: '0099887766',
-                    //   accountName: 'Ability Mensor',
-                    //   amount: '5000',
-                    //   onTap: () {
-                    //     PageNavigator(ctx: context).nextPageOnly(
-                    //         page: AgtEnterTransferCode(
-                    //             ValidationHelper(), TransferController()));
-                    //   },
-                    // );
-                    // PageNavigator(ctx: context)
-                    //     .nextPageOnly(page: const AggregatorProfileScreen());
                   },
                   child: !ref.watch(loadingAgtBankDetail1)
                       ? Text(

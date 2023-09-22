@@ -10,7 +10,7 @@ import 'package:ability/src/features/aggregator/authentication/presentation/prov
 import 'package:ability/src/features/aggregator/transfer/application/repositories/bank_list.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/controllers/transfer_controller.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/providers/transfer_providers.dart';
-import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agt_transfer/agt_enter_transfer_code.dart';
+import 'package:ability/src/features/aggregator/transfer/presentation/widgets/agg_transfer/agt_enter_transfer_code.dart';
 import 'package:ability/src/features/aggregator/transfer/presentation/widgets/refactored_widgets/confirm_details_dialog.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
 import 'package:ability/src/utils/user_preference/user_preference.dart';
@@ -19,7 +19,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AggTransferToBank2 extends ConsumerStatefulWidget {
   TransferController transferController;
-  AggTransferToBank2(this.transferController, {super.key});
+  final String bankName;
+  final String accountNum;
+  AggTransferToBank2(this.transferController,
+      {required this.bankName, required this.accountNum, super.key});
 
   @override
   ConsumerState<AggTransferToBank2> createState() => _AggTransferToBank2State();
@@ -48,7 +51,7 @@ class _AggTransferToBank2State extends ConsumerState<AggTransferToBank2> {
                 AbilityTextField(
                   controller: widget.transferController.aggTrasferAccountNumber,
                   heading: 'Account Name',
-                  hintText: '${AgentPreference.getAccountName()}',
+                  hintText: '${AggregatorPreference.getAccountName()}',
                   readOnly: true,
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -70,26 +73,6 @@ class _AggTransferToBank2State extends ConsumerState<AggTransferToBank2> {
                   keyboardType: TextInputType.name,
                   borderRadius: BorderRadius.circular(5),
                 ),
-                // const SizedBox(height: 27),
-                // AbilityTextField(
-                //     controller: widget.transferController.AggEnterTransferCode,
-                //     heading: 'Enter Passcode',
-                //     hintText: 'Enter Passcode',
-                //     keyboardType: TextInputType.number,
-                //     maxLength: 4,
-                //     borderRadius: BorderRadius.circular(5),
-                //     validator: (value) =>
-                //         ValidationHelper().validatePasscode(value!),
-                //     onChanged: (value) async {
-                //       ref.watch(isEditingProvider.notifier).state = true;
-                //       if (value.isEmpty) {
-                //         ref.watch(isEditingProvider.notifier).state = false;
-                //       }
-                //       if (value.length == 4) {
-                //         FocusScope.of(context).unfocus();
-                //         ref.watch(isEditingProvider.notifier).state = false;
-                //       }
-                //     }),
                 const SizedBox(height: 96),
                 AbilityButton(
                   height: 60,
@@ -102,26 +85,31 @@ class _AggTransferToBank2State extends ConsumerState<AggTransferToBank2> {
                     if (_formKey.currentState!.validate()) {
                       confirmDetailsDialog(
                         context: context,
-                        bankName: AgentPreference.getBankName().toString(),
-                        accountNumber:
-                            AgentPreference.getAccountNumber().toString(),
+                        bankName: widget.bankName,
+                        accountNumber: widget.accountNum,
                         accountName:
-                            AgentPreference.getAccountName().toString(),
+                            AggregatorPreference.getAccountName().toString(),
                         amount:
                             widget.transferController.aggTransferAmount.text,
                         onTap: () {
+                          final desc = widget
+                              .transferController.aggEnterTransferDesc.text;
                           PageNavigator(ctx: context).nextPage(
                               page: AggEnterTransferCode(
-                                  ValidationHelper(), TransferController()));
+                                  accountName:
+                                      AggregatorPreference.getAccountName() ??
+                                          '',
+                                  accountNum: widget.accountNum,
+                                  amount: widget.transferController
+                                      .aggTransferAmount.text,
+                                  bankName: widget.bankName,
+                                  description: desc.isEmpty
+                                      ? 'Transfer from ${AggregatorPreference.getUserName()}'
+                                      : desc,
+                                  ValidationHelper(),
+                                  TransferController()));
                         },
                       );
-                      await AgentPreference.setTransferAmount(
-                          widget.transferController.aggTransferAmount.text);
-                      await AgentPreference.setTransDesc(
-                          widget.transferController.aggEnterTransferDesc.text);
-                      // PageNavigator(ctx: context)
-
-                      //   .nextPageOnly(page: const AggregatorProfileScreen());
                     }
                   },
                   child: !ref.watch(loadingAggBankDetail2)
