@@ -13,7 +13,6 @@ import 'package:ability/src/features/agent/authentication/presentation/widgets/a
 import 'package:ability/src/features/aggregator/authentication/presentation/widgets/signup_option.dart';
 import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/src/features/agent/profile/presentation/providers/profile_providers.dart';
-import 'package:ability/src/utils/user_preference/user_preference.dart';
 
 import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/ability_phone_number.dart';

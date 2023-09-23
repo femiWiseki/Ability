@@ -9,6 +9,7 @@ import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
 import 'package:ability/src/constants/app_text_style/gilroy.dart';
 import 'package:ability/src/constants/colors.dart';
+import 'package:ability/src/features/aggregator/authentication/application/services/signup_services/resend_otp_service.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/utils/helpers/validation_helper.dart';
@@ -112,8 +113,8 @@ class _AggregatorInputNewPinState extends ConsumerState<AggregatorInputNewPin> {
                               .copyWith(fontSize: 10, color: kGrey2)),
                       InkWell(
                         onTap: () {
-                          // AggregatorResendOTPService()
-                          //     .resendOTPService(context: context);
+                          AggregatorResendOTPService()
+                              .resendOTPService(context: context);
                           resetTimer();
                           startTimer();
                         },
@@ -170,7 +171,7 @@ class _AggregatorInputNewPinState extends ConsumerState<AggregatorInputNewPin> {
                             .watch(loadingAggInputNewPin.notifier)
                             .inputNewPinService(
                                 context: context,
-                                otp: widget
+                                otpCode: widget
                                     .aggregatorController.inputNewPinOTP.text,
                                 newPin: widget
                                     .aggregatorController.resetPassword.text,

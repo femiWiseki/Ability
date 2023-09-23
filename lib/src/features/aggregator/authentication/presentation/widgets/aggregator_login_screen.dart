@@ -8,7 +8,6 @@ import 'package:ability/src/features/landing_page.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/controllers/auth_controllers.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/providers/authentication_provider.dart';
 import 'package:ability/src/features/aggregator/authentication/presentation/widgets/agg_forgot_pin/aggregator_pin_reset.dart';
-import 'package:ability/src/utils/user_preference/user_preference.dart';
 import 'package:ability/src/common_widgets/ability_password_field.dart';
 import 'package:ability/src/common_widgets/ability_phone_number.dart';
 import 'package:ability/src/common_widgets/back_icon.dart';
@@ -245,12 +244,10 @@ class _AggregatorLoginScreenState extends ConsumerState<AggregatorLoginScreen> {
                       //       widget.aggregatorController.loginPassword.text);
                       // }
                     },
-                    borderColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
-                    buttonColor: ref.watch(isEditingProvider)
-                        ? kPrimary.withOpacity(0.5)
-                        : kPrimary,
+                    borderColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
+                    buttonColor:
+                        ref.watch(isEditingProvider) ? kGrey23 : kPrimary,
                     child: !ref.watch(loadingAggregatorLogin)
                         ? Text(
                             'continue',

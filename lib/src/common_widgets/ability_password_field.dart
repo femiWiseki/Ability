@@ -62,9 +62,9 @@ class AbilityPasswordField extends ConsumerWidget {
               ref.watch(isEditingProvider.notifier).state = true;
             },
             onChanged: (value) {
-              ref.watch(isEditingProvider.notifier).state = true;
+              ref.watch(isEditingProvider.notifier).state = false;
               if (value.isEmpty) {
-                ref.watch(isEditingProvider.notifier).state = false;
+                ref.watch(isEditingProvider.notifier).state = true;
               }
               if (value.length >= maxLength!) {
                 FocusScope.of(context).unfocus();
@@ -76,7 +76,7 @@ class AbilityPasswordField extends ConsumerWidget {
             },
             onTapOutside: (event) {
               // FocusScope.of(context).unfocus();
-              ref.watch(isEditingProvider.notifier).state = false;
+              // ref.watch(isEditingProvider.notifier).state = false;
             },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
